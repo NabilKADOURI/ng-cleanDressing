@@ -1,0 +1,7 @@
+.adress {
+  background-color: var(--texte);
+}
+
+.adress p {
+  color: var(--light);
+}

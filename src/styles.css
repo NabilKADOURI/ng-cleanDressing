@@ -1,1 +1,112 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inria Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-decoration: none;
+  list-style: none;
+  scroll-behavior: smooth;
+}
+
+:root {
+  --texte: #0077b6;
+  --bg: #add4db;
+  --bg2: #e29e21;
+  --light: #e9f1fa;
+}
+
+html {
+
+  overflow-x: hidden;
+}
+
+
+
+/* lES COULEURS */
+.bg {
+  background-color: var(--bg);
+}
+
+.texte {
+  color: var(--texte);
+}
+
+.texte2 {
+  color: var(--bg2);
+}
+
+.bg2 {
+  background-color: var(--bg2);
+}
+
+/* LES TAILLES TEXTE ET TITRE */
+.fs-16 {
+  font-size: 16px;
+}
+
+.fs-24 {
+  font-size: 20px;
+}
+.fs-64 {
+  font-size: 64px;
+}
+
+.mt-200 {
+  margin-top: 200px;
+}
+
+.mt-150 {
+  margin-top: 150px;
+}
+
+.mt-100 {
+  margin-top: 100px;
+}
+
+.mt-50 {
+  margin-top: 50px;
+}
+
+.my-100 {
+  padding: 100px 0px 40px 0px;
+}
+
+.pt-120 {
+  padding-top: 120px;
+}
+
+h1,
+h2 {
+  color: var(--bg2);
+}
+
+p,
+ul,
+h3 {
+  color: var(--texte);
+}
+
+h1 {
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 64px;
+}
+
+.btn {
+  background-color: #e29e21;
+  border-radius: 20 px;
+  color: var(--light);
+  font-size: 24px;
+}
+.border-title {
+  border-left: #0077b6 solid 7px;
+  border-radius: 2px;
+}
+
+a{
+  text-decoration: none;
+  color: var(--light);
+}
