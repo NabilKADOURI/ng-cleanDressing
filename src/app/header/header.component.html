@@ -1,56 +1,48 @@
 <header>
-  <!-- section adresse -->
-  <div class = "adress"  >
+    <!-- Div contenant le logo -->
+    <div class="logo-container d-flex justify-content-center py-3">
+      <a class="navbar-brand" routerLink="/">
+        <img src="Business-case-images/logo-webp/Clean_Dressing-removebg-preview_resultat.webp" alt="logo-clean-dressing">
+      </a>
+    </div>
+  
+    <!-- Navbar -->
+    <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-light p-3">
       <div class="container">
-          <div class="row">
-              <div class="col-lg-12">
-                  <div class="d-flex justify-content-between align-items-center pt-3">
-                      <p >13 rue Gennes 69007 - Lyon</p>
-                      <p >04 78 77 56 66</p>
-                  </div>
-              </div>
-          </div>
+        <!-- Bouton de toggle pour les écrans plus petits -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Contenu de la navbar -->
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" routerLink="/">ACCUEIL</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="category">NOS PRESTATIONS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">NOS CONSEILS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="contact">CONTACTEZ-NOUS</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item" *ngIf="!service.isLogged()">
+              <a class="nav-link" routerLink="/connexion">SE CONNECTER</a>
+            </li>
+            <li class="nav-item" *ngIf="!service.isLogged()">
+              <a class="nav-link btn-inscrit   rounded " routerLink="/register">S'inscrire</a>
+            </li>
+            <li class="nav-item" *ngIf="service.isLogged()">
+              <a class="nav-link bg2 text-white rounded px-3" (click)="logout()">SE DECONNECTER</a>
+            </li>
+          </ul>
+        </div>
       </div>
-  </div>
-
-  <!-- navbar -->
-  <nav class="navbar navbar-expand-lg bg navbar-dark">
-      <div class="container">
-          <a class="navbar-brand" href="/index.html">
-              <img src="Business-case-images/logo-webp/Clean_Dressing-removebg-preview_resultat.webp" alt="logo-clean-dressing">
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-              data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
-              aria-label="Basculer la navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse offset-3 pl-5" id="navbarTogglerDemo01">
-              <ul class="navbar-nav">
-                  <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">ACCUEIL</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link text-white" href="pages/">NOS PRESTATIONS</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link text-white" href="#">NOS CONSEILS</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link text-white" href="pages/contact.html">CONTACTEZ-NOUS</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link text-white" href="#">
-                          <svg width="30" height="30" viewBox="0 0 64 64" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                  d="M56 30.3334C56 29.1365 55.5835 28.0864 54.7459 27.2517C53.9103 26.419 52.8625 26.0029 51.669 26H51.6667C50.4698 26 49.4197 26.4166 48.585 27.2542C47.7523 28.0897 47.3362 29.1376 47.3333 30.331V30.3334C47.3333 31.5302 47.7498 32.5807 48.5862 33.4171C49.4222 34.2532 50.4716 34.669 51.6667 34.6667M56 30.3334H55L56 30.331C56 30.3318 56 30.3326 56 30.3334ZM56 30.3334C56.0023 31.5285 55.5864 32.5778 54.7504 33.4138C53.914 34.2502 52.8635 34.6667 51.6667 34.6667M51.6667 34.6667V33.6667L51.669 34.6667C51.6682 34.6667 51.6674 34.6667 51.6667 34.6667ZM55.1262 43.5405L58.5858 47L54.2929 51.2929L53.5858 52L54.2929 52.7071L58.5858 57L53.3333 62.2525L49.3333 58.2525V43.1667V42.4194L48.6167 42.2077C46.3755 41.5455 44.5538 40.2939 43.1266 38.4345C41.7114 36.5907 41 34.4593 41 32C41 29.0429 42.0336 26.5473 44.1238 24.4571C46.214 22.367 48.7096 21.3334 51.6667 21.3334C54.6238 21.3334 57.1194 22.367 59.2096 24.4571C61.2997 26.5473 62.3333 29.0429 62.3333 32C62.3333 34.2971 61.6866 36.3112 60.3986 38.0775C59.0897 39.8727 57.4519 41.1386 55.474 41.9002L54.0386 42.4528L55.1262 43.5405ZM1 52.6667V44.3334C1 42.6262 1.43705 41.0725 2.31174 39.6507C3.19124 38.221 4.3467 37.1407 5.78757 36.391C9.16574 34.7025 12.5925 33.4394 16.0684 32.5987C19.547 31.7573 23.0794 31.3355 26.6673 31.3334C27.7528 31.3334 28.8384 31.3746 29.9242 31.4572C30.7135 31.5172 31.503 31.5978 32.2926 31.6991C32.2225 34.7499 32.8526 37.6536 34.1837 40.3966C35.5731 43.2599 37.5716 45.6367 40.1667 47.5182V52.6667H1ZM26.6667 26C23.2673 26 20.3822 24.8013 17.9571 22.3763C15.532 19.9512 14.3333 17.066 14.3333 13.6667C14.3333 10.2674 15.532 7.38222 17.9571 4.95715C20.3822 2.53208 23.2673 1.33337 26.6667 1.33337C30.066 1.33337 32.9512 2.53208 35.3762 4.95715C37.8013 7.38222 39 10.2674 39 13.6667C39 17.066 37.8013 19.9512 35.3762 22.3763C32.9512 24.8013 30.066 26 26.6667 26Z"
-                                  fill="#0077B6" stroke="#E29E21" stroke-width="2" />
-                          </svg>
-                      </a>
-                  </li>
-              </ul>
-          </div>
-      </div>
-  </nav>
-</header>
-
+    </nav>
+  </header>
+  

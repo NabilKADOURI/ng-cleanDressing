@@ -1,0 +1,7 @@
+<div *ngIf="article; else noArticle">
+	{{ article.title }}
+</div>
+
+<ng-template #noArticle>
+  "Message d'erreur si l'id n'existe pas"
+</ng-template>

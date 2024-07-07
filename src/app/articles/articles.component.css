@@ -1,0 +1,23 @@
+a{
+  color: var(--bg2);
+}
+
+p{
+  width: 350px;
+  text-align: justify;
+}
+
+.bg-article{
+  background-color: #E5DFCA;
+}
+
+.truncate-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  max-height: calc(1em * 1.2 * 3); 
+  line-height: 1.2; 
+}
+

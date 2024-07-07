@@ -1,0 +1,55 @@
+.hero-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  height: 500px;
+ 
+}
+
+.hero-bg {
+  background-image: url('/Business-case-images/fond-webp/prices.png');
+  background-size: cover;
+  background-position: top;
+ 
+}
+
+img{
+  width: 280px;
+  height: 100px;
+}
+
+
+.accordion-button{
+  background-color: #E5DFCA;
+ 
+}
+
+label{
+  color: var(--texte);
+}
+
+
+.input-group .btn {
+  width: 40px;
+}
+
+.input-group .form-control {
+  text-align: center;
+}
+
+/* category-list.component.css */
+.modal-lg {
+  max-width: 90%;
+}
+
+.modal-body img {
+  width: 100%;
+  height: auto;
+}
+
+.modal-body .list-group-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+

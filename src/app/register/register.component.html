@@ -1,0 +1,28 @@
+<section>
+  <div class="container">
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <h2 class="active "> Inscription </h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div>
+        
+          <input  formControlName="email" type="email" placeholder="Email"  class="mb-3 p-2 rounded">
+          <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" >
+            Email invalide
+          </div>
+
+      
+          <input  type="password" formControlName="password" placeholder="password" class="ms-2 p-2 rounded" >
+          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            Mot de passe requis
+          </div>
+        </div>
+        <button class=" btn btn-warning text-white mb-3 " type="submit" [disabled]="loginForm.invalid">S'inscrire</button>
+      </form>
+      </div>
+    </div>
+  </div>
+
+    
+</section>
+

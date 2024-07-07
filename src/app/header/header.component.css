@@ -1,7 +1,53 @@
-.adress {
-  background-color: var(--texte);
+
+nav{
+  border-top: 2px solid var(--bg2);
 }
 
-.adress p {
+
+.navbar {
+  transition: top 0.3s; 
+}
+
+.fixed-navbar {
+  position: fixed !important; 
+  top: 0; 
+  width: 100%; 
+  z-index: 998; 
+}
+
+.logo-container {
+  position: relative; /* Position relative pour le logo container */
+  z-index: 999; /* Assure que le logo est au-dessus des autres éléments */
+}
+
+.navbar {
+  background-color: #f8f9fa; /* Couleur d'arrière-plan de la navbar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
+.navbar-nav .nav-link {
+  padding: 10px 15px; /* Espacement des liens */
+}
+
+.navbar-nav:first-child {
+  margin-right: auto; /* Écart à gauche pour les liens principaux */
+}
+
+.navbar-nav:last-child {
+  margin-left: auto; /* Écart à droite pour les liens de connexion */
+}
+
+.nav-link {
+  color: var(--texte); /* Couleur du texte des liens */
+}
+
+.nav-link:hover {
+  color: var(--bg2); /* Couleur du texte des liens au survol */
+}
+
+.btn-inscrit {
+  background-color: var(--texte);
+  border-radius: 20 px;
   color: var(--light);
+  font-size: 16px;
 }
