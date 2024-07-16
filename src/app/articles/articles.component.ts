@@ -1,26 +1,34 @@
-import { Component } from '@angular/core';
-import { ArticleService } from '../shared/services/article.service';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ArticleInterface } from '../shared/models/article';
+import { EntityService } from '../shared/services/entity.service';
 
 @Component({
   selector: 'app-articles',
   standalone: true,
   imports: [RouterLink,CommonModule],
   templateUrl: './articles.component.html',
-  styleUrl: './articles.component.css'
+  styleUrl: './articles.component.css',
+  providers : [EntityService, {provide: 'baseUri',useValue: '/api/articles'}],
+
 })
-export class ArticlesComponent {
+export class ArticlesComponent implements OnInit {
+
+  constructor(private service:EntityService<ArticleInterface>){}
 
   articles:ArticleInterface[] = [];
 
-  constructor(private apiArticles:ArticleService) {}
+
 
   ngOnInit(): void {
-    this.apiArticles.fetchAllArticles().subscribe((data: ArticleInterface[]) =>{
-      this.articles = data;
-    })
+   
+    this.getArticles();
   }
 
+  getArticles(){
+    this.service.fetchAll().subscribe((data)=>[
+      this.articles = data['hydra:member']
+    ]);
+  }
 }

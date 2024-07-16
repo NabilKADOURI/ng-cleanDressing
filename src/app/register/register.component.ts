@@ -1,25 +1,28 @@
 import { Component, inject } from '@angular/core';
 import { UserService } from '../shared/services/user.service';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink,CommonModule,ReactiveFormsModule],
+  imports: [RouterLink, CommonModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrls: ['./register.component.css'] 
 })
 export class RegisterComponent {
 
   service = inject(UserService)
   
-  public loginForm:FormGroup = new FormGroup ({
-    email: new FormControl(''),
-    password: new FormControl('')
-    
-  })
+  public loginForm: FormGroup = new FormGroup({
+    name: new FormControl('', Validators.required), 
+    firstName: new FormControl('', Validators.required), 
+    phone: new FormControl('', [Validators.required, Validators.minLength(10)]), 
+    adress: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.email]), 
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]) 
+  });
 
   onSubmit() {
     console.log(this.loginForm.value)
@@ -38,5 +41,4 @@ export class RegisterComponent {
       console.log('Formulaire invalide');
     }
   }
-
 }

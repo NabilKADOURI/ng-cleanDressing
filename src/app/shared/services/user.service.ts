@@ -4,20 +4,16 @@ import { HttpClient } from "@angular/common/http";
 import { IUserInterface } from "../models/IUser";
 import { Observable } from "rxjs";
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-
-  private url = environment.apiUrl;
+  private url = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) { }
 
-  register(user:IUserInterface): Observable<any> {
-    return this.http.post(`${this.url}/users`, user, {
-      headers: {'Access-Control-Allow-Origin': '*'},
-    });
+  register(user: IUserInterface): Observable<any> {
+    return this.http.post(`${this.url}/api/users`, user);
   }
 }

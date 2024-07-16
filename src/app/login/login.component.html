@@ -5,8 +5,8 @@
     <h2 class="active"> Connexion </h2>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div formGroupName="credentials">
-    <input type="email" id="email" class="mb-3 p-2"  placeholder="Email" formControlName="username">
-    <input type="password" id="password" class="ms-2 p-2"  placeholder="password" formControlName="password">
+    <input type="email"  class="mb-3 p-2"  placeholder="Email" formControlName="username">
+    <input type="password"  class="ms-2 p-2"  placeholder="password" formControlName="password">
   </div>
 
   <button class=" btn btn-warning text-white mb-3 "  type="submit" [disabled]="loginForm.invalid">Connection</button>

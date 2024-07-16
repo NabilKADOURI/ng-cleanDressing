@@ -2,27 +2,28 @@
   <div class="container">
     <div class="wrapper fadeInDown">
       <div id="formContent">
-        <h2 class="active "> Inscription </h2>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div>
-        
-          <input  formControlName="email" type="email" placeholder="Email"  class="mb-3 p-2 rounded">
-          <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" >
-            Email invalide
+        <h2 class="active"> Inscription </h2>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div>
+            <input formControlName="name" type="text" placeholder="Nom" class="mb-3 p-2 rounded">
+            <input formControlName="firstName" type="text" placeholder="Prénom" class="mb-3 p-2 rounded">
+            <input formControlName="phone" type="text" placeholder="Téléphone" class="mb-3 p-2 rounded"><br>
+            <input formControlName="adress" type="text" placeholder="Adresse" class="mb-3 p-2 rounded"><br>
+            <input formControlName="email" type="email" placeholder="Email" class="mb-3 p-2 rounded">
+            <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+              Email invalide
+            </div>
+            <input type="password" formControlName="password" placeholder="Mot de passe" class="ms-2 p-2 rounded">
+            <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+              Mot de passe requis (au moins 6 caractères)
+            </div>
+            <div *ngIf="loginForm.get('phone')?.invalid && loginForm.get('phone')?.touched">
+              Téléphone requis (au moins 10 chiffres)
+            </div>
           </div>
-
-      
-          <input  type="password" formControlName="password" placeholder="password" class="ms-2 p-2 rounded" >
-          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-            Mot de passe requis
-          </div>
-        </div>
-        <button class=" btn btn-warning text-white mb-3 " type="submit" [disabled]="loginForm.invalid">S'inscrire</button>
-      </form>
+          <button class="btn btn-warning text-white mb-3" type="submit" [disabled]="loginForm.invalid">S'inscrire</button>
+        </form>
       </div>
     </div>
   </div>
-
-    
 </section>
-

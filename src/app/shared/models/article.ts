@@ -1,9 +1,12 @@
-export interface ArticleInterface {
+import { ApiResponse } from "./api";
+
+export interface ArticleInterface extends ApiResponse {
 
   id:number;
   title:string;
+  subtitle:string;
   picture:string;
   description: string;
-  detaCreate: string;
+  dateCreate: string;
 
 }

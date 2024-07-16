@@ -16,9 +16,12 @@
               class="rounded mb-3 img-fluid w-100 "
               alt="{{ article.title }}"
             />
+            
           </div>
           <div>
-            <p class="mb-4  truncate-text ">{{ article.description }} <br /></p>
+            <p>{{article.dateCreate | date}}</p>
+            <p class="mb-4  truncate-text ">{{ article.subtitle}}</p>
+            <p class="mb-4  truncate-text ">{{ article.description}} <br /></p>
           </div>
           <div>
             <a class=""[routerLink]="['/article-details', article.id]"><b> >>> En savoir plus <<< </b></a>

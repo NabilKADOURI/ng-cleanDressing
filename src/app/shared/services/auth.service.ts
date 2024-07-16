@@ -10,12 +10,12 @@ import { Observable } from "rxjs";
 })
 export class AuthService {
 
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) {}
 
   login(credentials: ICredentials): Observable<IToken> {
-    return this.http.post<IToken>(`${this.apiUrl}/login_check`, credentials);
+    return this.http.post<IToken>(`${this.apiUrl}/api/login_check`, credentials);
   }
 
   saveToken(token: string): void {

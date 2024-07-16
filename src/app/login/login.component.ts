@@ -32,13 +32,13 @@ export class LoginComponent implements OnInit {
       const { username, password } = this.loginForm.value.credentials;
       this.authService.login({ username, password }).subscribe(
         (token) => {
-          console.log('Token received:', token); // Pour déboguer
+          console.log('Token received:', token); 
           this.authService.saveToken(token.token);
-          this.router.navigate(['/category']); // Redirection après connexion réussie
+          this.router.navigate(['/category']); 
         },
         error => {
           console.error('Login failed', error);
-          // Gérer les erreurs de connexion ici (par exemple, afficher un message d'erreur)
+         
         }
       );
     }

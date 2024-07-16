@@ -117,7 +117,10 @@
                 class="col-3"
               >
                 <div class="card shadow">
-                  <h5 class="card-header text-center">{{ product.name }}</h5>
+                  <div>
+                    <h5 class="card-header text-center">{{ product.name }}</h5>
+                    <img [src]="product.picture" alt="" class="img-fluid"> 
+                  </div>
                   <div class="card-body">
                     <p class="card-text my-3">{{ product.description }}</p>
                     <p class="card-footer">
