@@ -80,7 +80,7 @@ export class CategoryListComponent implements OnInit {
     picture: string;
   }[] {
     return this.products
-      .filter(
+.filter(
         (product) =>
           product.category && product.category.includes(categoryId.toString())
       ) // Vérifie que product.category est défini

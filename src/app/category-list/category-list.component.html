@@ -49,6 +49,8 @@
               type="button"
               class="btn btn-warning mb-5"
               (click)="redirectToCommandeModal()"
+              data-bs-toggle="modal" 
+              data-bs-target="#staticBackdrop"
             >
               <span>
                 <svg
@@ -69,15 +71,20 @@
               COMMANDER
             </button>
           </div>
+          <app-modal-commande
+          [solutions]="Solutions"
+          [categories]="categories"
+          [products]="products"
+         >
+  
+        </app-modal-commande>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<app-modal-commande>
-  
-</app-modal-commande>
+
 
 <!-- section accordéon -->
 <section class="my-50">
