@@ -1,15 +1,15 @@
 <section>
-  <div class="container-fluid hero-bg py-4">
-    <div class="hero-container container d-flex align-items-center">
-      <div class="col-lg-6 col-8">
+  <div class="container-fluid hero-bg ">
+    <div class="hero-container container  ">
+      <div class="">
         <div class="">
           <!-- TITRE PRINCIPAL -->
-          <h2 class="display-5 text-center text-lg-start pb-3">
+          <h2 class=" mb-5 d-flex justify-content-center justify-content-md-start display-3 text-center text-md-start">
             <b>Propre, Simple et Rapide !</b>
           </h2>
-          <div class="fs-2">
+          <div class=" fs-2">
             <!-- PREMIER POINT -->
-            <p class="text-white">
+            <p class="text-white d-flex justify-content-center justify-content-md-start mb-4">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@
               Selectionner votre service
             </p>
             <!-- DEUXIÈME POINT -->
-            <p class="text-white">
+            <p class="text-white d-flex justify-content-center justify-content-md-start mb-4">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@
             </p>
           </div>
           <!-- BOUTON DE COMMANDE -->
-          <div class="col-lg-12 col-6 pt-3">
+          <div class="  pt-3 d-flex justify-content-center  justify-content-md-start mb-4">
             <button
               type="button"
               class="btn btn-warning mb-5"
@@ -52,7 +52,7 @@
               data-bs-toggle="modal" 
               data-bs-target="#staticBackdrop"
             >
-              <span>
+              <span class="me-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -75,6 +75,7 @@
           [solutions]="Solutions"
           [categories]="categories"
           [products]="products"
+          [matters]="Matters"
          >
   
         </app-modal-commande>
@@ -87,51 +88,52 @@
 
 
 <!-- section accordéon -->
-<section class="my-50">
+<section class="my-50 ">
   <div class="container my-5">
-    <h2 class="mb-4"><span class="border-title px-2">NOS SOLUTIONS</span></h2>
+    <h2 class="mb-4"><span class="border-title px-2">NOS TARIFS</span></h2>
+    <p>Cliquer sur une catégorie pour consulter les tarifs de nos solutions !</p>
     <!-- Category Accordion -->
-    <div class="accordion container mb-3" id="categoryAccordion">
-      <div
-        *ngFor="let category of categories; let i = index"
-        class="accordion-item"
-      >
-        <h2 class="accordion-header" id="heading{{ i }}">
+    <div class=" mb-4 row " id="categoryAccordion" >
+      <div class="accordion-item col-6  " *ngFor="let category of categories; let i = index">
+        <h2 class="" id="heading{{ i }}">
           <button
-            class="accordion-button p-0 mt-3 rounded-2 pe-5"
+            class="accordion-button  mb-4 rounded "
             type="button"
             (click)="toggleAccordion(i)"
           >
             <img
               [src]="category.picture"
               alt="{{ category.name }}"
-              class="me-2"
-              width="50"
-              height="50"
+              class="me-2 img-fluid w-50 category-image rounded-start "
             />
-            <h3 class="text-end w-100 me-5">{{ category.name }}</h3>
+            <h3 class="text-center w-100 me-3 me-md-5  "><b>{{ category.name }}</b></h3>
           </button>
         </h2>
         <div
           [id]="'collapse' + i"
           class="accordion-collapse collapse"
-          [class.show]="isAccordionOpen[i]"
-        >
-          <div class="accordion-body">
-            <div class="row justify-content-around">
+          [class.show]="isAccordionOpen[i]">
+          <div class="accordion-body ">
+            <div class="row ">
               <div
                 *ngFor="let product of getProductsByCategory(category.id)"
-                class="col-3"
+                class="col-lg-4 col-md-6 col-9 mb-3  "
               >
-                <div class="card shadow">
-                  <div>
-                    <h5 class="card-header text-center">{{ product.name }}</h5>
-                    <img [src]="product.picture" alt="" class="img-fluid"> 
+                <div class="card shadow h-100">
+                  <div class="row">
+                    <div class="col-6">
+                      <img [src]="product.picture" alt="" class="img-fluid w-100 product-image m-2 rounded shadow">
+                    </div>
+                    <div class="col-6 d-flex align-items-center">
+                      <h5 class="fs-6">{{ product.name }}</h5> 
+                    </div>
+                    
+                     
                   </div>
-                  <div class="card-body">
-                    <p class="card-text my-3">{{ product.description }}</p>
-                    <p class="card-footer">
-                      <small class="text-muted"
+                  <div class="card-body ">
+                    <p class="card-text my-3  ">{{ product.description }}</p>
+                    <p class="card-footer text-center">
+                      <small class="text-muted "
                         >A partir de : {{ product.price }} €</small
                       >
                     </p>

@@ -7,11 +7,7 @@ import { ProductInterface } from '../shared/models/product';
 import { SolutionInterface } from '../shared/models/solution';
 import { MatterInterface } from '../shared/models/matter';
 import { AuthService } from '../shared/services/auth.service';
-import {
-  CategoryServiceToken,
-  EntityService,
-  ProductServiceToken,
-  SolutionServiceToken,
+import {CategoryServiceToken,EntityService,MatterServiceToken,ProductServiceToken,SolutionServiceToken,
 } from '../shared/services/entity.service';
 
 @Component({
@@ -28,7 +24,9 @@ export class CategoryListComponent implements OnInit {
     @Inject(ProductServiceToken)
     private serviceProducts: EntityService<ProductInterface>,
     @Inject(SolutionServiceToken)
-    private serviceSolutuions: EntityService<SolutionInterface>,
+    private serviceSolutions: EntityService<SolutionInterface>,
+    @Inject(MatterServiceToken)
+    private serviceMatters : EntityService<MatterInterface>,
     private authService: AuthService,
     private router: Router
   ) {
@@ -58,11 +56,17 @@ export class CategoryListComponent implements OnInit {
     });
 
     // Récup des services depuis l'api
-    this.serviceSolutuions.fetchAll().subscribe((data) => {
+    this.serviceSolutions.fetchAll().subscribe((data) => {
       console.log(data);
       this.Solutions = data['hydra:member'];
     });
-    // console.log(this.categories, this.products, this.Matters);
+
+    // Récup des matières depuis l'api
+    this.serviceMatters.fetchAll().subscribe((data) => {
+      console.log(data);
+      this.Matters = data['hydra:member'];
+    });
+    
   }
 
   // === FONCTION POUR OUVRIR OU FERMER UN MENU DÉROULANT ===

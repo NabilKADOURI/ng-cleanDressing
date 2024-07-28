@@ -1,27 +1,24 @@
-.hero-container {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  height: 500px;
- 
-}
+
 
 .hero-bg {
   background-image: url('/Business-case-images/fond-webp/prices.png');
   background-size: cover;
-  background-position: top;
- 
+  padding-top: 50px;
 }
 
-img{
-  width: 280px;
+.category-image{
+  width: 200px;
+  height: 100px;
+}
+
+.product-image{
+  width: 50px;
   height: 100px;
 }
 
 
 .accordion-button{
-  background-color: #E5DFCA;
- 
+  background-color: #E29E21;
 }
 
 label{
@@ -37,7 +34,7 @@ label{
   text-align: center;
 }
 
-/* category-list.component.css */
+
 .modal-lg {
   max-width: 90%;
 }

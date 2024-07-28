@@ -1,0 +1,13 @@
+<div class="container">
+  <h2>Votre Panier</h2>
+  <div *ngIf="(cartItems$ | async).length === 0">Votre panier est vide.</div>
+  <div *ngFor="let item of cartItems | async">
+    <h4>Service: {{ item.service?.name }}</h4>
+    <h4>Produit: {{ item.product?.name }}</h4>
+    <h4>Matière: {{ item.matter?.name }}</h4>
+    <h4>Quantité: {{ item.quantity }}</h4>
+    <h4>Prix Total: {{ item.totalPrice }} €</h4>
+    <hr />
+  </div>
+</div>
+

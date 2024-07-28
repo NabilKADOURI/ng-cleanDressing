@@ -1,25 +1,10 @@
 <!-- Modal -->
-<div
-  class="modal modal-xl fade"
-  id="staticBackdrop"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
+<div class="modal modal-xl fade" id="staticBackdrop" #staticBackdrop data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-center" id="staticBackdropLabel">
-          PASSER VOTRE COMMANDE
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <h5 class="modal-title text-center" id="staticBackdropLabel">PASSER VOTRE COMMANDE</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- SERVICES -->
@@ -28,67 +13,69 @@
             <div class="col-3" *ngFor="let service of solutions">
               <div class="text-center m-auto mb-3">
                 <h5>{{ service.name }}</h5>
+                <p>à partir de {{service.price}} €</p>
               </div>
               <div class="d-flex justify-content-center m-auto">
                 <img [src]="service.picture" alt="" />
               </div>
-
               <form>
                 <div>
-                  <input
-                    class="form-check m-auto"
-                    type="radio"
-                    name="flexRadioDefault"
-                    id="flexRadioDefault1"
-                  />
+                  <input class="form-check m-auto" type="radio" name="serviceRadio" (change)="selectService(service)" />
                 </div>
                 <input type="hidden" [value]="service.id" />
               </form>
             </div>
           </div>
         </div>
-
+        <!-- CATEGORIES AND PRODUCTS -->
         <div class="container mb-3">
           <div class="row">
-            <!--  CATEGORIES -->
-            <div class="col 4">
+            <div class="col-4">
               <form action="">
-                <select
-                  class="form-select"
-                  aria-label="Default select example"
-                  (change)="updateCategory($event)"
-                >
+                <select class="form-select" aria-label="Default select example" (change)="updateCategory($event)">
                   <option selected>Choisir catégorie</option>
-                  <option
-                    [value]="category.id"
-                    *ngFor="let category of categories"
-                  >
-                    {{ category.name }}
-                  </option>
-                  >
+                  <option [value]="category.id" *ngFor="let category of categories">{{ category.name }}</option>
                 </select>
               </form>
             </div>
-
-            <!-- PRODUCTS -->
-            <div class="col 4">
+            <div class="col-4">
               <form>
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" (change)="selectProduct($event)">
                   <option selected>Choisir produit</option>
-                  <option
-                    [value]="product.id"
-                    *ngFor="let product of getProductsByCategory(categoryIdSignal() ?? 0)"
-                  >
+                  <option [value]="product.id" *ngFor="let product of getProductsByCategory(categoryIdSignal() ?? 0)">
                     {{ product.name }} - A partir de {{ product.price }} €
+                  </option>
+                </select>
+              </form>
+            </div>
+            <div class="col-4">
+              <form>
+                <select class="form-select" aria-label="Default select example" (change)="selectMatter($event)">
+                  <option selected>Choisir matière</option>
+                  <option [value]="matter.id" *ngFor="let matter of matters">
+                    {{ matter.name }} - A partir de {{ matter.price }} €
                   </option>
                 </select>
               </form>
             </div>
           </div>
         </div>
+        <!-- QUANTITY AND TOTAL PRICE -->
+        <div class="container mb-3">
+          <div class="row">
+            <div class="col-4">
+              <form>
+                <input type="number" class="form-control" placeholder="Quantité" (input)="updateQuantity($event)" />
+              </form>
+            </div>
+            <div class="col-4">
+              <h5>Total: {{ totalPriceSignal() }} €</h5>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Ajouter au panier</button>
+        <button type="button" class="btn btn-primary" (click)="addToCart()">Ajouter au panier</button>
       </div>
     </div>
   </div>

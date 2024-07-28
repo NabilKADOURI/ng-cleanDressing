@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { ContactComponent } from './contact/contact.component';
 import { RegisterComponent } from './register/register.component';
+import { OrderCartComponent } from './order-cart/order-cart.component';
 
 export const routes: Routes = [
 
@@ -14,6 +15,7 @@ export const routes: Routes = [
   { path:'connexion',component: LoginComponent},
   { path:'article-details/:id',component: ArticleDetailComponent},
   { path:'register',component: RegisterComponent},
+  { path: 'panier', component: OrderCartComponent},
   { path: '**', redirectTo: '' },
   
 ];
