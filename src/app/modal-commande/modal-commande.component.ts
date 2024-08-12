@@ -88,7 +88,6 @@ export class ModalCommandeComponent {
     }
   }
 
-  // Ajoute les articles au panier
   addToCart() {
     const item = {
       service: this.selectedServiceSignal(),
@@ -98,9 +97,14 @@ export class ModalCommandeComponent {
       totalPrice: this.totalPriceSignal(),
     };
     this.cartService.addToCart(item);
-    this.router.navigate(['/panier']);
   }
 
+  // Ajoute les articles au panier et ferme le modal
+  addToCartAndCloseModal() {
+    this.addToCart();
+    this.closeModal();
+    this.router.navigate(['/panier']);
+  }
   // Filtre les produits par catégorie sélectionnée
   getProductsByCategory(categoryId: number): ProductInterface[] {
     return this.products.filter(product => product.category && product.category.includes(categoryId.toString()));

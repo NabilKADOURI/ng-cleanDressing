@@ -10,9 +10,7 @@ import { CartInterface } from '../models/CartItem';
 export class CartService {
 
   constructor (){}
-
-
-
+  
   private cartItemsSubject = new BehaviorSubject<CartInterface[]>([]);
 
   cartItems$ = this.cartItemsSubject.asObservable();
@@ -22,12 +20,12 @@ export class CartService {
     this.cartItemsSubject.next([...currentItems, item]);
   }
 
-  // getCartItems() {
-  //   return this.cartItemsSubject.getValue();
-  // }
+  getCartItems() {
+    return this.cartItemsSubject.getValue();
+  }
 
-  // clearCart() {
-  //   this.cartItemsSubject.next([]);
-  // }
+  clearCart() {
+    this.cartItemsSubject.next([]);
+  }
 }
 
