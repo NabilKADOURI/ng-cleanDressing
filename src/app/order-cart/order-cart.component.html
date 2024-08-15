@@ -1,29 +1,58 @@
+<!-- Conteneur principal pour le panier -->
 <div class="container">
+  <!-- Titre du panier -->
   <h2>Votre Panier</h2>
-  <ng-container *ngIf="cartItems$ | async as cartItems">
-    <div *ngIf="cartItems.length === 0">Votre panier est vide.</div>
-    <table *ngIf="cartItems.length > 0" class="table">
+  
+  <!-- ng-container est un conteneur qui n'affiche pas de balise HTML dans le DOM mais permet de conditionner l'affichage -->
+  <!-- Le pipe async s'abonne automatiquement à l'observable cartItems$ et le décode en une variable cartItems -->
+  <ng-container *ngIf="cartItems.length > 0; else emptyCart">
+    
+    <!-- Tableau affiché si le panier contient des éléments -->
+    <table class="table">
       <thead>
         <tr>
           <th>Service</th>
           <th>Produit</th>
           <th>Matière</th>
           <th>Quantité</th>
-          <th>Prix Total</th>
+          <th>Prix</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
+        <!-- Ligne du tableau générée pour chaque élément du panier -->
         <tr *ngFor="let item of cartItems">
-          <td>{{ item.service?.name }}</td>
-          <td>{{ item.product?.name }}</td>
-          <td>{{ item.matter?.name }}</td>
-          <td>{{ item.quantity }}</td>
+          <!-- Affichage des détails de chaque élément du panier -->
+          <td>{{ item.service?.name }}</td> <!-- Nom du service (si disponible) -->
+          <td>{{ item.product?.name }}</td> <!-- Nom du produit (si disponible) -->
+          <td>{{ item.matter?.name }}</td> <!-- Nom de la matière (si disponible) -->
+          <td>
+            <!-- Contrôles pour changer la quantité de l'article -->
+            <div class="d-flex align-items-center">
+              <!-- Bouton pour diminuer la quantité -->
+              <button class="btn btn-secondary btn-sm" (click)="changeQuantity(item, -1)">-</button>
+              <!-- Affichage de la quantité actuelle -->
+              <span class="mx-2">{{ item.quantity }}</span>
+              <!-- Bouton pour augmenter la quantité -->
+              <button class="btn btn-secondary btn-sm" (click)="changeQuantity(item, 1)">+</button>
+            </div>
+          </td>
+          <!-- Affichage du prix total de l'article -->
           <td>{{ item.totalPrice }} €</td>
+          <!-- Bouton pour retirer l'article du panier -->
+          <td>
+            <button class="btn " (click)="removeItem(item)">x</button>
+          </td>
         </tr>
       </tbody>
     </table>
+    
+    <!-- Affichage du prix total de tous les articles dans le panier -->
+    <h4>Total: {{ getTotalPrice() }} €</h4>
   </ng-container>
+  
+  <!-- Message affiché si le panier est vide -->
+  <ng-template #emptyCart>
+    <div>Votre panier est vide.</div>
+  </ng-template>
 </div>
-
-
-

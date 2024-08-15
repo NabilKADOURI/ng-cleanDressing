@@ -1,26 +1,26 @@
 <!-- Modal -->
-<div class="modal modal-xl fade" id="staticBackdrop" #staticBackdrop data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal  modal-lg fade" id="staticBackdrop" #staticBackdrop data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-center" id="staticBackdropLabel">PASSER VOTRE COMMANDE</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">PASSER VOTRE COMMANDE</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- SERVICES -->
         <div class="container mb-3">
           <div class="row">
-            <div class="col-3" *ngFor="let service of solutions">
+            <div class="col-lg-3 col-6" *ngFor="let service of solutions">
               <div class="text-center m-auto mb-3">
                 <h5>{{ service.name }}</h5>
                 <p>à partir de {{service.price}} €</p>
               </div>
               <div class="d-flex justify-content-center m-auto">
-                <img [src]="service.picture" alt="" />
+                <img [src]="service.picture" alt="icone des services" />
               </div>
               <form>
                 <div>
-                  <input class="form-check m-auto" type="radio" name="serviceRadio" (change)="selectService(service)" />
+                  <input class="form-check m-auto mb-5" type="radio" name="serviceRadio" (change)="selectService(service)" />
                 </div>
                 <input type="hidden" [value]="service.id" />
               </form>
@@ -30,7 +30,7 @@
         <!-- CATEGORIES AND PRODUCTS -->
         <div class="container mb-3">
           <div class="row">
-            <div class="col-4">
+            <div class="col-lg-4  col-12 mb-3">
               <form action="">
                 <select class="form-select" aria-label="Default select example" (change)="updateCategory($event)">
                   <option selected>Choisir catégorie</option>
@@ -38,7 +38,7 @@
                 </select>
               </form>
             </div>
-            <div class="col-4">
+            <div class="col-lg-4  col-12 mb-3">
               <form>
                 <select class="form-select" aria-label="Default select example" (change)="selectProduct($event)">
                   <option selected>Choisir produit</option>
@@ -48,7 +48,7 @@
                 </select>
               </form>
             </div>
-            <div class="col-4">
+            <div class="col-lg-4  col-12 mb-3">
               <form>
                 <select class="form-select" aria-label="Default select example" (change)="selectMatter($event)">
                   <option selected>Choisir matière</option>
@@ -63,12 +63,12 @@
         <!-- QUANTITY AND TOTAL PRICE -->
         <div class="container mb-3">
           <div class="row">
-            <div class="col-4">
+            <div class="col-lg-4  col-12 mb-3">
               <form>
                 <input type="number" class="form-control" placeholder="Quantité" (input)="updateQuantity($event)" />
               </form>
             </div>
-            <div class="col-4">
+            <div class=" col-12">
               <h5>Total: {{ totalPriceSignal() }} €</h5>
             </div>
           </div>
@@ -77,7 +77,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="addToCartAndCloseModal()">Ajouter au panier</button>
       </div>
-      
     </div>
   </div>
 </div>

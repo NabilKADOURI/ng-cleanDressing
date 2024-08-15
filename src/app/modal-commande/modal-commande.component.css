@@ -2,3 +2,6 @@ img{
   width: 60px;
 }
 
+th{
+  color: var(--texte);
+}
