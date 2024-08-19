@@ -1,4 +1,5 @@
 import { ApiResponse } from "./api";
+import { CategoryInterface } from "./category";
 
 export interface SolutionInterface extends ApiResponse {
   id: number;
@@ -6,4 +7,6 @@ export interface SolutionInterface extends ApiResponse {
   description: string;
   picture: string;
   price: number;
+  categories: CategoryInterface;  
+       
 }

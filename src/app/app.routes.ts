@@ -6,6 +6,7 @@ import { ArticleDetailComponent } from './article-detail/article-detail.componen
 import { ContactComponent } from './contact/contact.component';
 import { RegisterComponent } from './register/register.component';
 import { OrderCartComponent } from './order-cart/order-cart.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
 
@@ -16,6 +17,6 @@ export const routes: Routes = [
   { path:'article-details/:id',component: ArticleDetailComponent},
   { path:'register',component: RegisterComponent},
   { path: 'panier', component: OrderCartComponent},
+  { path: 'profile', component: ProfileComponent},
   { path: '**', redirectTo: '' },
-  
 ];

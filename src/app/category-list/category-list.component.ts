@@ -43,59 +43,62 @@ export class CategoryListComponent implements OnInit {
   isAccordionOpen: boolean[] = [];
 
   ngOnInit(): void {
-    // Récup des catégories depuis l'api
     this.serviceCategories.fetchAll().subscribe((data) => {
-      console.log(data);
       this.categories = data['hydra:member'];
-    });
-
-    // Récup des produits depuis l'api
-    this.serviceProducts.fetchAll().subscribe((data) => {
-      console.log(data);
-      this.products = data['hydra:member'];
-    });
-
-    // Récup des services depuis l'api
-    this.serviceSolutions.fetchAll().subscribe((data) => {
-      console.log(data);
-      this.Solutions = data['hydra:member'];
-    });
-
-    // Récup des matières depuis l'api
-    this.serviceMatters.fetchAll().subscribe((data) => {
-      console.log(data);
-      this.Matters = data['hydra:member'];
+      // this.isAccordionOpen = new Array(this.categories.length).fill(false);
     });
     
-  }
+    this.serviceProducts.fetchAll().subscribe((data) => {
+      this.products = data['hydra:member'];
+      // console.log('Fetched products:', this.products);
+      this.createProductsByCategoryMap(); // Créer la carte des produits par catégorie après récupération
+    });
+    
+    this.serviceSolutions.fetchAll().subscribe((data) => {
+      this.Solutions = data['hydra:member'];
+    });
+    
+    this.serviceMatters.fetchAll().subscribe((data) => {
+      this.Matters = data['hydra:member'];
+    });
 
-  // === FONCTION POUR OUVRIR OU FERMER UN MENU DÉROULANT ===
-  toggleAccordion(index: number): void {
-    const currentState = this.isAccordionOpen[index]; // ÉTAT ACTUEL DU MENU CLIQUÉ
-    this.isAccordionOpen.fill(false); // FERME TOUS LES MENUS DÉROULANTS
-    this.isAccordionOpen[index] = !currentState; // OUVRE OU FERME LE MENU CLIQUÉ
   }
+  
+  productsByCategoryMap: { [categoryId: number]: ProductInterface[] } = {};
 
-  getProductsByCategory(categoryId: number): {
-    id: number;
-    name: string;
-    price: number;
-    description: string;
-    picture: string;
-  }[] {
-    return this.products
-.filter(
-        (product) =>
-          product.category && product.category.includes(categoryId.toString())
-      ) // Vérifie que product.category est défini
-      .map((product) => ({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        description: product.description,
-        picture: product.picture,
-      })); // Retourne les produits filtrés
+  createProductsByCategoryMap(): void {
+    // console.log('Creating Products by Category Map...');
+  
+    this.productsByCategoryMap = this.products.reduce((acc, product) => {
+      // Extract category ID from URL
+      const categoryUrl = product.category;
+      const categoryId = categoryUrl ? parseInt(categoryUrl.split('/').pop() ?? '', 10) : null;
+      if (categoryId) {
+        if (!acc[categoryId]) {
+          acc[categoryId] = [];
+        }
+        acc[categoryId].push(product);
+      }
+      return acc;
+    }, {} as { [categoryId: number]: ProductInterface[] });
+  
+    // console.log('Products by Category Map:', this.productsByCategoryMap);
   }
+  
+  
+toggleAccordion(index: number): void {
+  console.log('Toggling accordion at index:', index); // Vérifiez si le clic est détecté
+  this.isAccordionOpen[index] = !this.isAccordionOpen[index];
+  console.log('Accordion state:', this.isAccordionOpen); // Vérifiez l'état après le clic
+}
+
+getProductsByCategory(categoryId: number | null): ProductInterface[] {
+  const products = categoryId ? this.productsByCategoryMap[categoryId] || [] : [];
+  // console.log(`Products for category ${categoryId}:`, products);
+  return products;
+}
+
+  
 
   goToLoginForm(): void {
     this.router.navigate(['/connexion']); // REDIRIGE VERS LA PAGE DE CONNEXION

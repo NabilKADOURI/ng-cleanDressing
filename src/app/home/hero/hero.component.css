@@ -4,4 +4,17 @@
   justify-content: center;
   }
 
+  .btn1 {
+    background-color: var(--texte);
+    border-radius: 20px;
+    color: var(--light);
+    font-size: 16px;
+    padding: 10px 30px;
+  }
+  .btn1:hover {
+    background-color: transparent;
+    border: 2px solid var(--texte);
+    color: var(--texte);
+  }
+
 

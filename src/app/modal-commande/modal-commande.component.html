@@ -1,81 +1,136 @@
-<!-- Modal -->
-<div class="modal  modal-lg fade" id="staticBackdrop" #staticBackdrop data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div
+  class="modal modal-xl fade"
+  id="staticBackdrop"
+  #staticBackdrop
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">PASSER VOTRE COMMANDE</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="staticBackdropLabel">
+          PASSER VOTRE COMMANDE
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
-        <!-- SERVICES -->
-        <div class="container mb-3">
-          <div class="row">
-            <div class="col-lg-3 col-6" *ngFor="let service of solutions">
-              <div class="text-center m-auto mb-3">
-                <h5>{{ service.name }}</h5>
-                <p>à partir de {{service.price}} €</p>
-              </div>
-              <div class="d-flex justify-content-center m-auto">
-                <img [src]="service.picture" alt="icone des services" />
-              </div>
-              <form>
-                <div>
-                  <input class="form-check m-auto mb-5" type="radio" name="serviceRadio" (change)="selectService(service)" />
+        <form [formGroup]="commandeForm" (submit)="addToCart()">
+          <!-- SERVICES -->
+          <div class="container mb-3">
+            <div class="row">
+              <div class="col-lg-3 col-6" *ngFor="let service of solutions">
+                <div class="text-center m-auto mb-3">
+                  <h6>{{ service.name }}</h6>
+                  <p>à partir de {{ service.price }} €</p>
                 </div>
-                <input type="hidden" [value]="service.id" />
-              </form>
+                <div class="d-flex justify-content-center m-auto">
+                  <img [src]="service.picture" alt="icone des services" />
+                </div>
+                <div>
+                  <input
+                    class="form-check m-auto mb-5"
+                    type="radio"
+                    formControlName="service"
+                    [value]="service"
+                  />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <!-- CATEGORIES AND PRODUCTS -->
-        <div class="container mb-3">
-          <div class="row">
-            <div class="col-lg-4  col-12 mb-3">
-              <form action="">
-                <select class="form-select" aria-label="Default select example" (change)="updateCategory($event)">
-                  <option selected>Choisir catégorie</option>
-                  <option [value]="category.id" *ngFor="let category of categories">{{ category.name }}</option>
-                </select>
-              </form>
-            </div>
-            <div class="col-lg-4  col-12 mb-3">
-              <form>
-                <select class="form-select" aria-label="Default select example" (change)="selectProduct($event)">
-                  <option selected>Choisir produit</option>
-                  <option [value]="product.id" *ngFor="let product of getProductsByCategory(categoryIdSignal() ?? 0)">
+
+          <!-- CATEGORIES AND PRODUCTS -->
+          <div class="container mb-3">
+            <div class="row">
+              <div class="col-lg-3 col-12 mb-3">
+                <label for="productSelect">Type de vêtement ?</label>
+                <select
+                  id="productSelect"
+                  class="form-select"
+                  aria-label="Choisir produit"
+                  formControlName="product"
+                >
+                  <option value="" disabled>Choisir produit</option>
+                  <option *ngFor="let product of products" [ngValue]="product">
                     {{ product.name }} - A partir de {{ product.price }} €
                   </option>
                 </select>
-              </form>
-            </div>
-            <div class="col-lg-4  col-12 mb-3">
-              <form>
-                <select class="form-select" aria-label="Default select example" (change)="selectMatter($event)">
-                  <option selected>Choisir matière</option>
-                  <option [value]="matter.id" *ngFor="let matter of matters">
+                <div
+                  *ngIf="
+                    commandeForm.get('product')?.invalid &&
+                    (commandeForm.get('product')?.touched ||
+                      commandeForm.get('product')?.dirty)
+                  "
+                  class="text-danger"
+                >
+                  Ce champ est requis.
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-12 mb-3">
+                <label for="matterSelect">Quel matière ?</label>
+                <select
+                  id="matter"
+                  class="form-select"
+                  aria-label="Choisir matière"
+                  formControlName="matter"
+                >
+                  <option value="" disabled>Choisir matière</option>
+                  <option *ngFor="let matter of matters" [ngValue]="matter">
                     {{ matter.name }} - A partir de {{ matter.price }} €
                   </option>
                 </select>
-              </form>
+              </div>
+              <div class="col-lg-3 col-12 mb-3">
+                <label for="quantityInput">Quantité</label>
+                <input
+                  id="quantityInput"
+                  type="number"
+                  class="form-control"
+                  placeholder="Quantité"
+                  formControlName="quantity"
+                  min="1"
+                  step="1"
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <!-- QUANTITY AND TOTAL PRICE -->
-        <div class="container mb-3">
-          <div class="row">
-            <div class="col-lg-4  col-12 mb-3">
-              <form>
-                <input type="number" class="form-control" placeholder="Quantité" (input)="updateQuantity($event)" />
-              </form>
-            </div>
-            <div class=" col-12">
-              <h5>Total: {{ totalPriceSignal() }} €</h5>
+
+          <div class="col-12 container">
+            <h5>Vos Sélections</h5>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Service</th>
+                  <th scope="col">Produit</th>
+                  <th scope="col">Matière</th>
+                  <th scope="col">Quantité</th>
+                  <th scope="col">Prix Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ commandeForm.value.service?.name }}</td>
+                  <td>{{ commandeForm.value.product?.name }}</td>
+                  <td>{{ commandeForm.value.matter?.name }}</td>
+                  <td>{{ commandeForm.value.quantity }}</td>
+                  <td>{{ calculateTotalPrice() }} €</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center mt-5">
+              <button class="btn" type="submit">Ajouter au panier</button>
+              <button class="btn" (click)="goToCart()">Voir le panier</button>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="addToCartAndCloseModal()">Ajouter au panier</button>
+        </form>
       </div>
     </div>
   </div>

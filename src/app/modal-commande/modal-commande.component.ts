@@ -1,118 +1,105 @@
-import { Component, ElementRef, Input, signal, ViewChild } from '@angular/core';
-import { SolutionInterface } from '../shared/models/solution';
+import { Component, ElementRef, Input, OnInit, SimpleChange, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+import { SolutionInterface } from '../shared/models/solution';
 import { CategoryInterface } from '../shared/models/category';
 import { ProductInterface } from '../shared/models/product';
 import { MatterInterface } from '../shared/models/matter';
 import { CartService } from '../shared/services/cart.service';
-import { Router } from '@angular/router';
+import { CartInterface } from '../shared/models/CartInterface';
 
 @Component({
   selector: 'app-modal-commande',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './modal-commande.component.html',
-  styleUrl: './modal-commande.component.css',
+  styleUrls: ['./modal-commande.component.css'],
 })
-export class ModalCommandeComponent {
-  // Stocke l'ID de la catégorie sélectionnée
-  categoryIdSignal = signal<number | null>(null);
+export class ModalCommandeComponent implements OnInit {
 
-  // Stocke le service, produit et matière sélectionnés
-  selectedServiceSignal = signal<SolutionInterface | null>(null);
-  selectedProductSignal = signal<ProductInterface | null>(null);
-  selectedMatterSignal = signal<MatterInterface | null>(null);
-
-  // Stocke la quantité, minimum 1
-  quantitySignal = signal<number>(1);
-
-  // Stocke le prix total
-  totalPriceSignal = signal<number>(0);
-
-   // Référence à la modal
-   @ViewChild('staticBackdrop') modal!: ElementRef;
-
-  constructor(private cartService: CartService, private router: Router) {}
-
-  // Gère le changement de catégorie
-  updateCategory(event: any) {
-    this.categoryIdSignal.set(+event.target.value);
-    this.calculateTotalPrice();
-  }
-
-  // Gère la sélection d'un service
-  selectService(service: SolutionInterface) {
-    this.selectedServiceSignal.set(service);
-    this.calculateTotalPrice();
-  }
-
-  // Gère la sélection d'un produit
-  selectProduct(event: any) {
-    const productId = +event.target.value;
-    const selectedProduct = this.products.find(product => product.id === productId) || null;
-    this.selectedProductSignal.set(selectedProduct);
-    this.calculateTotalPrice();
-  }
-
-  // Gère la sélection d'une matière
-  selectMatter(event: any) {
-    const matterId = +event.target.value;
-    const selectedMatter = this.matters.find(matter => matter.id === matterId) || null;
-    this.selectedMatterSignal.set(selectedMatter);
-    this.calculateTotalPrice();
-  }
-
-  // Gère la mise à jour de la quantité, minimum 1
-  updateQuantity(event: any) {
-    const quantity = Math.max(+event.target.value, 1);
-    this.quantitySignal.set(quantity);
-    this.calculateTotalPrice();
-  }
-
-  // Calcule le prix total en fonction des sélections et de la quantité
-  calculateTotalPrice() {
-    const servicePrice = this.selectedServiceSignal()?.price ?? 0;
-    const productPrice = this.selectedProductSignal()?.price ?? 0;
-    const matterPrice = this.selectedMatterSignal()?.price ?? 0;
-    const quantity = this.quantitySignal() ?? 1;
-    const totalPrice = (servicePrice + productPrice + matterPrice) * quantity;
-    this.totalPriceSignal.set(totalPrice);
-  }
-
-  // Ferme la modal
-  closeModal() {
-    const modalElement = this.modal.nativeElement as HTMLElement;
-    const bootstrapModal = (window as any).bootstrap.Modal.getInstance(modalElement);
-    if (bootstrapModal) {
-      bootstrapModal.hide();
-    }
-  }
-
-  addToCart() {
-    const item = {
-      service: this.selectedServiceSignal(),
-      product: this.selectedProductSignal(),
-      matter: this.selectedMatterSignal(),
-      quantity: this.quantitySignal(),
-      totalPrice: this.totalPriceSignal(),
-    };
-    this.cartService.addToCart(item);
-  }
-
-  // Ajoute les articles au panier et ferme le modal
-  addToCartAndCloseModal() {
-    this.addToCart();
-    this.closeModal();
-    this.router.navigate(['/panier']);
-  }
-  // Filtre les produits par catégorie sélectionnée
-  getProductsByCategory(categoryId: number): ProductInterface[] {
-    return this.products.filter(product => product.category && product.category.includes(categoryId.toString()));
-  }
-
-  // Inputs pour recevoir les données du composant parent
+  @ViewChild('staticBackdrop') modal!: ElementRef;
   @Input() solutions!: SolutionInterface[];
   @Input() categories!: CategoryInterface[];
   @Input() products!: ProductInterface[];
   @Input() matters!: MatterInterface[];
+
+  isModalOpen: boolean = false;
+
+  public commandeForm:FormGroup = new FormGroup({
+    service: new FormControl('', Validators.required),
+    product: new FormControl('', Validators.required),
+    matter: new FormControl('', Validators.required),
+    quantity: new FormControl(1, [Validators.required, Validators.min(1)]),
+  });
+
+  filteredProducts: ProductInterface[] = [];
+
+  constructor(private cartService: CartService, private router: Router) {}
+
+  ngOnInit(): void {
+  
+    console.log(this.commandeForm.value.matter);
+    
+  }
+
+  calculateTotalPrice(): number {
+    const { service, product, matter, quantity } = this.commandeForm.value;
+    const servicePrice = service?.price ?? 0;
+    const productPrice = product?.price ?? 0;
+    const matterPrice = matter?.price ?? 0;
+    const quantityValue = quantity ?? 1;
+    return (servicePrice + productPrice + matterPrice) * quantityValue;
+  }
+
+  private generateUniqueId(): string {
+    return 'id-' + Math.random().toString(36).substr(2, 9);
+  }
+
+  addToCart(): void {
+    if (this.commandeForm.valid) {
+      console.log('Formulaire valide. Données de la commande:', this.commandeForm.value);
+      const item = {
+        id: this.generateUniqueId(),
+        ...this.commandeForm.value,
+        totalPrice: this.calculateTotalPrice(),
+      };
+      console.log('Article ajouté au panier:', item);
+      this.cartService.addToCart(item);
+      this.commandeForm.reset({ quantity: 1 });
+      alert('Les éléments ont bien été ajoutés au panier.');
+    } else {
+      // Afficher des messages d'erreur plus détaillés
+      Object.keys(this.commandeForm.controls).forEach(field => {
+        const control = this.commandeForm.get(field);
+        if (control && control.invalid) {
+          console.log(`Erreur dans le champ ${field}:`, control.errors);
+        }
+      });
+    }
+  }
+
+  goToCart(): void {
+    this.closeModal(); // Fermer la modal
+    setTimeout(() => {
+      this.router.navigate(['/panier']); // Naviguer vers la page du panier après la fermeture de la modal
+    }, 300); // Ajuster le délai si nécessaire
+  }
+  
+
+  // Méthode pour ouvrir la modal
+  openModal(): void {
+    this.isModalOpen = true;
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+    document.body.classList.remove('modal-open');
+    const overlay = document.querySelector('.modal-backdrop');
+    if (overlay) {
+      overlay.remove();
+    }
+  }
+  
 }

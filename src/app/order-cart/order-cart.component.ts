@@ -3,7 +3,10 @@ import { CartService } from '../shared/services/cart.service';
 import { CommonModule } from '@angular/common'; 
 import { CartInterface } from '../shared/models/CartInterface'; 
 import { Router } from '@angular/router';
-import { OrderInterface } from '../shared/models/order';
+import { ItemInterface, OrderInterface } from '../shared/models/order';
+import { AuthService } from '../shared/services/auth.service';
+import { OrderService } from '../shared/services/order.service';
+import { ItemService } from '../shared/services/item.service';
 
 // Définition du composant Angular
 @Component({
@@ -17,68 +20,73 @@ export class OrderCartComponent implements OnInit {
   
   // Tableau pour stocker les éléments du panier
   cartItems: CartInterface[] = [];
+  newCartItem: ItemInterface[] = [];
 
   // Le constructeur injecte le service CartService dans le composant
-  constructor(private cartService: CartService,private router: Router) {}
+  constructor(private cartService: CartService,private router: Router, private authService: AuthService, private orderService: OrderService, private itemService: ItemService) {}
 
   ngOnInit(): void {
     // Charger les articles du panier depuis le service lors de l'initialisation
     this.cartItems = this.cartService.getCartItems();
-  }
+  };
 
-  // Méthode pour changer la quantité d'un élément dans le panier
   changeQuantity(item: CartInterface, change: number) {
-    // Calcul de la nouvelle quantité, en s'assurant qu'elle est toujours supérieure ou égale à 1
     const newQuantity = Math.max(item.quantity + change, 1);
-    // Mise à jour de la liste des éléments du panier avec la nouvelle quantité et le nouveau prix total
-
-    // Sauvegarder les éléments mis à jour dans le service
-    this.cartService.saveCartItems();
+    this.cartService.updateCartItemQuantity(item.id, newQuantity);
     // Recharger les articles mis à jour
     this.cartItems = this.cartService.getCartItems();
-    
-  }
+  };
+  
 
-  // Méthode pour retirer un élément du panier
   removeItem(item: CartInterface) {
-    // Filtrage des éléments du panier pour exclure l'élément à retirer
-    const updatedItems = this.cartItems.filter(cartItem => cartItem !== item);
-    
-    // Sauvegarder les éléments mis à jour dans le service
-    this.cartService.saveCartItems();
+    this.cartService.removeCartItem(item.id);
     // Recharger les articles mis à jour
     this.cartItems = this.cartService.getCartItems();
-  }
+  };
+  
 
   // Méthode pour calculer le prix total de tous les éléments dans le panier
   getTotalPrice(): number {
-    return this.cartItems.reduce((total, item) => total + item.totalPrice, 0);
-  }
+    return this.cartItems.reduce((total, item) => total + item.totalPrice, 0) 
+  };
 
   validateOrder() {
+    const token = this.authService.getDecodedToken();
+  
     // Préparer les données de la commande
-    const orderData:OrderInterface = {
-      date: new Date().toISOString(), 
-      status: 'pending',
+    const orderData: OrderInterface = {
+      date: new Date().toISOString(),
+      status: `/api/statuses/${token.status_id}`,
+      userOrder: `/api/users/${token.user_id}`,
       totalPrice: this.getTotalPrice(),
-      items: this.cartItems.map(item => ({
-        product: item.product,
-        service: item.service,
-        matter:item.matter, 
-        quantity: item.quantity,
-        totalPrice: item.totalPrice
-      }))
+      items: [],
     };
   
-    // Appeler le service pour créer la commande
-    this.cartService.createOrder(orderData).subscribe({
-      next: (response) => {
-        console.log('Commande validée avec succès', response);
-        this.cartService.clearCart();  // Vider le panier après la commande
-        this.router.navigate(['/confirmation']);  // Rediriger vers une page de confirmation
-      },
-      error: (error) => {
-        console.error('Erreur lors de la validation de la commande', error);
-      }
+    // Créer la commande d'abord
+    this.orderService.createOrder(orderData).subscribe((order) => {
+      // Une fois la commande créée, récupérer les éléments du panier
+      this.cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+  
+      const items: ItemInterface[] = this.cartItems.map((item) => ({
+        orders: `/api/orders/${order.id}`,
+        productItem: item.product['@id'], // Utilisation des IDs corrects
+        serviceItem: item.service['@id'],
+        matterItem: item.matter['@id'],
+        quantity: item.quantity,
+        totalPrice: item.totalPrice,
+      }));
+  
+      // Sauvegarder chaque élément associé à la commande créée
+      items.forEach((item) => {
+        this.itemService.createItem(item).subscribe((createdItem) => {
+          console.log(createdItem);
+        });
+      });
+      
+      // Redirection ou autre action après la validation
+      this.router.navigate(['/confirmation']);
     });
-}}
+  }
+  
+
+}

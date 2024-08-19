@@ -53,4 +53,7 @@ label{
   justify-content: space-between;
 }
 
-
+.accordion-body {
+  background-color: #f8f9fa; /* Assurez-vous que le fond est visible */
+  padding: 15px; /* Ajoutez un peu d'espace pour vérifier */
+}

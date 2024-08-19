@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { UserService } from '../shared/services/user.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 
@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 export class RegisterComponent {
 
   service = inject(UserService)
-  
+  router = inject (Router)
   public loginForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required), 
     firstName: new FormControl('', Validators.required), 
@@ -26,20 +26,23 @@ export class RegisterComponent {
   });
 
   onSubmit() {
-    console.log(this.loginForm.value)
     if (this.loginForm.valid) {
       this.service.register(this.loginForm.value).subscribe({
         next: (response) => {
-          console.log('Inscription réussie', response);
-          console.log(this.loginForm.value);
+         
+          console.log('Réponse de l\'inscription:', response); 
+          alert('Inscription réussie !');
+          this.router.navigate(['/category']);  
         },
         error: (error) => {
-          console.error('Erreur inscription', error);
-          console.log(this.loginForm.value);
+          console.error('Erreur lors de l\'inscription:', error); 
+          alert('Une erreur est survenue lors de l\'inscription.'); 
         }
+        
       });
     } else {
-      console.log('Formulaire invalide');
+      alert('Le formulaire est invalide. Veuillez vérifier les champs.');
     }
   }
+  
 }

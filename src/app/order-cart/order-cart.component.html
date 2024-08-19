@@ -23,18 +23,20 @@
         <!-- Ligne du tableau générée pour chaque élément du panier -->
         <tr *ngFor="let item of cartItems">
           <!-- Affichage des détails de chaque élément du panier -->
-          <td>{{ item.service?.name }}</td> <!-- Nom du service (si disponible) -->
-          <td>{{ item.product?.name }}</td> <!-- Nom du produit (si disponible) -->
-          <td>{{ item.matter?.name }}</td> <!-- Nom de la matière (si disponible) -->
+          <td>{{ item.service.name }}</td> <!-- Nom du service (si disponible) -->
+          <td>{{ item.product.name }}</td> <!-- Nom du produit (si disponible) -->
+          <td>{{ item.matter.name }}</td> <!-- Nom de la matière (si disponible) -->
           <td>
             <!-- Contrôles pour changer la quantité de l'article -->
             <div class="d-flex align-items-center">
               <!-- Bouton pour diminuer la quantité -->
-              <button class="btn btn-secondary btn-sm" (click)="changeQuantity(item, -1)">-</button>
+              <button class="btn
+              " (click)="changeQuantity(item, -1)">-</button>
               <!-- Affichage de la quantité actuelle -->
               <span class="mx-2">{{ item.quantity }}</span>
               <!-- Bouton pour augmenter la quantité -->
-              <button class="btn btn-secondary btn-sm" (click)="changeQuantity(item, 1)">+</button>
+              <button class="btn
+              " (click)="changeQuantity(item, 1)">+</button>
             </div>
           </td>
           <!-- Affichage du prix total de l'article -->
@@ -49,6 +51,7 @@
     
     <!-- Affichage du prix total de tous les articles dans le panier -->
     <h4>Total: {{ getTotalPrice() }} €</h4>
+    <button class="btn btn-primary" (click)="validateOrder()">Valider votre commande</button>
   </ng-container>
   
   <!-- Message affiché si le panier est vide -->

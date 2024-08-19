@@ -1,11 +1,16 @@
+
 import { MatterInterface } from "./matter";
 import { ProductInterface } from "./product";
 import { SolutionInterface } from "./solution";
 
 export interface CartInterface  {
-  service: SolutionInterface | null;
-  product: ProductInterface| null;
-  matter: MatterInterface| null;
+  id:string;
+  service: SolutionInterface ;
+  product: ProductInterface ;
+  matter: MatterInterface ;
   quantity: number;
   totalPrice: number;
 }
+
+
+

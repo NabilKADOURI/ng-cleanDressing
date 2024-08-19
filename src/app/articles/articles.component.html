@@ -6,23 +6,23 @@
     <div class="row gap-5 justify-content-center">
       <div
         *ngFor="let article of articles"
-        class="card col-lg-3 col-md-6 col-12 d-flex justify-content-center p-0"
+        class=" col-lg-3 col-md-6 col-12  p-0"
       >
-        <div class="card-header">
+        <div class="">
           <h3 class="text-center">{{ article.title }}</h3>
         </div>
-        <div class="card-img">
+        <div class="">
           <img
             [src]="article.picture"
             class=" w-100 img-fluid"
             alt="{{ article.title }}"
           />
         </div>
-        <div class="card-body">
-          <h5 class="card-title w-auto">{{ article.subtitle }}</h5>
-          <p class=" card-text line-clamp w-auto">{{ article.description }}</p>
-          <p class="card-text w-auto">Publié le : {{ article.dateCreate | date }}</p>
-          <div class=" text-end w-auto">
+        <div class="">
+          <h5 class=" w-auto">{{ article.subtitle }}</h5>
+          <p class=" line-clamp w-auto">{{ article.description }}</p>
+          <p class=" w-auto">Publié le : {{ article.dateCreate | date }}</p>
+          <div class=" w-auto">
             <a [routerLink]="['/article-details', article.id]"><b > >>> En savoir plus <<< </b></a>
           </div>
         </div>

@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../environments/environment.development";
 import { HttpClient } from "@angular/common/http";
-import { ICredentials, IToken } from "../models/auth";
+import { ICredentials, IToken, TokenDecoded } from "../models/auth";
 import { Observable } from "rxjs";
+import { jwtDecode } from "jwt-decode";
 
 
 @Injectable({
@@ -27,8 +28,12 @@ export class AuthService {
     return !!token;
   }
 
-  getToken(): string | null {
-    return localStorage.getItem('token');
+  getToken(): string  {
+    return localStorage.getItem('token') || "";
+  }
+
+  getDecodedToken(): TokenDecoded {
+    return jwtDecode(this.getToken());
   }
 
   logout(): void {
