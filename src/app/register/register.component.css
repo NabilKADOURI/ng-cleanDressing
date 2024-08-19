@@ -1,7 +1,4 @@
-body {
-  font-family: "Poppins", sans-serif;
-  height: 100vh;
-}
+
 
 a {
   color: #92badd;
@@ -12,14 +9,30 @@ a {
 
 h2 {
   text-align: center;
-  font-size: 16px;
+  font-size: 2.5rem;
   font-weight: 600;
   text-transform: uppercase;
   display:inline-block;
-  margin: 40px 8px 10px 8px; 
-  color: #cccccc;
+  margin: 2.5rem;
+  color: var(--bg2);
 }
 
+.card{
+  border: none;
+}
+
+#formContent {
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: #fff;
+  padding: 30px;
+  width: 100%;
+  position: relative;
+  padding: 0px;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: center;
+}
 
 
 /* STRUCTURE */
@@ -32,32 +45,6 @@ h2 {
   width: 100%;
   min-height: 100%;
   padding: 20px;
-}
-
-#formContent {
-  -webkit-border-radius: 10px 10px 10px 10px;
-  border-radius: 10px 10px 10px 10px;
-  background: #fff;
-  padding: 30px;
-  width: 90%;
-  max-width: 450px;
-  position: relative;
-  padding: 0px;
-  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  text-align: center;
-}
-
-
-h2.inactive {
-  color: #cccccc;
-}
-
-h2.active {
-  color: #0d0d0d;
-  border-bottom: 2px solid #5fbae9;
-  margin-bottom: 3.5rem;
-  font-size: 2.5rem;
 }
 
 
@@ -94,6 +81,21 @@ h2.active {
     -webkit-transform: none;
     transform: none;
   }
+}
+
+.buton {
+  background-color: var(--bg2);
+  border-radius: 20px;
+  color: var(--light);
+  font-size: 16px;
+  padding: 10px 20px;
+  border: transparent;
+}
+
+.buton:hover{
+  border: 2px solid var(--bg2);
+  background-color: transparent;
+  color: var(--bg2);
 }
 
 

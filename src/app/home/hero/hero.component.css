@@ -4,6 +4,7 @@
   justify-content: center;
   }
 
+  
   .btn1 {
     background-color: var(--texte);
     border-radius: 20px;
@@ -16,5 +17,4 @@
     border: 2px solid var(--texte);
     color: var(--texte);
   }
-
 

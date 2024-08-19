@@ -2,14 +2,14 @@
   <div class="container">
     <div class="wrapper fadeInDown">
       <div id="formContent">
-        <h2 class="active"> Connexion </h2>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <div formGroupName="credentials">
-            <input type="email" class="mb-3 p-2" placeholder="Email" formControlName="username">
-            <input type="password" class="ms-2 p-2" placeholder="Mot de passe" formControlName="password">
+        <h2> Connexion </h2>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="px-3">
+          <div formGroupName="credentials" class="mb-3">
+            <input type="email" class="mb-3 p-2 form-control" placeholder="Email" formControlName="username">
+            <input type="password" class="mb-3-2 p-2 form-control" placeholder="Mot de passe" formControlName="password">
           </div>
 
-          <button class="btn btn-warning text-white mb-3" type="submit" [disabled]="loginForm.invalid">Connexion</button>
+          <button class="buton mb-3" type="submit" [disabled]="loginForm.invalid">Connexion</button>
         </form>
 
         <!-- Lien vers la page d'inscription -->

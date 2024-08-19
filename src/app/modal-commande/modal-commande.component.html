@@ -11,9 +11,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">
+        <h2 class="modal-title" id="staticBackdropLabel">
           PASSER VOTRE COMMANDE
-        </h5>
+        </h2>
         <button
           type="button"
           class="btn-close"
@@ -21,7 +21,11 @@
           aria-label="Close"
         ></button>
       </div>
+      
+      
       <div class="modal-body">
+        <h4 class="mb-3">Sélectionner votre service</h4>
+
         <form [formGroup]="commandeForm" (submit)="addToCart()">
           <!-- SERVICES -->
           <div class="container mb-3">
@@ -49,15 +53,16 @@
           <!-- CATEGORIES AND PRODUCTS -->
           <div class="container mb-3">
             <div class="row">
-              <div class="col-lg-3 col-12 mb-3">
-                <label for="productSelect">Type de vêtement ?</label>
+              <h4 class="mb-3">Ajouter votre vêtements et sa matière</h4>
+              <div class="col-lg-5 col-12 mb-3">
+                
                 <select
                   id="productSelect"
                   class="form-select"
                   aria-label="Choisir produit"
                   formControlName="product"
                 >
-                  <option value="" disabled>Choisir produit</option>
+                  <option value="" disabled> Vêtements</option>
                   <option *ngFor="let product of products" [ngValue]="product">
                     {{ product.name }} - A partir de {{ product.price }} €
                   </option>
@@ -74,22 +79,20 @@
                 </div>
               </div>
 
-              <div class="col-lg-3 col-12 mb-3">
-                <label for="matterSelect">Quel matière ?</label>
+              <div class="col-lg-5 col-12 mb-3">
                 <select
                   id="matter"
                   class="form-select"
                   aria-label="Choisir matière"
                   formControlName="matter"
                 >
-                  <option value="" disabled>Choisir matière</option>
+                  <option value="" disabled>Matières</option>
                   <option *ngFor="let matter of matters" [ngValue]="matter">
                     {{ matter.name }} - A partir de {{ matter.price }} €
                   </option>
                 </select>
               </div>
-              <div class="col-lg-3 col-12 mb-3">
-                <label for="quantityInput">Quantité</label>
+              <div class="col-lg-2 col-12 mb-3">
                 <input
                   id="quantityInput"
                   type="number"
@@ -125,9 +128,9 @@
                 </tr>
               </tbody>
             </table>
-            <div class="text-center mt-5">
+            <div class="text-center m-5 d-flex justify-content-between">
               <button class="btn" type="submit">Ajouter au panier</button>
-              <button class="btn" (click)="goToCart()">Voir le panier</button>
+              <button class="btn1" (click)="goToCart()">Voir le panier</button>
             </div>
           </div>
         </form>

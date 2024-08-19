@@ -32,13 +32,13 @@
           </ul>
           <ul class="navbar-nav d-flex align-items-center">
             <li class="nav-item" *ngIf="!service.isLogged()">
-              <a class="nav-link" routerLink="/connexion">SE CONNECTER</a>
+              <a class="nav-link btn  me-2" routerLink="/connexion">SE CONNECTER</a>
             </li>
             <li class="nav-item d-flex align-items-center" *ngIf="!service.isLogged()">
-              <a class="nav-link btn-inscrit   rounded " routerLink="/register">S'inscrire</a>
+              <a class="nav-link btn1 " routerLink="/register">S'inscrire</a>
             </li>
             <li class="nav-item d-flex align-items-center" *ngIf="service.isLogged()">
-              <a class="nav-link bg2 text-white rounded px-3" (click)="logout()">SE DECONNECTER</a>
+              <a class="nav-link btn1 text-white rounded px-3" (click)="logout()">SE DECONNECTER</a>
             </li>
             <li class="nav-item  " *ngIf="service.isLogged()">
               <a class="nav-link" routerLink="/profile">
