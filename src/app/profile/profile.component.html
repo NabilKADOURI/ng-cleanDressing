@@ -47,7 +47,7 @@
                           <th>N° de commande</th>
                           <th>Date</th>
                           <th>Prix</th>
-                          <th>Actions</th>
+                          <th>Voir détails</th>
                         </tr>
                       </thead>
                       <tbody>         
@@ -55,16 +55,13 @@
                           <td>N° {{order.id}}</td> 
                           <td>{{order.date }}</td>  
                           <td>{{order.totalPrice }} €</td>
-                          <button class="btn ">Détail</button>
+                          <td>
+                            <button class="btn " (click)="toggleOrderDetails(order.id + '')">Détail</button>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                  <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                  <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                  <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
                 </div>
               </div>
             </div>

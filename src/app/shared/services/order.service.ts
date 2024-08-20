@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { OrderInterface } from '../models/order';
+import { ItemInterface, OrderInterface } from '../models/order';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment.development';
@@ -8,6 +8,9 @@ import { environment } from '../environments/environment.development';
   providedIn: 'root'
 })
 export class OrderService {
+  getItemByUri(itemUri: ItemInterface) {
+    throw new Error('Method not implemented.');
+  }
 
   private url = environment.apiBaseUrl;
 

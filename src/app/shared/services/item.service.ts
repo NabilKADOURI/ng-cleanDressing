@@ -17,4 +17,9 @@ export class ItemService {
 return this.http.post(`${this.url}/api/items`, itemData);
 
   }
+
+  getItemByUri(itemUri: string): Observable<ItemInterface>{
+
+    return this.http.get<ItemInterface>(this.url + itemUri)
+  }
 }

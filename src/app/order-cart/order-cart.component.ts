@@ -60,6 +60,7 @@ export class OrderCartComponent implements OnInit {
       userOrder: `/api/users/${token.user_id}`,
       totalPrice: this.getTotalPrice(),
       items: [],
+      id: "0"
     };
   
     // Créer la commande d'abord

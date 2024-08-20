@@ -38,7 +38,7 @@
               <a class="nav-link btn1 " routerLink="/register">S'inscrire</a>
             </li>
             <li class="nav-item d-flex align-items-center" *ngIf="service.isLogged()">
-              <a class="nav-link btn1 text-white rounded px-3" (click)="logout()">SE DECONNECTER</a>
+              <a class="nav-link btn1  px-3" (click)="logout()">SE DECONNECTER</a>
             </li>
             <li class="nav-item  " *ngIf="service.isLogged()">
               <a class="nav-link" routerLink="/profile">
