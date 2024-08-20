@@ -6,6 +6,7 @@ import { AuthService } from '../shared/services/auth.service';
 import { OrderService } from '../shared/services/order.service';
 import { ItemInterface, OrderInterface } from '../shared/models/order';
 import { ItemService } from '../shared/services/item.service';
+import { environment } from '../shared/environments/environment.development';
 
 
 @Component({
@@ -27,51 +28,62 @@ export class ProfileComponent implements OnInit {
   orders: OrderInterface[] = [];
   items: { [orderId: string]: ItemInterface[] } = {};
 
-  showDetailsForOrderId: number | null = null;
-order: any;
-
+  showDetailsForOrderId!: string;
+  order: any;
 
   ngOnInit(): void {
-    console.log('ngOnInit - Début');
-    
     this.userService.getUserById(this.userId).subscribe((data) => {
-      console.log('getUserById - Réponse reçue:', data);
       this.user = data;
   
       this.user.orders.forEach((orderUri) => {
-        console.log('Traitement de la commande:', orderUri);
-  
         this.orderService.getOrderByUri(orderUri).subscribe((order) => {
-          console.log('getOrderByUri - Commande reçue:', order);
           this.orders.push(order);
-          console.log('Liste des commandes après ajout:', this.orders);
-
+  
+          // Initialiser la liste des items pour cette commande
           this.items[order.id!] = [];
-          
+  
           // Récupération des items pour chaque commande
-          order.items.forEach((itemUri: ItemInterface) => {
-            console.log('Traitement de l\'item:', item);
-            
-            this.itemService.getItemByUri(itemUri).subscribe((item)=>{
-              this.items[order.id!].push(item);
-            })
-            
-            console.log('Liste des items pour la commande', order.id, ':', this.items[order.id!]);
+          order.items.forEach((itemUri: string) => {
+            this.fetchItemDetails(itemUri, order.id!);
           });
         });
       });
     });
+  }
   
-    console.log('ngOnInit - Fin');
+  fetchItemDetails(itemUri: string, orderId: string): void {
+    this.itemService.getItemByUri(environment.apiBaseUrl + itemUri).subscribe((item) => {
+      let itemName = "";
+  
+      if (itemUri.includes('/api/services/')) {
+        itemName = `Service ${item.serviceItem}`;
+      } else if (itemUri.includes('/api/products/')) {
+        itemName = `Produit ${item.productItem}`;
+      } else if (itemUri.includes('/api/matters/')) {
+        itemName = `Matière ${item.matterItem}`;
+      }
+  
+      this.items[orderId].push({
+        orders:"",
+        serviceItem:item.serviceItem,
+        productItem:item.productItem,
+        matterItem: item.matterItem,
+        totalPrice: item.totalPrice,
+        quantity: item.quantity || 1, // Utilise 1 si la quantité n'est pas définie
+      });
+    });
   }
-
-  toggleOrderDetails(orderId: string): void {
-    const orderIdNumber = parseInt(orderId, 10); // Convertir en nombre
+  
+toggleOrderDetails(orderId: string): void {
+  // Si l'ordre en cours est cliqué à nouveau, on masque les détails
+  if (this.showDetailsForOrderId === orderId) {
+    this.showDetailsForOrderId = "";
+  } else {
+    this.showDetailsForOrderId = orderId;
+    console.log(this.showDetailsForOrderId);
     
-    if (this.showDetailsForOrderId === orderIdNumber) {
-      this.showDetailsForOrderId = null;  // Masquer les détails si déjà ouvert
-    } else {
-      this.showDetailsForOrderId = orderIdNumber;  // Afficher les détails pour cette commande
-    }
   }
+}
+
+ 
 }

@@ -70,7 +70,7 @@ export class OrderCartComponent implements OnInit {
   
       const items: ItemInterface[] = this.cartItems.map((item) => ({
         orders: `/api/orders/${order.id}`,
-        productItem: item.product['@id'], // Utilisation des IDs corrects
+        productItem: item.product['@id'], 
         serviceItem: item.service['@id'],
         matterItem: item.matter['@id'],
         quantity: item.quantity,

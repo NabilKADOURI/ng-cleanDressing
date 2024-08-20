@@ -4,11 +4,10 @@ export interface OrderInterface {
   date: string; // Date en format ISO
   status: string; // Statut de la commande
   totalPrice: number; // Prix total de la commande
-  items: ItemInterface []; // Liste des articles de la commande
+  items: string []; // Liste des articles de la commande
 }
-
-export interface ItemInterface{
-  id?:string;
+export interface ItemInterface {
+  id?: string;
   orders: string;
   serviceItem: string | number;
   productItem: string | number;
@@ -16,3 +15,4 @@ export interface ItemInterface{
   quantity: number;
   totalPrice: number;
 }
+

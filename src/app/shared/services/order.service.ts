@@ -8,9 +8,6 @@ import { environment } from '../environments/environment.development';
   providedIn: 'root'
 })
 export class OrderService {
-  getItemByUri(itemUri: ItemInterface) {
-    throw new Error('Method not implemented.');
-  }
 
   private url = environment.apiBaseUrl;
 
