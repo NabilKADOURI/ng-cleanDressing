@@ -1,16 +1,16 @@
 <section>
-  <div class="container-fluid hero-bg ">
+  <div class="container-fluid hero-bg  ">
     <div class="hero-container container  ">
       <div class="">
         <div class="">
           <!-- TITRE PRINCIPAL -->
-          <h2 class=" mb-5 d-flex justify-content-center justify-content-md-start display-4 text-center text-md-start">
+          <h2 class=" mb-3 d-flex justify-content-center justify-content-md-start display-4 text-center text-md-start">
             <b>Propre, Simple et Rapide !</b>
           </h2>
           <div class=" fs-2">
             <!-- PREMIER POINT -->
-            <p class="text-white d-flex justify-content-center justify-content-md-start mb-4">
-              <span>
+            <p class="text-white d-flex justify-content-center justify-content-md-start mb-4 align-items-center">
+              <span class="pe-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="60"
@@ -26,8 +26,8 @@
               Selectionner votre service
             </p>
             <!-- DEUXIÈME POINT -->
-            <p class="text-white d-flex justify-content-center justify-content-md-start mb-4">
-              <span>
+            <p class="text-white d-flex justify-content-center justify-content-md-start align-items-center mb-4">
+              <span class="pe-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="60"
@@ -47,7 +47,7 @@
           <div class="  pt-3 d-flex justify-content-center  justify-content-md-start mb-4">
             <button
               type="button"
-              class="btn btn-warning mb-5"
+              class="btn px-4 py-3 fs-5 mb-5"
               (click)="redirectToCommandeModal()"
               data-bs-toggle="modal" 
               data-bs-target="#staticBackdrop"
@@ -139,5 +139,32 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="col-12 d-flex justify-content-center">
+    <button
+    type="button"
+    class="btn mb-5 px-4 py-3 fs-5"
+    (click)="redirectToCommandeModal()"
+    data-bs-toggle="modal" 
+    data-bs-target="#staticBackdrop"
+  >
+    <span class="me-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+      >
+        <rect width="24" height="24" fill="none" />
+        <path
+          fill="none"
+          stroke="#0077b6"
+          stroke-width="2"
+          d="M2 12h20l-2 11H4zm18-4l-6-7M4 8l6-7M1 8h22v4H1zm7 7v5m8-5v5m-4-5v5"
+        />
+      </svg>
+    </span>
+    COMMANDER
+  </button>
   </div>
 </section>

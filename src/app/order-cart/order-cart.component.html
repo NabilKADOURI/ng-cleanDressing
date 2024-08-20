@@ -1,5 +1,5 @@
 <!-- Conteneur principal pour le panier -->
-<div class="container">
+<div class="container py-3">
   <!-- Titre du panier -->
   <h2>Votre Panier</h2>
   
@@ -30,12 +30,12 @@
             <!-- Contrôles pour changer la quantité de l'article -->
             <div class="d-flex align-items-center">
               <!-- Bouton pour diminuer la quantité -->
-              <button class="btn
+              <button class="quantity
               " (click)="changeQuantity(item, -1)">-</button>
               <!-- Affichage de la quantité actuelle -->
               <span class="mx-2">{{ item.quantity }}</span>
               <!-- Bouton pour augmenter la quantité -->
-              <button class="btn
+              <button class="quantity
               " (click)="changeQuantity(item, 1)">+</button>
             </div>
           </td>
@@ -43,7 +43,7 @@
           <td>{{ item.totalPrice }} €</td>
           <!-- Bouton pour retirer l'article du panier -->
           <td>
-            <button class="btn " (click)="removeItem(item)">x</button>
+            <button class="action " (click)="removeItem(item)">x</button>
           </td>
         </tr>
       </tbody>
@@ -51,7 +51,7 @@
     
     <!-- Affichage du prix total de tous les articles dans le panier -->
     <h4>Total: {{ getTotalPrice() }} €</h4>
-    <button class="btn btn-primary" (click)="validateOrder()">Valider votre commande</button>
+    <button class="btn my-3" (click)="validateOrder()">Valider votre commande</button>
   </ng-container>
   
   <!-- Message affiché si le panier est vide -->

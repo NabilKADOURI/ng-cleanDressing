@@ -1,0 +1,30 @@
+.quantity {
+  
+  border-radius: 5px;
+  color: var(--texte);
+  border: 2px solid var(--texte);
+
+  font-size: 11px;
+  padding: 5px 10px;
+}
+
+.quantity:hover{
+  background-color: var(--texte);
+  color: var(--light);
+  border: 2px solid var(--texte);
+}
+
+.action {
+  background-color: var(--bg2);
+  border-radius: 10px;
+  border: none;
+  color: var(--light);
+  font-size: 20px;
+  padding: 5px 15px;
+}
+
+.action:hover{
+  border: 2px solid var(--bg2);
+  background-color: transparent;
+  color: var(--bg2);
+}
