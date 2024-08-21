@@ -60,13 +60,15 @@ export class OrderCartComponent implements OnInit {
       userOrder: `/api/users/${token.user_id}`,
       totalPrice: this.getTotalPrice(),
       items: [],
-      id: "0"
     };
   
     // Créer la commande d'abord
     this.orderService.createOrder(orderData).subscribe((order) => {
       // Une fois la commande créée, récupérer les éléments du panier
       this.cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+      console.log(this.cartItems);
+      
   
       const items: ItemInterface[] = this.cartItems.map((item) => ({
         orders: `/api/orders/${order.id}`,

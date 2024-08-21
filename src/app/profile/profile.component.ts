@@ -34,20 +34,24 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserById(this.userId).subscribe((data) => {
       this.user = data;
-  
-      this.user.orders.forEach((orderUri) => {
-        this.orderService.getOrderByUri(orderUri).subscribe((order) => {
-          this.orders.push(order);
-  
-          // Initialiser la liste des items pour cette commande
-          this.items[order.id!] = [];
-  
-          // Récupération des items pour chaque commande
-          order.items.forEach((itemUri: string) => {
-            this.fetchItemDetails(itemUri, order.id!);
+    
+      if (this.user && this.user.orders) {
+        this.user.orders.forEach((orderUri) => {
+          this.orderService.getOrderByUri(orderUri).subscribe((order) => {
+            this.orders.push(order);
+    
+            // Initialiser la liste des items pour cette commande
+            this.items[order.id!] = [];
+    
+            // Récupération des items pour chaque commande
+            order.items.forEach((itemUri: string) => {
+              this.fetchItemDetails(itemUri, order.id!);
+            });
           });
         });
-      });
+      } else {
+        console.error("Orders is undefined or null");
+      }
     });
   }
   
