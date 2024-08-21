@@ -42,6 +42,7 @@ export class ProfileComponent implements OnInit {
     
             // Initialiser la liste des items pour cette commande
             this.items[order.id!] = [];
+    console.log(this.orders);
     
             // Récupération des items pour chaque commande
             order.items.forEach((itemUri: string) => {

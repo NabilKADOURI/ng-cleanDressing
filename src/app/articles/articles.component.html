@@ -1,13 +1,13 @@
 
-<section class="py-3 py-md-5 bg-article">
-  <div class="container overflow-hidden">
-    <h2 class="my-4">
-      <span class="border-title mb-4 ps-2">NOS CONSEILS D'EXPERT</span>
+<section class="  bg-article">
+  <div class="container overflow-hidden py-3">
+    <h2 class="py-3">
+      <span class="border-title  ps-2">NOS CONSEILS D'EXPERT</span>
     </h2>
-    <div class="row g-5 justify-content-md-center">
-      <div class="col-lg-3 col-md-6 col-12" *ngFor="let article of articles">
+    <div class="row g-5 justify-content-center">
+      <div class="col-lg-4 col-md-6 col-12 " *ngFor="let article of articles">
         <article>
-          <div class="card border-0 shadow">
+          <div class="card border-0 shadow mb-5 mx-4 ">
             <figure class="card-img-top m-0 overflow-hidden bsb-overlay-hover">
               <img
               [src]="article.picture"
@@ -18,16 +18,16 @@
               <h4 class=" text-center py-2 ">{{ article.title }}</h4>
             </figcaption>
             </figure>
-            <div class="card-body border py-3">
+            <div class="card-body  border-top border-bottom  py-3">
               <div class="entry-header">
-                <ul class="entry-meta list-unstyled d-flex ">
+                <ul class="entry-meta list-unstyled d-flex  ">
                   <li>
                     <h5 class=" w-auto text-center ">{{ article.subtitle }}</h5>
                   </li>
                 </ul>
               </div>
             </div>
-            <div class="card-footer border border-top-0  ">
+            <div class="card-footer border border-top-0 ">
               <ul class="entry-meta list-unstyled d-flex align-items-center m-0">
                 <li>
                   <a class="fs-7 link-secondary text-decoration-none d-flex align-items-center" href="#!">
