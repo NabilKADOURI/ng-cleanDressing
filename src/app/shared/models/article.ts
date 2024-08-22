@@ -6,7 +6,7 @@ export interface ArticleInterface extends ApiResponse {
   title:string;
   subtitle:string;
   picture:string;
-  description: string;
+  description: string ;
   dateCreate: string;
 
 }

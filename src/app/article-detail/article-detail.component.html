@@ -1,27 +1,23 @@
 <section>
-  <div class="container">
-    <div class="row" *ngIf="article; else noArticle">
-      <h2 class="text-center mt-3">{{ article.title }}</h2>
-      <div  class="mt-5 col-6">
-        
-        <img [src]="article.picture" alt="" class="rounded m-3">
+  <div class="container-fluide px-3">
+    <div class="row my-5" *ngIf="article$ | async as article" >
+      <div class=" col-4 ">
+      <h2 class="text-center p-3  ">{{ article.title }}</h2>
+      <div class="d-flex justify-content-center align-items-center">
+        <img  [src]="article.picture" alt="{{ article.title }}" class="rounded img-fluid w-100 ">
       </div>
-   
-    <div class="col-6">
-      <p>{{article.description}}</p>
+        
+      </div>
+
+      <div class="col-8 ">
+        <div>
+          <h3>{{ article.subtitle }}</h3>
+        </div>
+
+        <ul *ngIf="article && article.description" class="py-3 ">
+          <li [innerHTML]="article.description | formatDescription"></li>
+        </ul>
+      </div>
     </div>
-    </div>
-    
   </div>
 </section>
-
-
-
-
-
-
-
-
-<ng-template #noArticle>
-  "Message d'erreur si l'id n'existe pas"
-</ng-template>
