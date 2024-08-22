@@ -74,7 +74,7 @@ export class ProfileComponent implements OnInit {
         productItem:item.productItem,
         matterItem: item.matterItem,
         totalPrice: item.totalPrice,
-        quantity: item.quantity || 1, // Utilise 1 si la quantité n'est pas définie
+        quantity: item.quantity || 1, 
       });
     });
   }
