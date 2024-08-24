@@ -23,11 +23,11 @@
         <!-- Ligne du tableau générée pour chaque élément du panier -->
         <tr *ngFor="let item of cartItems">
           <!-- Affichage des détails de chaque élément du panier -->
-          <td>{{ item.service.name }}</td> <!-- Nom du service (si disponible) -->
-          <td>{{ item.product.name }}</td> <!-- Nom du produit (si disponible) -->
-          <td>{{ item.matter.name }}</td> <!-- Nom de la matière (si disponible) -->
+          <td>{{ item.service.name }}</td> 
+          <td>{{ item.product.name }}</td> 
+          <td>{{ item.matter.name }}</td> 
           <td>
-            <!-- Contrôles pour changer la quantité de l'article -->
+            
             <div class="d-flex align-items-center">
               <!-- Bouton pour diminuer la quantité -->
               <button class="quantity
@@ -40,7 +40,7 @@
             </div>
           </td>
           <!-- Affichage du prix total de l'article -->
-          <td>{{ item.totalPrice }} €</td>
+          <!-- <td>{{ item.totalPrice }} €</td> -->
           <!-- Bouton pour retirer l'article du panier -->
           <td>
             <button class="action " (click)="removeItem(item)">x</button>

@@ -47,7 +47,7 @@ export class OrderCartComponent implements OnInit {
 
   // Méthode pour calculer le prix total de tous les éléments dans le panier
   getTotalPrice(): number {
-    return this.cartItems.reduce((total, item) => total + item.totalPrice, 0) 
+    return this.cartItems.reduce((total, item) => total + (item.totalPrice * item.quantity) , 0) 
   };
 
   validateOrder() {
