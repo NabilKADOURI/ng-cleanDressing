@@ -10,11 +10,11 @@
           <div class="card border-0 shadow mb-5 mx-4 ">
             <figure class="card-img-top m-0 overflow-hidden bsb-overlay-hover">
               <img
-              [src]="article.picture"
+              [src]="'../uploads/' + article.picture"
               class=" w-100 img-fluid"
               alt="{{ article.title }}"
             />
-            <figcaption>
+            <figcaption class="figure-caption-overlay">
               <h4 class=" text-center py-2 ">{{ article.title }}</h4>
             </figcaption>
             </figure>
