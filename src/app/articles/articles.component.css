@@ -2,10 +2,7 @@ a{
   color: var(--bg2);
 }
 
-p{
-  width: 350px;
-  text-align: justify;
-}
+
 
 .bg-article{
   background-color: #E5DFCA;
@@ -14,7 +11,7 @@ p{
 
 
 
-h5{
+h5,h6{
   color: var(--bg2);
 }
 
@@ -27,6 +24,9 @@ h5{
   padding: 5px 0;
 }
 
-h4{
-  color: var(--light);
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

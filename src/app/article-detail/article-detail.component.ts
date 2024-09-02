@@ -9,7 +9,7 @@ import { FormatDescriptionPipe } from '../shared/pipes/format-description.pipe';
 @Component({
   selector: 'app-article-detail',
   standalone: true,
-  imports: [CommonModule,FormatDescriptionPipe],
+  imports: [CommonModule, FormatDescriptionPipe],
   templateUrl: './article-detail.component.html',
   styleUrls: ['./article-detail.component.css'],
   providers: [{ provide: 'baseUri', useValue: '/api/services' }]
@@ -18,20 +18,16 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
   article$!: Observable<ArticleInterface | undefined>;
   article!: ArticleInterface;
-  private dataArticle!: Subscription;
+  private dataArticleSubscription!: Subscription;
 
   constructor(private route: ActivatedRoute, private articleService: ArticleService) { }
 
   ngOnInit(): void { 
     this.article$ = this.route.params.pipe(
       switchMap(params => this.articleService.getArticleById(+params['id']))
-  );
+    );
     
-    this.fetchOne();
-  }
-
-  fetchOne() {
-    this.dataArticle = this.route.params.subscribe(params => {
+    this.dataArticleSubscription = this.route.params.subscribe(params => {
       this.articleService.getArticleById(+params['id']).subscribe(data => {
         this.article = data;
         console.log(data);
@@ -40,6 +36,8 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.dataArticle.unsubscribe();
+    if (this.dataArticleSubscription) {
+      this.dataArticleSubscription.unsubscribe();
+    }
   }
 }

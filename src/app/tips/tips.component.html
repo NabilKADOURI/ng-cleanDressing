@@ -1,0 +1,11 @@
+<section class="tips-section">
+  <div class="container">
+    <h1 class="page-title">Conseils de Lavage</h1>
+    <div class="tips-list">
+      <div class="tip-item" *ngFor="let tip of tips">
+        <h2 class="tip-title">{{ tip.title }}</h2>
+        <p class="tip-description">{{ tip.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>

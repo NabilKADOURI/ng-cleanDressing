@@ -14,20 +14,24 @@ import { EntityService } from '../../shared/services/entity.service';
 })
 export class SolutionsComponent implements OnInit {
 
-  constructor(private service:EntityService<SolutionInterface>){}
+  // Déclaration du constructeur avec injection du service EntityService
+  constructor(private service: EntityService<SolutionInterface>) {}
 
+  // Déclaration d'une propriété pour stocker les solutions
   solutions: SolutionInterface[] = [];
 
-
+  // Méthode appelée au moment de l'initialisation du composant
   ngOnInit(): void {
-
-    this.getSolutions();
-   
+    this.getSolutions(); // Appel de la méthode pour récupérer les solutions
   }
 
-  getSolutions(){
-    this.service.fetchAll().subscribe((data)=>{
+  // Méthode pour récupérer toutes les solutions depuis le service
+  getSolutions() {
+    // Appel de la méthode fetchAll du service EntityService
+    this.service.fetchAll().subscribe((data) => {
+      // Attribution des données reçues à la propriété solutions
       this.solutions = data['hydra:member'];
     });
   }
 }
+

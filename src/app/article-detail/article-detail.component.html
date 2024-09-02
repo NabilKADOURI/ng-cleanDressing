@@ -1,23 +1,25 @@
-<section>
-  <div class="container-fluide px-3">
-    <div class="row my-5" *ngIf="article$ | async as article" >
-      <div class=" col-4 ">
-      <h2 class="text-center p-3  ">{{ article.title }}</h2>
-      <div class="d-flex justify-content-center align-items-center">
-        <img  [src]="'../uploads/' + article.picture" alt="{{ article.title }}" class="rounded img-fluid w-100 ">
-      </div>
-        
-      </div>
-
-      <div class="col-8 ">
-        <div>
-          <h3>{{ article.subtitle }}</h3>
+<section class="article-section">
+  <div class="container">
+    <div class="row my-5" *ngIf="article$ | async as article">
+      
+      <!-- Article Image and Title -->
+      <div class="col-md-4">
+        <h2 class="article-title text-center">{{ article.title }}</h2>
+        <div class="image-container d-flex justify-content-center align-items-center">
+          <img [src]="'../uploads/' + article.picture" alt="{{ article.title }}" class="img-fluid rounded">
         </div>
-
-        <ul *ngIf="article && article.description" class="py-3 ">
-          <li [innerHTML]="article.description | formatDescription"></li>
-        </ul>
       </div>
+      
+      <!-- Article Content -->
+      <div class="col-md-8">
+        <h3 class="article-subtitle">{{ article.subtitle }}</h3>
+        <div class="article-description" *ngIf="article.description">
+          <ul>
+            <li [innerHTML]="article.description | formatDescription"></li>
+          </ul>
+        </div>
+      </div>
+      
     </div>
   </div>
 </section>

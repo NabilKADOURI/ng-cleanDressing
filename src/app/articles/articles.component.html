@@ -1,33 +1,40 @@
-
-<section class="  bg-article">
+<section class="bg-article">
   <div class="container overflow-hidden py-3">
+    
+    <!-- Titre de la section -->
     <h2 class="py-3">
-      <span class="border-title  ps-2">NOS CONSEILS D'EXPERT</span>
+      <span class="border-title ps-2">NOS CONSEILS D'EXPERT</span>
     </h2>
+
+    <!-- Grille d'articles -->
     <div class="row g-5 justify-content-center">
-      <div class="col-lg-4 col-md-6 col-12 " *ngFor="let article of articles">
+      
+      <!-- Boucle pour afficher chaque article -->
+      <div class="col-lg-4 col-md-6 col-12" *ngFor="let article of articles">
         <article>
-          <div class="card border-0 shadow mb-5 mx-4 ">
+          
+          <!-- Titre de l'article -->
+          <h5 class="text-center py-2">{{ article.title }}</h5>
+
+          <!-- Carte de l'article -->
+          <div class="card border-0 shadow mb-5 mx-4">
             <figure class="card-img-top m-0 overflow-hidden bsb-overlay-hover">
-              <img
-              [src]="'../uploads/' + article.picture"
-              class=" w-100 img-fluid"
-              alt="{{ article.title }}"
-            />
-            <figcaption class="figure-caption-overlay">
-              <h4 class=" text-center py-2 ">{{ article.title }}</h4>
-            </figcaption>
+              <img [src]="'../uploads/' + article.picture" class="w-100 img-fluid" alt="{{ article.title }}" />
             </figure>
-            <div class="card-body  border-top border-bottom  py-3">
+
+            <!-- Corps de la carte -->
+            <div class="card-body">
               <div class="entry-header">
-                <ul class="entry-meta list-unstyled d-flex  ">
-                  <li>
-                    <h5 class=" w-auto text-center ">{{ article.subtitle }}</h5>
-                  </li>
+                <ul class="entry-meta list-unstyled">
+                  <li><h6 class="w-100 text-center">{{ article.subtitle }}</h6></li>
+                  <li><p class="w-100 line-clamp">{{ article.description }}</p></li>
+                  <li><a [routerLink]="['/article-details', article.id]">En savoir plus >>> </a></li>
                 </ul>
               </div>
             </div>
-            <div class="card-footer border border-top-0 ">
+
+            <!-- Pied de la carte avec des métadonnées -->
+            <div class="card-footer border border-top-0">
               <ul class="entry-meta list-unstyled d-flex align-items-center m-0">
                 <li>
                   <a class="fs-7 link-secondary text-decoration-none d-flex align-items-center" href="#!">
@@ -35,12 +42,10 @@
                       <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
                       <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
                     </svg>
-                    <span class=" px-2"> {{ article.dateCreate | date }}</span>
+                    <span class="px-2">{{ article.dateCreate | date }}</span>
                   </a>
                 </li>
-                <li>
-                  <span class="px-3">&bull;</span>
-                </li>
+                <li><span class="px-3">&bull;</span></li>
                 <li>
                   <a class="link-secondary text-decoration-none d-flex align-items-center" href="#!">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
@@ -51,14 +56,12 @@
                   </a>
                 </li>
               </ul>
-              <div class=" text-end mt-3">
-                <a [routerLink]="['/article-details', article.id]"><b > >>> En savoir plus </b></a>
-              </div>
             </div>
+
           </div>
         </article>
       </div>
-      
+
     </div>
   </div>
 </section>

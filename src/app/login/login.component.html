@@ -1,15 +1,38 @@
 <section>
   <div class="container">
+    <!-- Wrapper de la section avec effet de fondu -->
     <div class="wrapper fadeInDown">
+      <!-- Contenu principal du formulaire -->
       <div id="formContent">
-        <h2> Connexion </h2>
+        <!-- Titre de la page de connexion -->
+        <h2>Connexion</h2>
+
+        <!-- Formulaire de connexion -->
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="px-3">
+          <!-- Groupe de champs de saisie pour les identifiants -->
           <div formGroupName="credentials" class="mb-3">
-            <input type="email" class="mb-3 p-2 form-control" placeholder="Email" formControlName="username">
-            <input type="password" class="mb-3-2 p-2 form-control" placeholder="Mot de passe" formControlName="password">
+            <!-- Champ de saisie pour l'adresse email -->
+            <input 
+              type="email" 
+              class="mb-3 p-2 form-control" 
+              placeholder="Email" 
+              formControlName="username">
+              
+            <!-- Champ de saisie pour le mot de passe -->
+            <input 
+              type="password" 
+              class="mb-2 p-2 form-control" 
+              placeholder="Mot de passe" 
+              formControlName="password">
           </div>
 
-          <button class="buton mb-3" type="submit" [disabled]="loginForm.invalid">Connexion</button>
+          <!-- Bouton de soumission du formulaire -->
+          <button 
+            class="buton mb-3" 
+            type="submit" 
+            [disabled]="loginForm.invalid">
+            Connexion
+          </button>
         </form>
 
         <!-- Lien vers la page d'inscription -->

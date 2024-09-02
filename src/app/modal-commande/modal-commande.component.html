@@ -1,3 +1,4 @@
+<!-- Modal pour passer une commande -->
 <div
   class="modal modal-xl fade"
   id="staticBackdrop"
@@ -10,10 +11,12 @@
 >
   <div class="modal-dialog">
     <div class="modal-content">
+      <!-- En-tête du modal -->
       <div class="modal-header">
         <h2 class="modal-title" id="staticBackdropLabel">
           PASSER VOTRE COMMANDE
         </h2>
+        <!-- Bouton pour fermer le modal -->
         <button
           type="button"
           class="btn-close"
@@ -22,22 +25,28 @@
         ></button>
       </div>
       
-      
+      <!-- Corps du modal -->
       <div class="modal-body">
+        <!-- Titre de la section de sélection de service -->
         <h4 class="mb-3">Sélectionner votre service</h4>
 
+        <!-- Formulaire pour passer la commande -->
         <form [formGroup]="commandeForm" (submit)="addToCart()">
-          <!-- SERVICES -->
+          <!-- Section des services -->
           <div class="container mb-3">
             <div class="row">
+              <!-- Liste des services disponibles -->
               <div class="col-lg-3 col-6" *ngFor="let service of solutions">
+                <!-- Nom et prix du service -->
                 <div class="text-center m-auto mb-3">
                   <h6>{{ service.name }}</h6>
                   <p>à partir de {{ service.price }} €</p>
                 </div>
+                <!-- Icône du service -->
                 <div class="d-flex justify-content-center m-auto">
                   <img [src]="'/uploads/' + service.picture" alt="icone des services" />
                 </div>
+                <!-- Sélecteur de service -->
                 <div>
                   <input
                     class="form-check m-auto mb-5"
@@ -50,12 +59,14 @@
             </div>
           </div>
 
-          <!-- CATEGORIES AND PRODUCTS -->
+          <!-- Section des catégories et produits -->
           <div class="container mb-3">
             <div class="row">
-              <h4 class="mb-3">Ajouter votre vêtements et sa matière</h4>
+              <!-- Titre de la section de sélection de produit et matière -->
+              <h4 class="mb-3">Ajouter votre vêtement et sa matière</h4>
+              
+              <!-- Sélecteur de produit -->
               <div class="col-lg-5 col-12 mb-3">
-                
                 <select
                   id="productSelect"
                   class="form-select"
@@ -63,10 +74,12 @@
                   formControlName="product"
                 >
                   <option value="" disabled> Vêtements</option>
+                  <!-- Liste des produits disponibles -->
                   <option *ngFor="let product of products" [ngValue]="product">
                     {{ product.name }} - A partir de {{ product.price }} €
                   </option>
                 </select>
+                <!-- Message d'erreur si le produit n'est pas sélectionné -->
                 <div
                   *ngIf="
                     commandeForm.get('product')?.invalid &&
@@ -79,6 +92,7 @@
                 </div>
               </div>
 
+              <!-- Sélecteur de matière -->
               <div class="col-lg-5 col-12 mb-3">
                 <select
                   id="matter"
@@ -87,11 +101,14 @@
                   formControlName="matter"
                 >
                   <option value="" disabled>Matières</option>
+                  <!-- Liste des matières disponibles -->
                   <option *ngFor="let matter of matters" [ngValue]="matter">
                     {{ matter.name }} - A partir de {{ matter.price }} €
                   </option>
                 </select>
               </div>
+              
+              <!-- Champ pour la quantité -->
               <div class="col-lg-2 col-12 mb-3">
                 <input
                   id="quantityInput"
@@ -106,6 +123,7 @@
             </div>
           </div>
 
+          <!-- Section des sélections et boutons -->
           <div class="col-12 container">
             <h5>Vos Sélections</h5>
             <table class="table">
@@ -119,6 +137,7 @@
                 </tr>
               </thead>
               <tbody>
+                <!-- Détails de la commande -->
                 <tr>
                   <td>{{ commandeForm.value.service?.name }}</td>
                   <td>{{ commandeForm.value.product?.name }}</td>
@@ -128,6 +147,7 @@
                 </tr>
               </tbody>
             </table>
+            <!-- Boutons pour ajouter au panier et voir le panier -->
             <div class="text-center m-5 d-flex justify-content-between">
               <button class="btn" type="submit">Ajouter au panier</button>
               <button class="btn1" (click)="goToCart()">Voir le panier</button>

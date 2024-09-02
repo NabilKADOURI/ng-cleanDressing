@@ -1,76 +1,67 @@
-<section >
-  <div class="container">
-  <!-- CODE PROMO -->
-          <div class="row justify-content-center">
-                  <div class="my-3 col-4 d-flex justify-content-center">
-                      <p>Code promo 1ère commande : PRESSING10</p>
+<!-- Section du formulaire de contact -->
+<section>
+  <div class="container py-5">
+    <!-- Contenu du formulaire de contact -->
+    <div id="formContent" class="row h-100 fadeInDown">
+      <div class="col-lg-12 col-xl-12">
+        <!-- Carte contenant le formulaire de contact -->
+        <div class="card" style="border-radius: 25px">
+          <div class="card-body">
+            <div class="row">
+              <!-- Colonne du formulaire de contact -->
+              <div class="col-md-10 col-lg-6 col-xl-6 order-2 order-lg-1">
+                <!-- Titre et sous-titre du formulaire -->
+                <h2>NOUS CONTACTER</h2>
+                <p>Un renseignement, un devis ?</p>
+                
+                <!-- Formulaire de contact -->
+                <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                  <!-- Champs de nom et prénom -->
+                  <div class="row">
+                    <div class="col-6">
+                      <input formControlName="name" type="text" placeholder="Nom" class="mb-3 p-2 rounded form-control" />
+                    </div>
+                    <div class="col-6">
+                      <input formControlName="firstName" type="text" placeholder="Prénom" class="mb-3 p-2 rounded form-control" />
+                    </div>
                   </div>
-             
-                  <div class=" my-3 col-4 d-flex justify-content-center">
-                      <p>Montant minimum de commande : 30 €</p>
+                  
+                  <!-- Champ d'email -->
+                  <div>
+                    <input formControlName="email" type="email" placeholder="Email" class="mb-3 p-2 rounded form-control" />
+                    <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+                      Email invalide
+                    </div>
                   </div>
+                  
+                  <!-- Champ de l'objet du message -->
+                  <div>
+                    <input formControlName="object" type="text" placeholder="Objet" class="mb-3 p-2 rounded form-control" />
+                  </div>
+                  
+                  <!-- Champ de texte pour le message -->
+                  <div>
+                    <textarea formControlName="message" placeholder="Message" class="mb-3 p-2 form-control"></textarea>
+                  </div>
+                  
+                  <!-- Bouton d'envoi -->
+                  <button class="buton mb-5" type="submit" [disabled]="contactForm.invalid">
+                    Envoyer
+                  </button>
+                </form>
+              </div>
               
-                  <div class=" my-3 col-4 d-flex justify-content-center">
-                      <p>Commandez aussi au  04 78 77 56 66</p>
-                  </div>
-          </div>
-<!-- FORMULAIREE CONTACT -->
-        <div  id="formContent" class="row d-flex justify-content-center align-items-center h-100 wrapper fadeInDown ">
-          <div class="col-lg-12 col-xl-12">
-            <div class="card " style="border-radius: 25px">
-              <div class="card-body 3">
-                <div class="row justify-content-center">
-                  <div class="col-md-10 col-lg-6 col-xl-6 order-2 order-lg-1">
-                    <h2 class="text-center mb-3 ">Contact </h2>
-                    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-                      <div>
-                        <div class="row">
-                          <div class="col-">
-                            <input formControlName="name" type="text" placeholder="Nom"
-                            class="mb-3 me-2 p-2 rounded form-control" />
-                          </div>
-                          <div class="col-6">
-                            <input formControlName="firstName" type="text" placeholder="Prénom"
-                          class="mb-3 p-2 rounded form-control" />
-                          </div>
-                        </div>
-                      
-                        <div>
-                          <input formControlName="email" type="email" placeholder="Email"
-                          class="mb-3 p-2 rounded form-control" />
-                          <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
-                          Email invalide
-                          </div>
-                        </div>
-                        <div>
-                          <input formControlName="object" type="text" placeholder="Objet"
-                          class="mb-3 p-2 rounded form-control" />
-                        </div>
-                        <div>
-                          <textarea formControlName="message" type="text" placeholder="Message"
-                          class="mb-3 p-2 form-control">
-                          </textarea>
-                        </div>
-    
-                        
-                        <button class="buton " type="submit" [disabled]="contactForm.invalid">
-                          Envoyer
-                        </button>
-                      
-                      </div>
-                    </form>
-                  </div>
-                  <div class="col-md-10 col-lg-6 col-xl-6 d-flex align-items-center order-1 order-lg-2"> 
-                    <img src="/Business-case-images/fond-webp/photo_fond_pressing_resultat.webp" alt="photo-contact" class="img-fluid">
-                  </div>
-                </div>
+              <!-- Colonne pour l'image de contact -->
+              <div class="col-md-10 col-lg-4 col-xl-6 order-1 order-lg-2 d-flex align-items-center justify-content-center">
+                <img src="/uploads/man.png" alt="photo-contact" class="img-fluid">
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div>
-        
-      </div>
-      <app-location-info></app-location-info>
-  </section>
+    </div>
+    
+    <!-- Composant d'informations de localisation -->
+    <app-location-info></app-location-info>
+  </div>
+</section>
