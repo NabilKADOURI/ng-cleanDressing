@@ -39,6 +39,7 @@ export class ModalCommandeComponent implements OnInit {
     product: new FormControl('', Validators.required),
     matter: new FormControl('', Validators.required),
     quantity: new FormControl(1, [Validators.required, Validators.min(1)]),
+    depositDate: new FormControl('', Validators.required) // Champ pour la date de dépôt
   });
 
   filteredProducts: ProductInterface[] = [];

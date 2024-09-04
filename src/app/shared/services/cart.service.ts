@@ -8,7 +8,6 @@ import { OrderInterface } from '../models/order';
 @Injectable({
   providedIn: 'root',
 })
-// Service pour gérer les opérations liées au panier
 export class CartService {
   // URL de l'API pour les commandes
   private url = environment.apiBaseUrl;

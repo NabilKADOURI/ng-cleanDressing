@@ -37,20 +37,20 @@
               </ul>
               <ul class="navbar-nav d-flex align-items-center">
                   <!-- Bouton pour se connecter, visible seulement si l'utilisateur n'est pas connecté -->
-                  <li class="nav-item" *ngIf="!service.isLogged()">
-                      <a class="nav-link btn me-2" routerLink="/connexion">SE CONNECTER</a>
+                  <li class="nav-item" *ngIf="!authService.isLogged()">
+                    <a class="nav-link btn me-2" (click)="authService.setRedirectUrl('/'); router.navigate(['/connexion'])">SE CONNECTER</a>
                   </li>
                   <!-- Bouton pour s'inscrire, visible seulement si l'utilisateur n'est pas connecté -->
-                  <li class="nav-item d-flex align-items-center" *ngIf="!service.isLogged()">
-                      <a class="nav-link btn1" routerLink="/register">S'INSCRIRE</a>
+                  <li class="nav-item d-flex align-items-center" *ngIf="!authService.isLogged()">
+                    <a class="nav-link btn1" (click)="authService.setRedirectUrl('/'); router.navigate(['/connexion'])">S'INSCRIRE</a>
                   </li>
                   <!-- Bouton pour se déconnecter, visible seulement si l'utilisateur est connecté -->
-                  <li class="nav-item d-flex align-items-center" *ngIf="service.isLogged()">
-                      <a class="nav-link btn1 px-3" (click)="logout()">SE DÉCONNECTER</a>
+                  <li class="nav-item d-flex align-items-center" *ngIf="authService.isLogged()">
+                    <a class="nav-link btn1 px-3" (click)="authService.logout()">SE DÉCONNECTER</a>
                   </li>
                   <!-- Lien vers le profil de l'utilisateur, visible seulement si l'utilisateur est connecté -->
-                  <li class="nav-item" *ngIf="service.isLogged()">
-                      <a class="nav-link" routerLink="/profile">
+                  <li class="nav-item" *ngIf="authService.isLogged()">
+                    <a class="nav-link" routerLink="/profile">
                           <!-- SVG icône de profil -->
                           <svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 50 50">
                               <!-- Contenu de l'icône -->
@@ -61,7 +61,7 @@
                   </li>
                   <!-- Lien vers le panier -->
                   <li class="nav-item d-flex align-items-center">
-                      <a class="nav-link" routerLink="panier">
+                    <a class="nav-link" routerLink="panier">
                           <!-- SVG icône de panier -->
                           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
                               <!-- Contenu de l'icône -->

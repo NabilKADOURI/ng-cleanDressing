@@ -1,42 +1,61 @@
 <section>
-  <div class="container">
-    <!-- Wrapper de la section avec effet de fondu -->
-    <div class="wrapper fadeInDown">
-      <!-- Contenu principal du formulaire -->
-      <div id="formContent">
-        <!-- Titre de la page de connexion -->
-        <h2>Connexion</h2>
-
-        <!-- Formulaire de connexion -->
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="px-3">
-          <!-- Groupe de champs de saisie pour les identifiants -->
-          <div formGroupName="credentials" class="mb-3">
-            <!-- Champ de saisie pour l'adresse email -->
-            <input 
-              type="email" 
-              class="mb-3 p-2 form-control" 
-              placeholder="Email" 
-              formControlName="username">
+  <div class="container py-5">
+    <div class="row">
+      <!-- Colonne pour le formulaire de connexion -->
+      <div class="col-md-6">
+        <div class="form-container">
+          <h2 class="title">Connexion</h2>
+          <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" class="px-3">
+            <div formGroupName="credentials" class="mb-3">
+              <input 
+                type="email" 
+                class="mb-3 p-2 form-control" 
+                placeholder="Email" 
+                formControlName="username">
               
-            <!-- Champ de saisie pour le mot de passe -->
-            <input 
-              type="password" 
-              class="mb-2 p-2 form-control" 
-              placeholder="Mot de passe" 
-              formControlName="password">
-          </div>
+              <input 
+                type="password" 
+                class="mb-2 p-2 form-control" 
+                placeholder="Mot de passe" 
+                formControlName="password">
+            </div>
+            <button 
+              class="buton mb-3" 
+              type="submit" 
+              [disabled]="loginForm.invalid">
+              Connexion
+            </button>
+            <p class="mt-3">Pas de compte ? Inscrivez-vous à droite</p>
+            <!-- Affichage du message de succès ou d'erreur pour la connexion -->
+            <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+            <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+          </form>
+        </div>
+      </div>
 
-          <!-- Bouton de soumission du formulaire -->
-          <button 
-            class="buton mb-3" 
-            type="submit" 
-            [disabled]="loginForm.invalid">
-            Connexion
-          </button>
-        </form>
-
-        <!-- Lien vers la page d'inscription -->
-        <p class="mt-3">Pas de compte ? <a routerLink="/register">Inscrivez-vous ici</a></p>
+      <!-- Colonne pour le formulaire d'inscription -->
+      <div class="col-md-6">
+        <div class="form-container form-background">
+          <h2 class="title">Inscription</h2>
+          <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()" class="px-3">
+            <div class="row">
+              <div class="col-6">
+                <input formControlName="name" type="text" placeholder="Nom" class="mb-3 me-2 p-2 form-control" />
+              </div>
+              <div class="col-6">
+                <input formControlName="firstName" type="text" placeholder="Prénom" class="mb-3 p-2 form-control" />
+              </div>
+            </div>
+            <input formControlName="phone" type="text" placeholder="Téléphone" class="mb-3 p-2 form-control" />
+            <input formControlName="adress" type="text" placeholder="Adresse" class="mb-3 p-2 form-control" />
+            <input formControlName="email" type="email" placeholder="Email" class="mb-3 p-2 form-control" />
+            <input type="password" formControlName="password" placeholder="Mot de passe" class="mb-5 p-2 form-control" />
+            <button class="buton" type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
+            <!-- Affichage du message de succès ou d'erreur pour l'inscription -->
+            <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+            <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

@@ -115,26 +115,37 @@ export class CategoryListComponent implements OnInit {
     return categoryId ? this.productsByCategoryMap[categoryId] || [] : [];
   }
 
+  redirectToCommandeModal(): void {
+    const modal = document.getElementById('commandeModal');
+    if (modal) {
+      modal.classList.add('show'); // Affiche la modal
+      modal.style.display = 'block'; // Change le style du modal pour le montrer
+    }
+  }
+  
+
   /**
    * Redirige l'utilisateur vers la page de connexion
    */
-  goToLoginForm(): void {
-    this.router.navigate(['/connexion']); // Redirection vers la page de connexion
-  }
+  // goToLoginForm(): void {
+  //   this.router.navigate(['/connexion']); // Redirection vers la page de connexion
+  // }
 
   /**
    * Redirige vers le modal de commande si l'utilisateur est connecté
    */
-  redirectToCommandeModal(): void {
-    if (this.authService.isLogged()) {
-      // Vérifie si l'utilisateur est connecté
-      const modal = document.getElementById('commandeModal');
-      if (modal) {
-        modal.classList.add('show'); // Affiche le modal
-        modal.style.display = 'block'; // Change le style du modal pour le montrer
-      }
-    } else {
-      this.goToLoginForm(); // Redirige vers le formulaire de connexion si l'utilisateur n'est pas connecté
-    }
-  }
+  // redirectToCommandeModal(): void {
+  //   if (this.authService.isLogged()) {
+  //     // Vérifie si l'utilisateur est connecté
+  //     const modal = document.getElementById('commandeModal');
+  //     if (modal) {
+  //       modal.classList.add('show'); // Affiche le modal
+  //       modal.style.display = 'block'; // Change le style du modal pour le montrer
+  //     }
+  //   } else {
+  //     this.goToLoginForm(); // Redirige vers le formulaire de connexion si l'utilisateur n'est pas connecté
+  //   }
+  // }
+
+
 }

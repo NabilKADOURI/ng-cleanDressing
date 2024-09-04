@@ -10,6 +10,7 @@ export interface CartInterface  {
   matter: MatterInterface ;
   quantity: number;
   totalPrice: number;
+  depositDate: string;
 }
 
 

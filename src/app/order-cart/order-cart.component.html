@@ -4,10 +4,14 @@
   <!-- Titre de la page du panier -->
   <h2>Votre Panier</h2>
 
+  <!-- Affichage du message d'erreur si une erreur est présente -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
   <!-- ng-container permet d'afficher du contenu conditionnel sans ajouter d'élément HTML supplémentaire dans le DOM -->
   <!-- On utilise *ngIf pour vérifier si le panier contient des éléments -->
   <ng-container *ngIf="cartItems.length > 0; else emptyCart">
-    
     <!-- Tableau affiché si le panier contient des éléments -->
     <table class="table">
       <!-- En-tête du tableau avec les noms des colonnes -->
@@ -17,8 +21,9 @@
           <th>Produit</th>
           <th>Matière</th>
           <th>Quantité</th>
+          <th>Date de Dépôt</th> <!-- Nouvelle colonne pour la date de dépôt -->
           <th>Prix</th>
-          <th>Actions</th>
+          <th>Supprimer</th>
         </tr>
       </thead>
       <!-- Corps du tableau avec les lignes générées pour chaque élément du panier -->
@@ -40,8 +45,10 @@
               <button class="quantity" (click)="changeQuantity(item, 1)">+</button>
             </div>
           </td>
-          <!-- Affichage du prix total de l'article (commenté ici) -->
-          <!-- <td>{{ item.totalPrice }} €</td> -->
+          <!-- Affichage de la date de dépôt -->
+          <td>{{ item.depositDate }}</td> <!-- Nouvelle colonne pour la date de dépôt -->
+          <!-- Affichage du prix total de l'article -->
+          <td>{{ item.totalPrice }} €</td>
           <!-- Bouton pour retirer l'article du panier -->
           <td>
             <button class="action" (click)="removeItem(item)">x</button>

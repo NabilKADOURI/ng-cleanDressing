@@ -1,7 +1,6 @@
-
 a {
   color: #92badd;
-  display:inline-block;
+  display: inline-block;
   text-decoration: none;
   font-weight: 400;
 }
@@ -11,82 +10,30 @@ h2 {
   font-size: 2.5rem;
   font-weight: 600;
   text-transform: uppercase;
-  display:inline-block;
-  margin: 2.5rem;
+  margin-bottom: 1.5rem;
   color: var(--bg2);
   border-bottom: 2px solid #5fbae9;
 }
 
-
-
-/* STRUCTURE */
-
-.wrapper {
-  display: flex;
-  align-items: center;
-  flex-direction: column; 
-  justify-content: center;
-  width: 100%;
-  min-height: 100%;
+.form-container {
+  background: #fff; 
   padding: 20px;
-  
+  border-radius: 10px;
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.1);
 }
 
-#formContent {
-  -webkit-border-radius: 10px 10px 10px 10px;
-  border-radius: 10px 10px 10px 10px;
-  background: #fff;
-  padding: 30px;
-  width: 90%;
-  max-width: 450px;
-  position: relative;
-  padding: 0px;
-  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  text-align: center;
+.form-background {
+  background: #e7e8e4; 
 }
 
-
-
-
-
-
-
-.fadeInDown {
-  -webkit-animation-name: fadeInDown;
-  animation-name: fadeInDown;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
+.form-container form {
+  width: 100%;
 }
 
-@-webkit-keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
+.form-control {
+  border-radius: 20px;
+  border: 1px solid #ddd;
 }
-
-@keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
-}
-
 
 .buton {
   background-color: var(--bg2);
@@ -97,20 +44,18 @@ h2 {
   border: transparent;
 }
 
-.buton:hover{
+.buton:hover {
   border: 2px solid var(--bg2);
   background-color: transparent;
   color: var(--bg2);
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
 
-
-
-
-
-
-
-
-
-
-
+  .form-container {
+    margin-bottom: 2rem;
+  }
+}

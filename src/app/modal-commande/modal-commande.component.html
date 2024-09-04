@@ -28,7 +28,7 @@
       <!-- Corps du modal -->
       <div class="modal-body">
         <!-- Titre de la section de sélection de service -->
-        <h4 class="mb-3">Sélectionner votre service</h4>
+        <h5 class="mb-3">Sélectionner votre service</h5>
 
         <!-- Formulaire pour passer la commande -->
         <form [formGroup]="commandeForm" (submit)="addToCart()">
@@ -63,7 +63,7 @@
           <div class="container mb-3">
             <div class="row">
               <!-- Titre de la section de sélection de produit et matière -->
-              <h4 class="mb-3">Ajouter votre vêtement et sa matière</h4>
+              <h5 class="mb-3">Ajouter votre produit et sa matière</h5>
               
               <!-- Sélecteur de produit -->
               <div class="col-lg-5 col-12 mb-3">
@@ -73,7 +73,7 @@
                   aria-label="Choisir produit"
                   formControlName="product"
                 >
-                  <option value="" disabled> Vêtements</option>
+                  <option value="" disabled> Produit</option>
                   <!-- Liste des produits disponibles -->
                   <option *ngFor="let product of products" [ngValue]="product">
                     {{ product.name }} - A partir de {{ product.price }} €
@@ -120,6 +120,28 @@
                   step="1"
                 />
               </div>
+
+              <!-- Champ pour la date de dépôt -->
+              <div class="col-lg-4 col-4 mb-3">
+                <h5 class="mb-3">Ajouter votre date de dépôt</h5>
+                <input
+                  id="depositDate"
+                  type="date"
+                  class="form-control"
+                  formControlName="depositDate"
+                  required
+                />
+                <div
+                  *ngIf="
+                    commandeForm.get('depositDate')?.invalid &&
+                    (commandeForm.get('depositDate')?.touched ||
+                      commandeForm.get('depositDate')?.dirty)
+                  "
+                  class="text-danger"
+                >
+                  La date de dépôt est requise.
+                </div>
+              </div>
             </div>
           </div>
 
@@ -133,6 +155,7 @@
                   <th scope="col">Produit</th>
                   <th scope="col">Matière</th>
                   <th scope="col">Quantité</th>
+                  <th scope="col">Date de Dépôt</th>
                   <th scope="col">Prix Total</th>
                 </tr>
               </thead>
@@ -143,6 +166,7 @@
                   <td>{{ commandeForm.value.product?.name }}</td>
                   <td>{{ commandeForm.value.matter?.name }}</td>
                   <td>{{ commandeForm.value.quantity }}</td>
+                  <td>{{ commandeForm.value.depositDate | date }}</td>
                   <td>{{ calculateTotalPrice() }} €</td>
                 </tr>
               </tbody>
