@@ -1,9 +1,9 @@
 // Importation des modules nécessaires
-import { Component,  OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ArticleInterface } from '../shared/models/article'; // Interface de modèle d'article
-import { EntityService } from '../shared/services/entity.service'; // Service pour interagir avec les entités (articles)
+import { ArticleInterface } from '../../shared/models/article'; // Interface de modèle d'article
+import { EntityService } from '../../shared/services/entity.service'; // Service pour interagir avec les entités (articles)
 
 // Définition du composant
 @Component({
@@ -15,7 +15,6 @@ import { EntityService } from '../shared/services/entity.service'; // Service po
   providers: [EntityService, { provide: 'baseUri', useValue: '/api/articles' }], // Fournisseurs de services
 })
 export class ArticlesComponent implements OnInit {
-
   // Liste d'articles initialisée comme vide
   articles: ArticleInterface[] = [];
 
