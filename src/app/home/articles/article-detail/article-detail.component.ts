@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ArticleInterface } from '../../../shared/models/article';
-import { ArticleService } from '../../../shared/services/article.service';
-import { Observable, Subscription, switchMap } from 'rxjs';
+import { Observable, Subscription} from 'rxjs';
 import { FormatDescriptionPipe } from '../../../shared/pipes/format-description.pipe';
+import { EntityService } from '../../../shared/services/entity.service';
 
 @Component({
   selector: 'app-article-detail',
@@ -15,31 +15,30 @@ import { FormatDescriptionPipe } from '../../../shared/pipes/format-description.
   providers: [{ provide: 'baseUri', useValue: '/api/services' }],
 })
 export class ArticleDetailComponent implements OnInit, OnDestroy {
-  article$!: Observable<ArticleInterface | undefined>;
-  article!: ArticleInterface;
-  private dataArticleSubscription!: Subscription;
 
-  constructor(
-    private route: ActivatedRoute,
-    private articleService: ArticleService
-  ) {}
+  article?: ArticleInterface;
+  dataArticle!: Subscription;
+  service = inject(EntityService);
+
+  constructor(private route: ActivatedRoute){}
 
   ngOnInit(): void {
-    this.article$ = this.route.params.pipe(
-      switchMap((params) => this.articleService.getArticleById(+params['id']))
-    );
 
-    this.dataArticleSubscription = this.route.params.subscribe((params) => {
-      this.articleService.getArticleById(+params['id']).subscribe((data) => {
-        this.article = data;
-        console.log(data);
-      });
-    });
+    this.fetchArticle();
+   
   }
 
+  fetchArticle(){
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id){
+      this.dataArticle = this.service.getArticleById(id).subscribe(data => {
+      this.article = data});
+    }
+}
+
   ngOnDestroy(): void {
-    if (this.dataArticleSubscription) {
-      this.dataArticleSubscription.unsubscribe();
+    if (this.dataArticle) {
+      this.dataArticle.unsubscribe();
     }
   }
 }

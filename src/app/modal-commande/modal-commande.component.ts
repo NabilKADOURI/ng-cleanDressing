@@ -9,7 +9,7 @@ import { CategoryInterface } from '../shared/models/category';
 import { ProductInterface } from '../shared/models/product';
 import { MatterInterface } from '../shared/models/matter';
 import { CartService } from '../shared/services/cart.service';
-import { CartInterface } from '../shared/models/CartInterface';
+
 
 // Déclaration du composant Angular
 @Component({

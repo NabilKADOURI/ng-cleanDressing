@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ModalCommandeComponent } from '../modal-commande/modal-commande.component';
 import { CategoryInterface } from '../shared/models/category';
@@ -7,13 +7,7 @@ import { ProductInterface } from '../shared/models/product';
 import { SolutionInterface } from '../shared/models/solution';
 import { MatterInterface } from '../shared/models/matter';
 import { AuthService } from '../shared/services/auth.service';
-import {
-  CategoryServiceToken,
-  EntityService,
-  MatterServiceToken,
-  ProductServiceToken,
-  SolutionServiceToken,
-} from '../shared/services/entity.service';
+import {EntityService} from '../shared/services/entity.service';
 
 @Component({
   selector: 'app-category-list',
@@ -23,28 +17,14 @@ import {
   styleUrls: ['./category-list.component.css'],
 })
 export class CategoryListComponent implements OnInit {
-  // Déclaration des services injectés via les tokens
-  constructor(
-    @Inject(CategoryServiceToken)
-    private serviceCategories: EntityService<CategoryInterface>,
-    @Inject(ProductServiceToken)
-    private serviceProducts: EntityService<ProductInterface>,
-    @Inject(SolutionServiceToken)
-    private serviceSolutions: EntityService<SolutionInterface>,
-    @Inject(MatterServiceToken)
-    private serviceMatters: EntityService<MatterInterface>,
-    private authService: AuthService,
-    private router: Router
-  ) {
-    // Initialisation des variables
-    this.isAccordionOpen = [];
-  }
 
   // Variables pour stocker les données
   categories: CategoryInterface[] = [];
   products: ProductInterface[] = [];
-  Solutions: SolutionInterface[] = [];
-  Matters: MatterInterface[] = [];
+  solutions: SolutionInterface[] = [];
+  matters: MatterInterface[] = [];
+
+  service = inject(EntityService);
 
   // Variable pour suivre l'état des menus déroulants
   isAccordionOpen: boolean[] = [];
@@ -53,31 +33,47 @@ export class CategoryListComponent implements OnInit {
   productsByCategoryMap: { [categoryId: number]: ProductInterface[] } = {};
 
   ngOnInit(): void {
-    // Récupération des catégories depuis le service
-    this.serviceCategories.fetchAll().subscribe((data) => {
-      this.categories = data['hydra:member'];
-      // initialisation de l'état des accordéons
-      this.isAccordionOpen = new Array(this.categories.length).fill(false);
-    });
-    
-    // Récupération des produits depuis le service
-    this.serviceProducts.fetchAll().subscribe((data) => {
-      this.products = data['hydra:member'];
-      // Création de la carte des produits par catégorie après récupération
-      this.createProductsByCategoryMap();
-    });
-    
-    // Récupération des solutions depuis le service
-    this.serviceSolutions.fetchAll().subscribe((data) => {
-      this.Solutions = data['hydra:member'];
-    });
-    
-    // Récupération des matières depuis le service
-    this.serviceMatters.fetchAll().subscribe((data) => {
-      this.Matters = data['hydra:member'];
+
+    this.isAccordionOpen = [];
+
+    this.FetchAllCategories();
+
+    this.FetchAllProducts()
+
+    this.FetchAllMatters();
+
+    this.FetchAllSolutions();
+  }
+
+  // Méthode pour récupérer toutes les solutions depuis le service
+  FetchAllSolutions() {
+    // Appel de la méthode fetchAll du service EntityService
+    this.service.getService().subscribe((data) => {
+      // Attribution des données reçues à la propriété solutions
+      this.solutions = data['hydra:member'];
     });
   }
 
+  FetchAllCategories() {
+    this.service.getCategory().subscribe((data) => {
+      this.categories= data['hydra:member'];
+      this.isAccordionOpen = new Array(this.categories.length).fill(false); 
+    });
+  }
+
+  FetchAllProducts() {
+    this.service.getProduct().subscribe((data) => {
+      this.products = data['hydra:member']; 
+    });
+  }
+
+  FetchAllMatters() {
+    this.service.getMatter().subscribe((data) => {
+      this.matters = data['hydra:member']; 
+    });
+  }
+
+  
   /**
    * Crée une carte des produits par catégorie
    */
@@ -124,28 +120,7 @@ export class CategoryListComponent implements OnInit {
   }
   
 
-  /**
-   * Redirige l'utilisateur vers la page de connexion
-   */
-  // goToLoginForm(): void {
-  //   this.router.navigate(['/connexion']); // Redirection vers la page de connexion
-  // }
 
-  /**
-   * Redirige vers le modal de commande si l'utilisateur est connecté
-   */
-  // redirectToCommandeModal(): void {
-  //   if (this.authService.isLogged()) {
-  //     // Vérifie si l'utilisateur est connecté
-  //     const modal = document.getElementById('commandeModal');
-  //     if (modal) {
-  //       modal.classList.add('show'); // Affiche le modal
-  //       modal.style.display = 'block'; // Change le style du modal pour le montrer
-  //     }
-  //   } else {
-  //     this.goToLoginForm(); // Redirige vers le formulaire de connexion si l'utilisateur n'est pas connecté
-  //   }
-  // }
 
 
 }

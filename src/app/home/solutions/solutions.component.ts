@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SolutionInterface } from '../../shared/models/solution';
 import { EntityService } from '../../shared/services/entity.service';
+import { ApiListResponse } from '../../shared/models/api';
 
 @Component({
   selector: 'app-solutions',
@@ -14,21 +15,17 @@ import { EntityService } from '../../shared/services/entity.service';
 })
 export class SolutionsComponent implements OnInit {
 
-  // Déclaration du constructeur avec injection du service EntityService
-  constructor(private service: EntityService<SolutionInterface>) {}
-
-  // Déclaration d'une propriété pour stocker les solutions
-  solutions: SolutionInterface[] = [];
+service = inject (EntityService);
+solutions: SolutionInterface[] = [];
 
   // Méthode appelée au moment de l'initialisation du composant
   ngOnInit(): void {
-    this.getSolutions(); // Appel de la méthode pour récupérer les solutions
+    this.FetchAllSolutions(); // Appel de la méthode pour récupérer les solutions
   }
-
   // Méthode pour récupérer toutes les solutions depuis le service
-  getSolutions() {
+  FetchAllSolutions() {
     // Appel de la méthode fetchAll du service EntityService
-    this.service.fetchAll().subscribe((data) => {
+    this.service.getService().subscribe((data) => {
       // Attribution des données reçues à la propriété solutions
       this.solutions = data['hydra:member'];
     });

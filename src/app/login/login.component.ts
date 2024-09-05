@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../shared/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
-import { UserService } from '../shared/services/user.service'; // Service pour l'inscription des utilisateurs
+import { EntityService } from '../shared/services/entity.service';
+ // Service pour l'inscription des utilisateurs
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService, 
     private router: Router, 
-    private userService: UserService // Injection du service UserService pour l'inscription
+    private userService: EntityService // Injection du service UserService pour l'inscription
   ) {}
 
   ngOnInit() {
@@ -76,7 +77,7 @@ export class LoginComponent implements OnInit {
     this.errorMessage = ''; // Réinitialiser le message d'erreur
 
     if (this.registerForm.valid) {
-      this.userService.register(this.registerForm.value).subscribe({
+      this.userService.setUser(this.registerForm.value).subscribe({
         next: () => {
           const { email, password } = this.registerForm.value;
           this.authService.login({ username: email, password }).subscribe({

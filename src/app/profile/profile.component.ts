@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { UserService } from '../shared/services/user.service';
 import { UserInterface } from '../shared/models/IUser';
 import { AuthService } from '../shared/services/auth.service';
 import { OrderService } from '../shared/services/order.service';
 import { ItemInterface, OrderInterface } from '../shared/models/order';
 import { ItemService } from '../shared/services/item.service';
 import { environment } from '../shared/environments/environment.development';
+import { EntityService } from '../shared/services/entity.service';
 
 // Définition du composant Angular
 @Component({
@@ -19,7 +19,7 @@ import { environment } from '../shared/environments/environment.development';
 export class ProfileComponent implements OnInit {
 
   // Injection des services nécessaires
-  userService = inject(UserService);
+  userService = inject(EntityService);
   authService = inject(AuthService);
   orderService = inject(OrderService);
   itemService = inject(ItemService);
