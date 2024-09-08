@@ -23,6 +23,10 @@ export class EntityService {
     return this.http.get<ApiListResponse<SolutionInterface>>(`${this.url}/services`)
   }
 
+  getArticle():Observable<ApiListResponse<ArticleInterface>>{
+    return this.http.get<ApiListResponse<ArticleInterface>>(`${this.url}/articles`)
+  }
+
   getCategory():Observable<ApiListResponse<CategoryInterface>>{
     return this.http.get<ApiListResponse<CategoryInterface>>(`${this.url}/categories`)
   }
@@ -35,10 +39,7 @@ export class EntityService {
     return this.http.get<ApiListResponse<MatterInterface>>(`${this.url}/matters`)
   }
 
-  getArticle():Observable<ApiListResponse<ArticleInterface>>{
-    return this.http.get<ApiListResponse<ArticleInterface>>(`${this.url}/articles`)
-  }
-
+  
   getArticleById(id: string): Observable<ArticleInterface> {
     return this.http.get<ArticleInterface>(`${this.url}/${id}`);
   }

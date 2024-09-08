@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ItemInterface, OrderInterface } from '../models/order';
+import { OrderInterface } from '../models/order';
 import { catchError, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../environments/environment.development';

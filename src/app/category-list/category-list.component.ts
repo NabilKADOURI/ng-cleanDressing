@@ -74,9 +74,7 @@ export class CategoryListComponent implements OnInit {
   }
 
   
-  /**
-   * Crée une carte des produits par catégorie
-   */
+  
   createProductsByCategoryMap(): void {
     this.productsByCategoryMap = this.products.reduce((acc, product) => {
       // Extraction de l'ID de la catégorie depuis l'URL du produit
@@ -92,21 +90,13 @@ export class CategoryListComponent implements OnInit {
     }, {} as { [categoryId: number]: ProductInterface[] });
   }
   
-  /**
-   * Bascule l'état ouvert/fermé des menus déroulants
-   * @param index Index du menu déroulant
-   */
+ 
   toggleAccordion(index: number): void {
-    console.log('Toggling accordion at index:', index); // Vérifiez si le clic est détecté
+    console.log('Toggling accordion at index:', index); 
     this.isAccordionOpen[index] = !this.isAccordionOpen[index];
-    console.log('Accordion state:', this.isAccordionOpen); // Vérifiez l'état après le clic
+    console.log('Accordion state:', this.isAccordionOpen); 
   }
 
-  /**
-   * Récupère les produits pour une catégorie donnée
-   * @param categoryId ID de la catégorie
-   * @returns Liste des produits pour la catégorie
-   */
   getProductsByCategory(categoryId: number | null): ProductInterface[] {
     return categoryId ? this.productsByCategoryMap[categoryId] || [] : [];
   }
@@ -118,9 +108,4 @@ export class CategoryListComponent implements OnInit {
       modal.style.display = 'block'; // Change le style du modal pour le montrer
     }
   }
-  
-
-
-
-
 }

@@ -18,8 +18,7 @@ import { ItemService } from '../shared/services/item.service';
 export class OrderCartComponent implements OnInit {
 
   cartItems: CartInterface[] = [];
-  newCartItem: ItemInterface[] = [];
-  errorMessage: string = ''; // Variable pour stocker le message d'erreur
+  errorMessage: string = '';
 
   constructor(
     private cartService: CartService, 
@@ -30,18 +29,22 @@ export class OrderCartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadCartItems();
+  }
+
+  private loadCartItems(): void {
     this.cartItems = this.cartService.getCartItems();
   }
 
   changeQuantity(item: CartInterface, change: number): void {
     const newQuantity = Math.max(item.quantity + change, 1);
     this.cartService.updateCartItemQuantity(item.id, newQuantity);
-    this.cartItems = this.cartService.getCartItems();
+    this.loadCartItems();
   }
 
   removeItem(item: CartInterface): void {
     this.cartService.removeCartItem(item.id);
-    this.cartItems = this.cartService.getCartItems();
+    this.loadCartItems();
   }
 
   getTotalPrice(): number {
@@ -53,51 +56,55 @@ export class OrderCartComponent implements OnInit {
 
   validateOrder(): void {
     if (!this.authService.isLogged()) {
-      this.errorMessage = 'Vous devez être connecté pour valider votre commande. Veuillez vous connecter ou vous inscrire.';
-      setTimeout(() => {
-        this.authService.setRedirectUrl(this.router.url);
-        this.router.navigate(['/connexion']);
-      }, 3000); // Redirection après 2 secondes pour laisser le temps à l'utilisateur de lire le message
+      this.handleNotLoggedError();
       return;
     }
   
-    const isConfirmed = window.confirm('Êtes-vous sûr de vouloir valider votre commande ?');
-  
-    if (isConfirmed) {
-      const token = this.authService.getDecodedToken();
-  
-      const orderData: OrderInterface = {
-        date: new Date().toISOString(),
-        status: `/api/statuses/${token.status_id}`,
-        userOrder: `/api/users/${token.user_id}`,
-        totalPrice: this.getTotalPrice(),
-        items: [],
-      };
-  
-      this.orderService.createOrder(orderData).subscribe((order) => {
-        const items: ItemInterface[] = this.cartItems.map((item) => ({
-          orders: `/api/orders/${order.id}`,
-          productItem: item.product['@id'],
-          serviceItem: item.service['@id'],
-          matterItem: item.matter['@id'],
-          quantity: item.quantity,
-          totalPrice: item.totalPrice,
-        }));
-  
-        items.forEach((item) => {
-          this.itemService.createItem(item).subscribe((createdItem) => {
-            console.log(createdItem);
-          });
-        });
-  
-        alert('Votre commande a été validée avec succès !');
-        
-        // Vider le panier après la commande
-        this.cartService.clearCart();
-        this.cartItems = this.cartService.getCartItems(); // Recharger les articles du panier
-  
-        this.router.navigate(['/profile']);
-      });
+    if (window.confirm('Êtes-vous sûr de vouloir valider votre commande ?')) {
+      this.processOrder();
     }
+  }
+
+  private handleNotLoggedError(): void {
+    this.errorMessage = 'Vous devez être connecté pour valider votre commande. Veuillez vous connecter ou vous inscrire.';
+    setTimeout(() => {
+      this.authService.setRedirectUrl(this.router.url);
+      this.router.navigate(['/connexion']);
+    }, 3000);
+  }
+
+  private processOrder(): void {
+    const token = this.authService.getDecodedToken();
+  
+    const orderData: OrderInterface = {
+      date: new Date().toISOString(),
+      status: `/api/statuses/${token.status_id}`,
+      userOrder: `/api/users/${token.user_id}`,
+      totalPrice: this.getTotalPrice(),
+      items: [],
+    };
+  
+    this.orderService.createOrder(orderData).subscribe((order) => {
+      this.addItemsToOrder(order.id);
+      alert('Votre commande a été validée avec succès !');
+      this.cartService.clearCart();
+      this.loadCartItems();
+      this.router.navigate(['/profile']);
+    });
+  }
+
+  private addItemsToOrder(orderId: string): void {
+    const items: ItemInterface[] = this.cartItems.map((item) => ({
+      orders: `/api/orders/${orderId}`,
+      productItem: item.product['@id'],
+      serviceItem: item.service['@id'],
+      matterItem: item.matter['@id'],
+      quantity: item.quantity,
+      totalPrice: item.totalPrice,
+    }));
+
+    items.forEach((item) => {
+      this.itemService.createItem(item).subscribe();
+    });
   }
 }

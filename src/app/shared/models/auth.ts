@@ -19,11 +19,3 @@ export interface TokenDecoded {
 
 
 
-// <div *ngFor="let category of categories; let i = index">
-//   <button (click)="toggleAccordion(i)">
-//     {{ category.name }} - {{ isAccordionOpen[i] ? 'Ouvert' : 'Fermé' }}
-//   </button>
-//   <div *ngIf="isAccordionOpen[i]">
-//     Contenu de l'accordéon pour {{ category.name }}
-//   </div>
-// </div>

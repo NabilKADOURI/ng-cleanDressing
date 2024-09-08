@@ -29,9 +29,8 @@
       <div class="modal-body">
         <!-- Titre de la section de sélection de service -->
         <h5 class="mb-3">Sélectionner votre service</h5>
-
         <!-- Formulaire pour passer la commande -->
-        <form [formGroup]="commandeForm" (submit)="addToCart()">
+        <form [formGroup]="commandeForm" (submit)="addOrderToCart()">
           <!-- Section des services -->
           <div class="container mb-3">
             <div class="row">

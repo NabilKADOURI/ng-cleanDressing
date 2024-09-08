@@ -73,35 +73,19 @@
     <!-- TITRE DES TARIFS -->
     <h2 class="mb-4"><span class="border-title px-2">NOS TARIFS</span></h2>
     <p>Cliquer sur une catégorie pour consulter les tarifs de nos solutions !</p>
-    
     <!-- Accordéon des catégories -->
     <div class="mb-4 row" id="categoryAccordion">
       <div class="accordion-item col-md-6 col-12" *ngFor="let category of categories; let i = index">
         <h2 id="heading{{ i }}">
-          <button
-            class="accordion-button mb-4 rounded"
-            type="button"
-            (click)="toggleAccordion(i)"
-          >
-            <img
-              [src]="'/uploads/' + category.picture"
-              alt="{{ category.name }}"
-              class="me-2 img-fluid category-image rounded-start"
-            />
+          <button class="accordion-button mb-4 rounded" type="button" (click)="toggleAccordion(i)">
+            <img [src]="'/uploads/' + category.picture" alt="{{ category.name }}" class="me-2 img-fluid category-image rounded-start"/>
             <h4 class="ps-5 me-3 me-md-5"><b>{{ category.name }}</b></h4>
           </button>
         </h2>
-        <div
-          [id]="'collapse' + i"
-          class="accordion-collapse collapse"
-          [class.show]="isAccordionOpen[i]"
-        >
+        <div [id]="'collapse' + i" class="accordion-collapse collapse" [class.show]="isAccordionOpen[i]">
           <div class="accordion-body">
             <div class="row">
-              <div
-                *ngFor="let product of getProductsByCategory(category.id)"
-                class="col-lg-4 col-6 mb-3"
-              >
+              <div *ngFor="let product of getProductsByCategory(category.id)"class="col-lg-4 col-6 mb-3">
                 <div class="card shadow h-100">
                   <div class="row">
                     <div class="col-6">

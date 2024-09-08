@@ -3,7 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SolutionInterface } from '../../shared/models/solution';
 import { EntityService } from '../../shared/services/entity.service';
-import { ApiListResponse } from '../../shared/models/api';
+
 
 @Component({
   selector: 'app-solutions',
