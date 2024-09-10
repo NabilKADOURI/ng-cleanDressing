@@ -6,7 +6,7 @@ export interface OrderInterface {
   id?:string;
   userOrder:string;
   date: string; 
-  status: string; 
+  status?: string; 
   totalPrice: number; 
   items: ProfileInterface[]; 
 }
@@ -17,15 +17,15 @@ export interface ItemInterface {
   productItem: string | number;
   matterItem: string | number;
   quantity: number;
-  totalPrice: number;
+  price: number;
 }
 
 export interface ProfileInterface{
   id?: string;
   orders: string;
-  serviceItem: SolutionInterface [];
-  productItem: ProductInterface [];
-  matterItem: MatterInterface [];
+  serviceItem: SolutionInterface ;
+  productItem: ProductInterface ;
+  matterItem: MatterInterface ;
   quantity: number;
-  totalPrice: number;
+  price: number;
 }

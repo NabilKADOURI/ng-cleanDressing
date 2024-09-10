@@ -73,7 +73,6 @@ export class OrderCartComponent implements OnInit {
   
     const orderData: OrderInterface = {
       date: new Date().toISOString(),
-      status: `/api/statuses/${token.status_id}`,
       userOrder: `/api/users/${token.user_id}`,
       totalPrice: this.getTotalPrice(),
       items: [],
@@ -96,7 +95,7 @@ export class OrderCartComponent implements OnInit {
       serviceItem: item.service['@id'],
       matterItem: item.matter['@id'],
       quantity: item.quantity,
-      totalPrice: item.totalPrice,
+      price: item.totalPrice,
     }));
 
     items.forEach((item) => {

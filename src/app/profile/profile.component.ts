@@ -31,23 +31,13 @@ export class ProfileComponent implements OnInit {
   loadUserData(): void {
     this.userService.getUserById(this.userId).subscribe((data) => {
       this.user = data;
+      console.log(this.user);
       
     });
   }
 
-  // Charger les commandes de l'utilisateur
-  // loadUserOrders(orderUris: string[]): void {
-  //   orderUris.forEach((orderUri) => {
-  //     this.orderService.getOrderByUri(orderUri).subscribe((order) => {
-  //       console.log("Order Data:", order); 
-  //       this.orders.push(order);
-        
-  //     });
-  //   });
-  // }
-
   // Afficher ou masquer les détails d'une commande
-  toggleOrderDetails(orderId: string): void {
+  toggleOrderDetails(orderId :any): void {
     if (this.showDetailsForOrderId === orderId) {
       this.showDetailsForOrderId = "";
     } else {

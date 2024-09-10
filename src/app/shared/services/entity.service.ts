@@ -46,7 +46,7 @@ export class EntityService {
 
   
   getArticleById(id: string): Observable<ArticleInterface> {
-    return this.http.get<ArticleInterface>(`${this.url}/${id}`);
+    return this.http.get<ArticleInterface>(`${this.url}/articles/${id}`);
   }
 
   getUserById(id: number): Observable<UserInterface>{

@@ -5,6 +5,7 @@ import { ArticleInterface } from '../../../shared/models/article';
 import { Observable, Subscription} from 'rxjs';
 import { FormatDescriptionPipe } from '../../../shared/pipes/format-description.pipe';
 import { EntityService } from '../../../shared/services/entity.service';
+import { LoginComponent } from '../../../login/login.component';
 
 @Component({
   selector: 'app-article-detail',
@@ -32,7 +33,10 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     const id = this.route.snapshot.paramMap.get('id');
     if (id){
       this.dataArticle = this.service.getArticleById(id).subscribe(data => {
-      this.article = data});
+      this.article = data
+      console.log(data);
+    
+    });
     }
 }
 

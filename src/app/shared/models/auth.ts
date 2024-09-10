@@ -9,7 +9,6 @@ export interface IToken {
 
 export interface TokenDecoded {
   user_id:number;
-  status_id:number;
   exp: number;
   iat: number;
   roles: string[];
