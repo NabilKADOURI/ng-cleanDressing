@@ -6,8 +6,8 @@ import { CategoryInterface } from '../shared/models/category';
 import { ProductInterface } from '../shared/models/product';
 import { SolutionInterface } from '../shared/models/solution';
 import { MatterInterface } from '../shared/models/matter';
-import { AuthService } from '../shared/services/auth.service';
 import {EntityService} from '../shared/services/entity.service';
+import { ApiListResponse } from '../shared/models/api';
 
 @Component({
   selector: 'app-category-list',
@@ -24,17 +24,20 @@ export class CategoryListComponent implements OnInit {
   solutions: SolutionInterface[] = [];
   matters: MatterInterface[] = [];
 
+  openAccordionId: number | null = null;
+
   service = inject(EntityService);
 
   // Variable pour suivre l'état des menus déroulants
   isAccordionOpen: boolean[] = [];
 
-  // Carte pour stocker les produits par catégorie
-  productsByCategoryMap: { [categoryId: number]: ProductInterface[] } = {};
-
   ngOnInit(): void {
 
+    this.getCategoriesWithProducts();
+
     this.isAccordionOpen = [];
+    console.log(this.isAccordionOpen);
+    
 
     this.FetchAllCategories();
 
@@ -73,32 +76,30 @@ export class CategoryListComponent implements OnInit {
     });
   }
 
+   // Récupérer les catégories et leurs produits
+   getCategoriesWithProducts(): void {
+    this.service.getCategory().subscribe((categoriesData: any) => {
+      this.categories = categoriesData['hydra:member'];
   
+      this.service.getProduct().subscribe((productsData: any) => {
+        const products = productsData['hydra:member'];
   
-  createProductsByCategoryMap(): void {
-    this.productsByCategoryMap = this.products.reduce((acc, product) => {
-      // Extraction de l'ID de la catégorie depuis l'URL du produit
-      const categoryUrl = product.category;
-      const categoryId = categoryUrl ? parseInt(categoryUrl.split('/').pop() ?? '', 10) : null;
-      if (categoryId) {
-        if (!acc[categoryId]) {
-          acc[categoryId] = [];
-        }
-        acc[categoryId].push(product);
-      }
-      return acc;
-    }, {} as { [categoryId: number]: ProductInterface[] });
+        // Associer les produits à leur catégorie
+        this.categories.forEach(category => {
+          category.products = products.filter((product: { category: string; }) => product.category === `/api/categories/${category.id}`);
+        });
+      });
+    });
   }
-  
  
-  toggleAccordion(index: number): void {
-    console.log('Toggling accordion at index:', index); 
-    this.isAccordionOpen[index] = !this.isAccordionOpen[index];
-    console.log('Accordion state:', this.isAccordionOpen); 
+   // Méthode pour ouvrir/fermer l'accordéon
+   toggleAccordion(categoryId: number) {
+    this.openAccordionId = this.openAccordionId === categoryId ? null : categoryId;
   }
 
-  getProductsByCategory(categoryId: number | null): ProductInterface[] {
-    return categoryId ? this.productsByCategoryMap[categoryId] || [] : [];
+   // Vérifie si l'accordéon est ouvert pour une catégorie
+   isOpen(categoryId: number): boolean {
+    return this.openAccordionId === categoryId;
   }
 
   redirectToCommandeModal(): void {
@@ -108,4 +109,5 @@ export class CategoryListComponent implements OnInit {
       modal.style.display = 'block'; // Change le style du modal pour le montrer
     }
   }
+   
 }

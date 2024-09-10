@@ -1,4 +1,5 @@
 import { ApiResponse } from "./api";
+import { OrderInterface } from "./order";
 
 export interface IUserInterface {
   email:string;
@@ -13,5 +14,5 @@ export interface IUserInterface {
   email:string;
   phone:string;
   adress:string;
-  orders:string [];
+  orders:OrderInterface[];
  }

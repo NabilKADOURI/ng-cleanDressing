@@ -1,3 +1,27 @@
+.btn{
+  background-color: var(--bg2);
+  border-radius: 10px;
+  border: none;
+  color: var(--light);
+  font-size: 12px;
+  padding: 10px 20px;
+}
+
+.btn:hover{
+  border: 2px solid var(--bg2);
+  background-color: transparent;
+  color: var(--bg2);
+}
+
+.card {
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
 
 
 .hero-bg {

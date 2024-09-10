@@ -1,10 +1,14 @@
+import { MatterInterface } from "./matter";
+import { ProductInterface } from "./product";
+import { SolutionInterface } from "./solution";
+
 export interface OrderInterface {
   id?:string;
   userOrder:string;
   date: string; 
   status: string; 
   totalPrice: number; 
-  items: string []; 
+  items: ProfileInterface[]; 
 }
 export interface ItemInterface {
   id?: string;
@@ -16,3 +20,12 @@ export interface ItemInterface {
   totalPrice: number;
 }
 
+export interface ProfileInterface{
+  id?: string;
+  orders: string;
+  serviceItem: SolutionInterface [];
+  productItem: ProductInterface [];
+  matterItem: MatterInterface [];
+  quantity: number;
+  totalPrice: number;
+}

@@ -49,6 +49,8 @@ export class ModalCommandeComponent implements OnInit {
     return (servicePrice + productPrice + matterPrice) * (quantity ?? 1);
   }
 
+  
+
   private generateUniqueId(): string {
     return 'id-' + Math.random().toString(36).substr(2, 9);
   }
@@ -61,6 +63,8 @@ export class ModalCommandeComponent implements OnInit {
         totalPrice: this.calculateTotalPrice(),
       };
       this.cartService.addToCart(item);
+      console.log(item);
+      
       this.commandeForm.reset({ quantity: 1 });
       alert('Les éléments ont bien été ajoutés au panier.');
     } else {

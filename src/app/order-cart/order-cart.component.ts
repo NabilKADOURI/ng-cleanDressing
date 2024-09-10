@@ -36,11 +36,6 @@ export class OrderCartComponent implements OnInit {
     this.cartItems = this.cartService.getCartItems();
   }
 
-  changeQuantity(item: CartInterface, change: number): void {
-    const newQuantity = Math.max(item.quantity + change, 1);
-    this.cartService.updateCartItemQuantity(item.id, newQuantity);
-    this.loadCartItems();
-  }
 
   removeItem(item: CartInterface): void {
     this.cartService.removeCartItem(item.id);
@@ -49,7 +44,7 @@ export class OrderCartComponent implements OnInit {
 
   getTotalPrice(): number {
     return this.cartItems.reduce(
-      (total, item) => total + (item.totalPrice * item.quantity), 
+      (total, item) => total + item.totalPrice , 
       0
     );
   }
@@ -88,6 +83,7 @@ export class OrderCartComponent implements OnInit {
       this.addItemsToOrder(order.id);
       alert('Votre commande a été validée avec succès !');
       this.cartService.clearCart();
+      localStorage.removeItem('cartItems');
       this.loadCartItems();
       this.router.navigate(['/profile']);
     });

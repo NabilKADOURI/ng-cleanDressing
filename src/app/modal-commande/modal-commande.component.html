@@ -156,7 +156,7 @@
                   <th scope="col">Quantité</th>
                   <th scope="col">Date de Dépôt</th>
                   <th scope="col">Prix Total</th>
-                </tr>
+                </tr> 
               </thead>
               <tbody>
                 <!-- Détails de la commande -->
@@ -165,7 +165,7 @@
                   <td>{{ commandeForm.value.product?.name }}</td>
                   <td>{{ commandeForm.value.matter?.name }}</td>
                   <td>{{ commandeForm.value.quantity }}</td>
-                  <td>{{ commandeForm.value.depositDate | date }}</td>
+                  <td>{{ commandeForm.value.depositDate | date : "dd-MM-YYYY" }}</td>
                   <td>{{ calculateTotalPrice() }} €</td>
                 </tr>
               </tbody>

@@ -74,18 +74,18 @@
     <h2 class="mb-4"><span class="border-title px-2">NOS TARIFS</span></h2>
     <p>Cliquer sur une catégorie pour consulter les tarifs de nos solutions !</p>
     <!-- Accordéon des catégories -->
-    <div class="mb-4 row" id="categoryAccordion">
-      <div class="accordion-item col-md-6 col-12" *ngFor="let category of categories; let i = index">
-        <h2 id="heading{{ i }}">
-          <button class="accordion-button mb-4 rounded" type="button" (click)="toggleAccordion(i)">
+    <div class="mb-4 row" >
+      <div class="accordion-item col-md-6 col-12" *ngFor="let category of categories">
+        <h2>
+          <button class="accordion-button mb-4 rounded" type="button" (click)="toggleAccordion(category.id)">
             <img [src]="'/uploads/' + category.picture" alt="{{ category.name }}" class="me-2 img-fluid category-image rounded-start"/>
             <h4 class="ps-5 me-3 me-md-5"><b>{{ category.name }}</b></h4>
           </button>
         </h2>
-        <div [id]="'collapse' + i" class="accordion-collapse collapse" [class.show]="isAccordionOpen[i]">
+        <div *ngIf="isOpen(category.id)">
           <div class="accordion-body">
             <div class="row">
-              <div *ngFor="let product of getProductsByCategory(category.id)"class="col-lg-4 col-6 mb-3">
+              <div *ngFor="let product of category.products  "class="col-lg-4 col-6 mb-3">
                 <div class="card shadow h-100">
                   <div class="row">
                     <div class="col-6">
@@ -99,6 +99,21 @@
                     <p class="card-footer text-center">
                       <small class="text-muted">A partir de : {{ product.price }} €</small>
                     </p>
+                    <button
+                    type="button"
+                    class="btn w-100  "
+                    (click)="redirectToCommandeModal()"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#staticBackdrop"
+                    >
+                    <span class="me-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24">
+                        <rect width="24" height="24" fill="none"/>
+                        <path fill="none" stroke="#0077b6" stroke-width="2" d="M2 12h20l-2 11H4zm18-4l-6-7M4 8l6-7M1 8h22v4H1zm7 7v5m8-5v5m-4-5v5"/>
+                      </svg>
+                    </span>
+                    COMMANDER
+                  </button>
                   </div>
                 </div>
               </div>
@@ -107,24 +122,5 @@
         </div>
       </div>
     </div>
-  </div>
-  
-  <!-- BOUTON DE COMMANDE -->
-  <div class="col-12 d-flex justify-content-center">
-    <button
-      type="button"
-      class="btn mb-5 px-4 py-3 fs-5"
-      (click)="redirectToCommandeModal()"
-      data-bs-toggle="modal" 
-      data-bs-target="#staticBackdrop"
-    >
-      <span class="me-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-          <rect width="24" height="24" fill="none"/>
-          <path fill="none" stroke="#0077b6" stroke-width="2" d="M2 12h20l-2 11H4zm18-4l-6-7M4 8l6-7M1 8h22v4H1zm7 7v5m8-5v5m-4-5v5"/>
-        </svg>
-      </span>
-      COMMANDER
-    </button>
   </div>
 </section>
