@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit, OnDestroy } from '@angular/core'; 
 import { CartService } from '../shared/services/cart.service'; 
 import { CommonModule } from '@angular/common'; 
 import { CartInterface } from '../shared/models/CartInterface'; 
@@ -7,6 +7,8 @@ import { ItemInterface, OrderInterface } from '../shared/models/order';
 import { AuthService } from '../shared/services/auth.service';
 import { OrderService } from '../shared/services/order.service';
 import { ItemService } from '../shared/services/item.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-order-cart', 
@@ -15,10 +17,11 @@ import { ItemService } from '../shared/services/item.service';
   templateUrl: './order-cart.component.html', 
   styleUrls: ['./order-cart.component.css'], 
 })
-export class OrderCartComponent implements OnInit {
+export class OrderCartComponent implements OnInit, OnDestroy {
 
   cartItems: CartInterface[] = [];
   errorMessage: string = '';
+  private destroy$ = new Subject<void>();
 
   constructor(
     private cartService: CartService, 
@@ -35,7 +38,6 @@ export class OrderCartComponent implements OnInit {
   private loadCartItems(): void {
     this.cartItems = this.cartService.getCartItems();
   }
-
 
   removeItem(item: CartInterface): void {
     this.cartService.removeCartItem(item.id);
@@ -78,14 +80,16 @@ export class OrderCartComponent implements OnInit {
       items: [],
     };
   
-    this.orderService.createOrder(orderData).subscribe((order) => {
-      this.addItemsToOrder(order.id);
-      alert('Votre commande a été validée avec succès !');
-      this.cartService.clearCart();
-      localStorage.removeItem('cartItems');
-      this.loadCartItems();
-      this.router.navigate(['/profile']);
-    });
+    this.orderService.createOrder(orderData)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((order) => {
+        this.addItemsToOrder(order.id);
+        alert('Votre commande a été validée avec succès !');
+        this.cartService.clearCart();
+        localStorage.removeItem('cartItems');
+        this.loadCartItems();
+        this.router.navigate(['/profile']);
+      });
   }
 
   private addItemsToOrder(orderId: string): void {
@@ -99,7 +103,14 @@ export class OrderCartComponent implements OnInit {
     }));
 
     items.forEach((item) => {
-      this.itemService.createItem(item).subscribe();
+      this.itemService.createItem(item)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

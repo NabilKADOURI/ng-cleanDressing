@@ -1,53 +1,56 @@
-// Importation des modules et services nécessaires
-import { Component, inject } from '@angular/core';
-import { LocationInfoComponent } from './location-info/location-info.component'; // Composant d'informations de localisation
+import { Component, inject, OnDestroy } from '@angular/core';
+import { LocationInfoComponent } from './location-info/location-info.component';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ContactService } from '../shared/services/contact.service'; // Service pour gérer les contacts
+import { ContactService } from '../shared/services/contact.service';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-contact', // Sélecteur du composant de contact
-  standalone: true, // Composant autonome
-  imports: [LocationInfoComponent, CommonModule, ReactiveFormsModule], // Modules importés pour le composant
-  templateUrl: './contact.component.html', // Chemin du template HTML
-  styleUrl: './contact.component.css' // Chemin du fichier de styles CSS
+  selector: 'app-contact',
+  standalone: true,
+  imports: [LocationInfoComponent, CommonModule, ReactiveFormsModule],
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.css'],
 })
-export class ContactComponent {
-
-  // Injection du service de contact et du routeur
+export class ContactComponent implements OnDestroy {
+  
   serviceContact = inject(ContactService);
   router = inject(Router);
+  
+  private destroy$ = new Subject<void>();
 
-  // Déclaration du formulaire de contact avec ses contrôles et validations
   public contactForm: FormGroup = new FormGroup({
-    name: new FormControl('', Validators.required), // Champ de nom requis
-    firstName: new FormControl('', Validators.required), // Champ de prénom requis
-    email: new FormControl('', [Validators.required, Validators.email]), // Champ d'email requis avec validation de format
-    object: new FormControl('', Validators.required), // Champ d'objet requis
-    message: new FormControl('', Validators.required), // Champ de message requis
+    name: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    object: new FormControl('', Validators.required),
+    message: new FormControl('', Validators.required),
   });
 
-  // Méthode de soumission du formulaire de contact
   onSubmit() {
     if (this.contactForm.valid) {
-      // Appelle le service de contact avec les données du formulaire
-      this.serviceContact.registerContact(this.contactForm.value).subscribe({
-        next: (response) => {
-          // En cas de succès de l'envoi du message
-          console.log('Réponse du message:', response);
-          alert('Votre message a bien été envoyé !');
-          this.router.navigate(['/']); // Redirection vers la page d'accueil
-        },
-        error: (error) => {
-          // En cas d'erreur lors de l'envoi du message
-          console.error('Erreur lors de l\'envoi du message:', error);
-          alert('Une erreur est survenue lors de l\'envoi du message.');
-        }
-      });
+      this.serviceContact.registerContact(this.contactForm.value)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (response) => {
+            console.log('Réponse du message:', response);
+            alert('Votre message a bien été envoyé !');
+            this.router.navigate(['/']);
+          },
+          error: (error) => {
+            console.error('Erreur lors de l\'envoi du message:', error);
+            alert('Une erreur est survenue lors de l\'envoi du message.');
+          }
+        });
     } else {
-      // Affiche un message si le formulaire est invalide
       alert('Le formulaire est invalide. Veuillez vérifier les champs.');
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

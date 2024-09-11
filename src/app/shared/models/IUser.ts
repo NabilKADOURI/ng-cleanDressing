@@ -14,5 +14,6 @@ export interface IUserInterface {
   email:string;
   phone:string;
   adress:string;
+  picture : string;
   orders:OrderInterface[];
  }

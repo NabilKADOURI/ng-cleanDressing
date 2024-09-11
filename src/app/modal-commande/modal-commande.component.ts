@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { CategoryInterface } from '../shared/models/category';
 import { ProductInterface } from '../shared/models/product';
 import { MatterInterface } from '../shared/models/matter';
 import { CartService } from '../shared/services/cart.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-modal-commande',
@@ -15,7 +16,7 @@ import { CartService } from '../shared/services/cart.service';
   templateUrl: './modal-commande.component.html',
   styleUrls: ['./modal-commande.component.css'],
 })
-export class ModalCommandeComponent implements OnInit {
+export class ModalCommandeComponent implements OnInit, OnDestroy {
 
   @ViewChild('staticBackdrop') modal!: ElementRef;
   @Input() solutions!: SolutionInterface[];
@@ -35,6 +36,8 @@ export class ModalCommandeComponent implements OnInit {
 
   filteredProducts: ProductInterface[] = [];
 
+  private destroy$ = new Subject<void>();
+
   constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
@@ -48,8 +51,6 @@ export class ModalCommandeComponent implements OnInit {
     const matterPrice = matter?.price ?? 0;
     return (servicePrice + productPrice + matterPrice) * (quantity ?? 1);
   }
-
-  
 
   private generateUniqueId(): string {
     return 'id-' + Math.random().toString(36).substr(2, 9);
@@ -99,5 +100,10 @@ export class ModalCommandeComponent implements OnInit {
     if (overlay) {
       overlay.remove();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
