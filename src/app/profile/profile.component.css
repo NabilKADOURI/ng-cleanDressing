@@ -12,3 +12,9 @@
   h2{
     color: var(--texte);
   }
+
+  .picture{
+    width: 5rem;
+    border-radius: 3rem;
+    margin-bottom: 2rem;
+  }

@@ -6,11 +6,11 @@
         <div class="card mb-3" style="border-radius: 0.5rem;">
           <div class="row g-0">
             <div class="col-md-4 gradient-custom text-center text-white d-flex flex-column align-items-center justify-content-center" style="border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem;">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+             <img class="picture shadow" [src]= "user.picture" alt= "{{user.firstName}}">
               <h2>{{ user.name }}</h2>
               <i class="far fa-edit mb-5"></i>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8">   
               <div class="card-body p-4">
                 <h4>Vos informations</h4>
                 <hr class="mt-0 mb-4" />
