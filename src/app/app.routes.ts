@@ -8,6 +8,7 @@ import { ContactComponent } from './contact/contact.component';
 import { OrderCartComponent } from './order-cart/order-cart.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TipsComponent } from './tips/tips.component';
+import { authGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,7 +16,7 @@ export const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'connexion', component: LoginComponent },
   { path: 'article-details/:id', component: ArticleDetailComponent },
-  { path: 'panier', component: OrderCartComponent },
+  { path: 'panier', component: OrderCartComponent, canActivate: [authGuard] },
   { path: 'profile', component: ProfileComponent },
   { path: 'conseil', component: TipsComponent },
   { path: '**', redirectTo: '' },

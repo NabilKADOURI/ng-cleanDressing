@@ -49,13 +49,17 @@ export class EntityService {
     return this.http.get<ArticleInterface>(`${this.url}/articles/${id}`);
   }
 
-  getUserById(id: number): Observable<UserInterface>{
+  getUserById(id: number | string): Observable<UserInterface>{
 
     return this.http.get<UserInterface>(`${this.url}/users/${id}`)
   }
 
   setUser(user: IUserInterface): Observable<any> {
     return this.http.post(`${this.url}/users`, user);
+  }
+
+  uploadProfilePicture(userId: number, formData: FormData) {
+    return this.http.post(`/api/users/${userId}/upload-picture`, formData);
   }
 }
 

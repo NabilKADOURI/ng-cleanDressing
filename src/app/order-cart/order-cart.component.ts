@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'; 
-import { CartService } from '../shared/services/cart.service'; 
-import { CommonModule } from '@angular/common'; 
-import { CartInterface } from '../shared/models/CartInterface'; 
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CartService } from '../shared/services/cart.service';
+import { CommonModule } from '@angular/common';
+import { CartInterface } from '../shared/models/CartInterface';
 import { Router } from '@angular/router';
 import { ItemInterface, OrderInterface } from '../shared/models/order';
 import { AuthService } from '../shared/services/auth.service';
@@ -11,25 +11,26 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-order-cart', 
-  standalone: true, 
-  imports: [CommonModule], 
-  templateUrl: './order-cart.component.html', 
-  styleUrls: ['./order-cart.component.css'], 
+  selector: 'app-order-cart',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './order-cart.component.html',
+  styleUrls: ['./order-cart.component.css'],
 })
 export class OrderCartComponent implements OnInit, OnDestroy {
-
   cartItems: CartInterface[] = [];
   errorMessage: string = '';
   private destroy$ = new Subject<void>();
 
   constructor(
-    private cartService: CartService, 
-    private router: Router, 
-    private authService: AuthService, 
-    private orderService: OrderService, 
+    private cartService: CartService,
+    private router: Router,
+    private authService: AuthService,
+    private orderService: OrderService,
     private itemService: ItemService
   ) {}
+
+  userId = this.authService.getDecodedToken().user_id;
 
   ngOnInit(): void {
     this.loadCartItems();
@@ -45,10 +46,7 @@ export class OrderCartComponent implements OnInit, OnDestroy {
   }
 
   getTotalPrice(): number {
-    return this.cartItems.reduce(
-      (total, item) => total + item.totalPrice , 
-      0
-    );
+    return this.cartItems.reduce((total, item) => total + item.totalPrice, 0);
   }
 
   validateOrder(): void {
@@ -56,14 +54,15 @@ export class OrderCartComponent implements OnInit, OnDestroy {
       this.handleNotLoggedError();
       return;
     }
-  
+
     if (window.confirm('Êtes-vous sûr de vouloir valider votre commande ?')) {
       this.processOrder();
     }
   }
 
   private handleNotLoggedError(): void {
-    this.errorMessage = 'Vous devez être connecté pour valider votre commande. Veuillez vous connecter ou vous inscrire.';
+    this.errorMessage =
+      'Vous devez être connecté pour valider votre commande. Veuillez vous connecter ou vous inscrire.';
     setTimeout(() => {
       this.authService.setRedirectUrl(this.router.url);
       this.router.navigate(['/connexion']);
@@ -71,25 +70,26 @@ export class OrderCartComponent implements OnInit, OnDestroy {
   }
 
   private processOrder(): void {
-    const token = this.authService.getDecodedToken();
-  
-    const orderData: OrderInterface = {
-      date: new Date().toISOString(),
-      userOrder: `/api/users/${token.user_id}`,
-      totalPrice: this.getTotalPrice(),
-      items: [],
-    };
-  
-    this.orderService.createOrder(orderData)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((order) => {
-        this.addItemsToOrder(order.id);
-        alert('Votre commande a été validée avec succès !');
-        this.cartService.clearCart();
-        localStorage.removeItem('cartItems');
-        this.loadCartItems();
-        this.router.navigate(['/profile']);
-      });
+    if (this.userId) {
+      const orderData: OrderInterface = {
+        date: new Date().toISOString(),
+        userOrder: `/api/users/${this.userId}`,
+        totalPrice: this.getTotalPrice(),
+        items: [],
+      };
+
+      this.orderService
+        .createOrder(orderData)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((order) => {
+          this.addItemsToOrder(order.id);
+          alert('Votre commande a été validée avec succès !');
+          this.cartService.clearCart();
+          localStorage.removeItem('cartItems');
+          this.loadCartItems();
+          this.router.navigate(['/profile']);
+        });
+    }
   }
 
   private addItemsToOrder(orderId: string): void {
@@ -103,7 +103,8 @@ export class OrderCartComponent implements OnInit, OnDestroy {
     }));
 
     items.forEach((item) => {
-      this.itemService.createItem(item)
+      this.itemService
+        .createItem(item)
         .pipe(takeUntil(this.destroy$))
         .subscribe();
     });

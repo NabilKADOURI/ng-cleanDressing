@@ -41,8 +41,13 @@ export class ModalCommandeComponent implements OnInit, OnDestroy {
   constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
-    console.log(this.commandeForm.value.matter);
+    
   }
+
+    getProductsByCategory(categoryId: number): ProductInterface[] {
+    return this.products.filter(product => product.categoryId === categoryId);
+  }
+
 
   calculateTotalPrice(): number {
     const { service, product, matter, quantity } = this.commandeForm.value;

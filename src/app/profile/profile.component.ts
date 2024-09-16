@@ -19,9 +19,10 @@ export class ProfileComponent implements OnInit {
   orderService = inject(OrderService);
 
   user: UserInterface | undefined;
-  userId = this.authService.getDecodedToken().user_id;
+  userId: number  = this.authService.getDecodedToken().user_id;
   orders: OrderInterface[] = [];
   showDetailsForOrderId!: string;
+  selectedFile: File | null = null;
 
   ngOnInit(): void {
     this.loadUserData();
@@ -29,12 +30,40 @@ export class ProfileComponent implements OnInit {
 
   // Charger les informations de l'utilisateur
   loadUserData(): void {
-    this.userService.getUserById(this.userId).subscribe((data) => {
-      this.user = data;
-      console.log(this.user);
-      
-    });
+    // console.log(this.userId);
+    
+    if (this.userId) {
+      this.userService.getUserById(this.userId).subscribe((data) => {
+        this.user = data;
+        console.log("profile : " + data);
+      });
+    }
   }
+
+  onFileSelected(event: any): void { 
+    const file = event.target.files[0];
+   
+    
+    if (file) {
+      this.selectedFile = file;
+      console.log(file);
+    }
+  }
+  
+  uploadImage(): void {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+
+      console.log(formData);
+      
+  
+      this.userService.uploadProfilePicture(this.userId, formData).subscribe(response => {
+        console.log('Image téléchargée avec succès', response);
+        this.loadUserData(); // Recharger les données de l'utilisateur après l'upload
+      });
+    }
+  } 
 
   // Afficher ou masquer les détails d'une commande
   toggleOrderDetails(orderId :any): void {

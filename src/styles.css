@@ -104,6 +104,21 @@ p,ul,h3,h4,h5 {
 }
 
 
+.btn2 {
+  background-color: var(--texte);
+  border-radius: 20px;
+  border: none;
+  color: var(--light);
+  font-size: 16px;
+  padding: 10px 20px;
+}
+
+.btn2:hover{
+  border: 2px solid var(--texte);
+  background-color: transparent;
+  color: var(--texte);
+}
+
 
 .border-title {
   border-left: #0077b6 solid 7px;

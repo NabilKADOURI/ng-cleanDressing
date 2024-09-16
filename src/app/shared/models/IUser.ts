@@ -7,7 +7,7 @@ export interface IUserInterface {
  }
 
  export interface UserInterface extends ApiResponse {
-  id: number;
+  id: number ;
   role:string;
   name:string;
   firstName:string;

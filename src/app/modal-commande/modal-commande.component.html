@@ -67,17 +67,24 @@
               <!-- Sélecteur de produit -->
               <div class="col-lg-5 col-12 mb-3">
                 <select
-                  id="productSelect"
-                  class="form-select"
-                  aria-label="Choisir produit"
-                  formControlName="product"
-                >
-                  <option value="" disabled> Produit</option>
-                  <!-- Liste des produits disponibles -->
-                  <option *ngFor="let product of products" [ngValue]="product">
-                    {{ product.name }} - A partir de {{ product.price }} €
-                  </option>
-                </select>
+  id="productSelect"
+  class="form-select"
+  aria-label="Choisir produit"
+  formControlName="product"
+>
+  <option value="" disabled>Produit</option>
+  
+  <!-- Parcours des catégories -->
+  <ng-container *ngFor="let category of categories">
+    <!-- Titre de la catégorie -->
+    <optgroup label="{{ category.name }}">
+      <!-- Utiliser la méthode getProductsByCategory pour obtenir les produits filtrés -->
+      <option *ngFor="let product of category.products" [ngValue]="product">
+        {{ product.name }} - A partir de {{ product.price }} €
+      </option>
+    </optgroup>
+  </ng-container>
+</select>
                 <!-- Message d'erreur si le produit n'est pas sélectionné -->
                 <div
                   *ngIf="

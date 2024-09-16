@@ -7,7 +7,7 @@
           <div class="row g-0">
             <div class="col-md-4 gradient-custom text-center text-white d-flex flex-column align-items-center justify-content-center" style="border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem;">
              <img class="picture shadow" [src]= "user.picture" alt= "{{user.firstName}}">
-              <h2>{{ user.name }}</h2>
+              <h2>{{ user.name | uppercase }}</h2>
               <i class="far fa-edit mb-5"></i>
             </div>
             <div class="col-md-8">   
@@ -31,10 +31,22 @@
                     <h6>Téléphone</h6>
                     <p class="text-muted">{{ user.phone }}</p>
                   </div>
-                  <div class="col-6 mb-3">
-                    <h6>Adresse</h6>
-                    <p class="text-muted">{{ user.adress }}</p>
-                  </div>
+                  <div class="row">
+
+                    <div class="col-6 mb-3">
+                      <h6>Adresse</h6>
+                      <p class="text-muted">{{ user.adress }}</p>
+                    </div>
+                    <div class="col-6">
+                      <form (ngSubmit)="uploadImage()">
+                        <label for=""><h6>Changer votre image de profile ici !</h6> </label>
+                        <input class="mb-2" type="file" id="fileInput" (change)="onFileSelected($event)">
+                        <button class="btn2" type="submit">Changer</button>
+                      </form>
+                    </div>
+                  
+                  
+                </div>
                 </div>
                     <h4>Vos commandes</h4>
                     <hr class="mt-0 mb-4" />
@@ -85,3 +97,4 @@
         </div>
       </div>
 </section>
+<section *ngIf="!user"><h5>pas d'Utilisateur connecté</h5></section>

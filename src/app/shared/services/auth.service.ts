@@ -42,8 +42,9 @@ export class AuthService {
   }
 
   getDecodedToken(): TokenDecoded {
-    return jwtDecode(this.getToken());
+      return jwtDecode(this.getToken());
   }
+  
 
   logout(): void {
     localStorage.removeItem('token');

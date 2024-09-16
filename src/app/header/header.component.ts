@@ -17,27 +17,35 @@ export class HeaderComponent implements OnInit {
   authService = inject(AuthService);
   router = inject(Router);
   userService = inject(EntityService);
-  userId = this.authService.getDecodedToken().user_id;
+  userId: number | null = null;  // Initialisation de userId à null
   user: UserInterface | undefined;
 
   constructor(private elementRef: ElementRef) { }
 
   ngOnInit(): void {
-
-    this.loadUserData();
+    const token = this.authService.getToken(); // Récupération du token JWT
+    if (token) {
+      const decodedToken = this.authService.getDecodedToken();
+      if (decodedToken && decodedToken.user_id) {
+        this.userId = decodedToken.user_id;
+        this.loadUserData(); // Appel à loadUserData si le token est valide
+      } else {
+        console.error('Invalid or missing user_id in token');
+      }
+    } else {
+      console.error('No token found');
+    }
   }
 
   loadUserData(): void {
-    this.userService.getUserById(this.userId).subscribe((data) =>{
-      this.user = data;
-
-    });
+    if (this.userId) {
+      this.userService.getUserById(this.userId).subscribe((data) => {
+        this.user = data;
+        console.log("DATA : " + data);
+      });
+    }
   }
   
-
-
-
-
   // Écouteur d'événement pour détecter le défilement de la fenêtre
   @HostListener('window:scroll', [])
   onWindowScroll() {

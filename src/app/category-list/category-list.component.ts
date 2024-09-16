@@ -41,7 +41,7 @@ export class CategoryListComponent implements OnInit {
 
     this.FetchAllCategories();
 
-    this.FetchAllProducts()
+    // this.FetchAllProducts()
 
     this.FetchAllMatters();
 
@@ -61,14 +61,16 @@ export class CategoryListComponent implements OnInit {
     this.service.getCategory().subscribe((data) => {
       this.categories= data['hydra:member'];
       this.isAccordionOpen = new Array(this.categories.length).fill(false); 
+      console.log(data);
+      
     });
   }
 
-  FetchAllProducts() {
-    this.service.getProduct().subscribe((data) => {
-      this.products = data['hydra:member']; 
-    });
-  }
+  // FetchAllProducts() {
+  //   this.service.getProduct().subscribe((data) => {
+  //     this.products = data['hydra:member']; 
+  //   });
+  // }
 
   FetchAllMatters() {
     this.service.getMatter().subscribe((data) => {
