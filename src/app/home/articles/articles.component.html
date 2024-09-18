@@ -14,7 +14,7 @@
         <article>
           
           <!-- Titre de l'article -->
-          <h5 class="text-center py-2">{{ article.title }}</h5>
+          <h4 class="text-center py-2">{{ article.title }}</h4>
 
           <!-- Carte de l'article -->
           <div class="card border-0 shadow mb-5 mx-4">
@@ -25,11 +25,11 @@
             <!-- Corps de la carte -->
             <div class="card-body">
               <div class="entry-header">
-                <ul class="entry-meta list-unstyled">
-                  <li><h6 class="w-100 text-center">{{ article.subtitle }}</h6></li>
-                  <li><p class="w-100 line-clamp">{{ article.description }}</p></li>
-                  <li><a [routerLink]="['/article-details', article.id]">En savoir plus >>> </a></li>
-                </ul>
+                
+                  <h5 class="w-100 text-center my-3">{{ article.subtitle }}</h5>
+                  <p class="w-100 line-clamp">{{ article.description }}</p>
+                  <a [routerLink]="['/article-details', article.id]"><strong>En savoir plus >>></strong> </a>
+                
               </div>
             </div>
 

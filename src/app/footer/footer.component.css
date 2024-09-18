@@ -1,17 +1,4 @@
-.buton {
-  background-color: var(--bg2);
-  border-radius: 20px;
-  color: var(--light);
-  font-size: 16px;
-  padding: 10px 20px;
-  border: transparent;
-}
 
-.buton:hover{
-  border: 2px solid var(--bg2);
-  background-color: transparent;
-  color: var(--bg2);
-}
 
 .logos--facebook {
   display: inline-block;

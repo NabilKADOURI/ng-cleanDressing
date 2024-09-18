@@ -2,19 +2,9 @@ a{
   color: var(--bg2);
 }
 
-
-
 .bg-article{
   background-color: #E5DFCA;
 }
-
-
-
-
-h5,h6{
-  color: var(--bg2);
-}
-
 
 .figure-caption-overlay {
   width: 100%;
@@ -30,7 +20,6 @@ h5,h6{
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
 
 .card {
   overflow: hidden;

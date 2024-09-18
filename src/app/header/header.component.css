@@ -1,6 +1,7 @@
 
 nav{
   border-top: 2px solid var(--bg2);
+  font-weight: 500; 
 }
 
 
@@ -49,6 +50,7 @@ nav{
   background-color: var(--texte);
   border-radius: 20px;
   color: var(--light);
+  font-weight: 600;
   font-size: 16px;
   padding: 10px 30px;
 }
