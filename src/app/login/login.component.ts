@@ -73,8 +73,8 @@ export class LoginComponent implements OnInit {
 
   // Méthode pour soumettre le formulaire d'inscription
   onRegisterSubmit() {
-    this.successMessage = ''; // Réinitialiser le message de succès
-    this.errorMessage = ''; // Réinitialiser le message d'erreur
+    this.successMessage = ''; 
+    this.errorMessage = ''; 
 
     if (this.registerForm.valid) {
       this.userService.setUser(this.registerForm.value).subscribe({

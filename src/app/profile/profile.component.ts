@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
   orders: OrderInterface[] = [];
   showDetailsForOrderId!: string;
   selectedFile: File | null = null;
+  imageUrl: string = ''; // Ajoute cette propriété pour stocker l'URL de l'image
 
   ngOnInit(): void {
     this.loadUserData();
@@ -30,40 +31,42 @@ export class ProfileComponent implements OnInit {
 
   // Charger les informations de l'utilisateur
   loadUserData(): void {
-    // console.log(this.userId);
-    
     if (this.userId) {
       this.userService.getUserById(this.userId).subscribe((data) => {
         this.user = data;
-        console.log("profile : " + data);
+        this.imageUrl = this.user.picture ? `http://localhost:4200/${this.user.picture}` : ''; // Met à jour l'URL de l'image
+        console.log("profile : ", data);
       });
     }
   }
 
   onFileSelected(event: any): void { 
-    const file = event.target.files[0];
-   
-    
+    const file = event.target.files[0]; 
     if (file) {
-      this.selectedFile = file;
-      console.log(file);
+        this.selectedFile = file;
+        console.log("Image sélectionnée : ", file);
     }
-  }
-  
+}
+
   uploadImage(): void {
     if (this.selectedFile) {
-      const formData = new FormData();
-      formData.append('file', this.selectedFile);
+        const formData = new FormData();
+        formData.append('file', this.selectedFile);
 
-      console.log(formData);
-      
-  
-      this.userService.uploadProfilePicture(this.userId, formData).subscribe(response => {
-        console.log('Image téléchargée avec succès', response);
-        this.loadUserData(); // Recharger les données de l'utilisateur après l'upload
-      });
+        console.log("FormData :", formData);
+
+        // Appel au service qui envoie l'image
+        this.userService.uploadProfilePicture(this.userId, formData).subscribe({
+            next: (response) => {
+                console.log('Image téléchargée avec succès', response);
+                this.loadUserData(); // Recharger les données de l'utilisateur, ce qui mettra à jour l'URL de l'image
+            },
+            error: (err) => {
+                console.error('Erreur lors du téléchargement', err);
+            }
+        });
     }
-  } 
+}
 
   // Afficher ou masquer les détails d'une commande
   toggleOrderDetails(orderId :any): void {

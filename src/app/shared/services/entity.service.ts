@@ -58,8 +58,8 @@ export class EntityService {
     return this.http.post(`${this.url}/users`, user);
   }
 
-  uploadProfilePicture(userId: number, formData: FormData) {
-    return this.http.post(`/api/users/${userId}/upload-picture`, formData);
+  uploadProfilePicture(userId: number, formData: FormData):Observable<any> {
+    return this.http.post(`${this.url}/users/${userId}/upload-picture`, formData);
   }
 }
 
