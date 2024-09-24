@@ -4,6 +4,7 @@ import { AuthService } from '../shared/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { EntityService } from '../shared/services/entity.service';
 import { UserInterface } from '../shared/models/IUser';
+import { environment } from '../shared/environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
   userService = inject(EntityService);
   userId: number | null = null;  // Initialisation de userId à null
   user: UserInterface | undefined;
+  urlImage = environment.urlPicture
 
   constructor(private elementRef: ElementRef) { }
 

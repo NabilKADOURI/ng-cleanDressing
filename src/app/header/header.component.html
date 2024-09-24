@@ -40,7 +40,7 @@
                   <!-- Lien vers le profil de l'utilisateur, visible seulement si l'utilisateur est connecté -->
                   <li class="nav-item" *ngIf="authService.isLogged()">
                     <a class="nav-link" routerLink="/profile" *ngIf="user">
-                      <img [src]="user.picture" alt="Profile picture" class="profile-img profile-style"/>
+                      <img [src]="urlImage + user.picture" alt="Profile picture" class="profile-img profile-style"/>
                     </a>
                   </li>
                   

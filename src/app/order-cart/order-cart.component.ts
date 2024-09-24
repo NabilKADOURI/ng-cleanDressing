@@ -30,9 +30,16 @@ export class OrderCartComponent implements OnInit, OnDestroy {
     private itemService: ItemService
   ) {}
 
-  userId = this.authService.getDecodedToken().user_id;
+  userId: number | null = null;
 
   ngOnInit(): void {
+    if (this.authService.isLogged()) {
+      const decodedToken = this.authService.getDecodedToken();
+      if (decodedToken) {
+        this.userId = decodedToken.user_id;
+      }
+    }
+
     this.loadCartItems();
   }
 
@@ -54,12 +61,14 @@ export class OrderCartComponent implements OnInit, OnDestroy {
       this.handleNotLoggedError();
       return;
     }
-
+  
     if (window.confirm('Êtes-vous sûr de vouloir valider votre commande ?')) {
       this.processOrder();
     }
   }
+  
 
+  
   private handleNotLoggedError(): void {
     this.errorMessage =
       'Vous devez être connecté pour valider votre commande. Veuillez vous connecter ou vous inscrire.';

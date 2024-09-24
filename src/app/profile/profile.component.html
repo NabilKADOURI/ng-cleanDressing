@@ -7,7 +7,7 @@
           <div class="row g-0">
             <div class="col-md-4 gradient-custom text-center text-white d-flex flex-column align-items-center justify-content-center" style="border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem;">
               <!-- Affichez l'image de profil en utilisant imageUrl -->
-              <img class="picture shadow" [src]="imageUrl" alt="{{user.firstName}}" />
+              <img class="picture shadow" [src]="imageUrl + user.picture" alt="{{user.firstName}}" />
               <h2>{{ user.name | uppercase }}</h2>
               <i class="far fa-edit mb-5"></i>
             </div>
@@ -17,31 +17,31 @@
                 <hr class="mt-0 mb-4" />
                 <div class="row pt-1">
                   <div class="col-6 mb-3">
-                    <h6>Nom</h6>
+                    <h5>Nom</h5>
                     <p class="text-muted">{{ user.name }}</p>
                   </div>
                   <div class="col-6 mb-3">
-                    <h6>Prénom</h6>
+                    <h5>Prénom</h5>
                     <p class="text-muted">{{ user.firstName }}</p>
                   </div>
                   <div class="col-6 mb-3">
-                    <h6>Email</h6>
+                    <h5>Email</h5>
                     <p class="text-muted">{{ user.email }}</p>
                   </div>
                   <div class="col-6 mb-3">
-                    <h6>Téléphone</h6>
+                    <h5>Téléphone</h5>
                     <p class="text-muted">{{ user.phone }}</p>
                   </div>
                   <div class="row">
                     <div class="col-6 mb-3">
-                      <h6>Adresse</h6>
+                      <h5>Adresse</h5>
                       <p class="text-muted">{{ user.adress }}</p>
                     </div>
                     <div class="col-6">
                       <form>
-                        <label for=""><h6>Changer votre image de profile ici !</h6></label>
-                        <input class="mb-2" type="file" id="fileInput" (change)="onFileSelected($event)" />
-                        <button (click)="uploadImage()" type="button">Changer</button>
+                        <label for=""><h5>Modifier votre image de profile ici !</h5></label>
+                        <input  type="file" id="fileInput" (change)="onFileSelected($event)" />
+                        <button (click)="uploadImage()" type="button" class="btn2 col-6">Modifier</button>
                       </form>
                     </div>
                   </div>
@@ -56,6 +56,7 @@
                           <strong>N° de commande :</strong> {{ order.id }} <br />
                           <strong>Date de commande :</strong> {{ order.date | date: 'dd-MM-yyyy' }} <br />
                           <strong>Prix total:</strong> {{ order.totalPrice }} € <br />
+                          <strong class=" ">Statue de commande :</strong> <p [class]="order.status?.name | statusColor">{{order.status?.name}}</p>
                         </div>
                         <button class="btn" (click)="toggleOrderDetails(order.id)">
                           {{ showDetailsForOrderId === order.id ? 'Masquer détails' : 'Voir détails' }}

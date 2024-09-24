@@ -18,3 +18,15 @@
     border-radius: 3rem;
     margin-bottom: 2rem;
   }
+
+.orange{
+  color: var(--bg2);
+}
+
+.blue{
+  color: var(--texte);
+}
+
+.green{
+  color: var(--bg);
+}

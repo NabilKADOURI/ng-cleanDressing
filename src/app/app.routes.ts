@@ -16,7 +16,7 @@ export const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'connexion', component: LoginComponent },
   { path: 'article-details/:id', component: ArticleDetailComponent },
-  { path: 'panier', component: OrderCartComponent, canActivate: [authGuard] },
+  { path: 'panier', component: OrderCartComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'conseil', component: TipsComponent },
   { path: '**', redirectTo: '' },

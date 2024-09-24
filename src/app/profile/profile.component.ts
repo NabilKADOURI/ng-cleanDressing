@@ -5,27 +5,38 @@ import { EntityService } from "../shared/services/entity.service";
 import { OrderService } from "../shared/services/order.service";
 import { UserInterface } from "../shared/models/IUser";
 import { OrderInterface } from "../shared/models/order";
+import { environment } from "../shared/environments/environment";
+import { StatusColorPipe } from "../shared/pipes/status-color.pipe";
+
+
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, StatusColorPipe],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit{
   userService = inject(EntityService);
   authService = inject(AuthService);
   orderService = inject(OrderService);
 
   user: UserInterface | undefined;
-  userId: number  = this.authService.getDecodedToken().user_id;
+  userId: any= this.authService.getDecodedToken();
   orders: OrderInterface[] = [];
   showDetailsForOrderId!: string;
   selectedFile: File | null = null;
-  imageUrl: string = ''; // Ajoute cette propriété pour stocker l'URL de l'image
+  imageUrl = environment.urlPicture 
 
   ngOnInit(): void {
+    if (this.authService.isLogged()) {
+      const decodedToken = this.authService.getDecodedToken();
+      if (decodedToken) {
+        this.userId = decodedToken.user_id;
+        
+      }
+    }
     this.loadUserData();
   }
 
@@ -34,7 +45,8 @@ export class ProfileComponent implements OnInit {
     if (this.userId) {
       this.userService.getUserById(this.userId).subscribe((data) => {
         this.user = data;
-        this.imageUrl = this.user.picture ? `http://localhost:4200/${this.user.picture}` : ''; // Met à jour l'URL de l'image
+        console.log(this.imageUrl + data.picture);
+        
         console.log("profile : ", data);
       });
     }

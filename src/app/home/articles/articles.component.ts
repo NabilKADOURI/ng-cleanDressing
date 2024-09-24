@@ -1,5 +1,5 @@
 // Importation des modules nécessaires
-import { Component, inject, Inject, OnInit } from '@angular/core';
+import { Component, inject,  OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ArticleInterface } from '../../shared/models/article'; // Interface de modèle d'article
