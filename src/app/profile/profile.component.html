@@ -3,15 +3,34 @@
     <h1 class="text-center mb-4">Profil Utilisateur</h1>
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-lg-10 mb-4 mb-lg-0">
-        <div class="card mb-3" style="border-radius: 0.5rem;">
+        <div class="card mb-3" style="border-radius: 0.5rem">
           <div class="row g-0">
-            <div class="col-md-4 gradient-custom text-center text-white d-flex flex-column align-items-center justify-content-center" style="border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem;">
+            <div
+              class="col-md-4 gradient-custom text-center text-white d-flex flex-column align-items-center justify-content-center"
+              style="
+                border-top-left-radius: 0.5rem;
+                border-bottom-left-radius: 0.5rem;
+              "
+            >
               <!-- Affichez l'image de profil en utilisant imageUrl -->
-              <img class="picture shadow" [src]="imageUrl + user.picture" alt="{{user.firstName}}" />
+              <img
+                class="picture shadow"
+                [src]="imageUrl + user.picture"
+                alt="{{ user.firstName }}"
+                sizes="(max-width: 600px) 480px, (max-width: 900px) 768px, 1024px"
+              />
+
+              <!-- <img src="http://127.0.0.1:8000/uploads/photo-profile.webp"
+     srcset="http://127.0.0.1:8000/uploads/photo-profile-small.webp 480w,
+             http://127.0.0.1:8000/uploads/photo-profile-medium.webp 768w,
+             http://127.0.0.1:8000/uploads/photo-profile-large.webp 1024w"
+     sizes="(max-width: 600px) 480px, (max-width: 900px) 768px, 1024px"
+     alt="Photo profile"> -->
+
               <h2>{{ user.name | uppercase }}</h2>
               <i class="far fa-edit mb-5"></i>
             </div>
-            <div class="col-md-8">   
+            <div class="col-md-8">
               <div class="card-body p-4">
                 <h4>Vos informations</h4>
                 <hr class="mt-0 mb-4" />
@@ -39,9 +58,21 @@
                     </div>
                     <div class="col-6">
                       <form>
-                        <label for=""><h5>Modifier votre image de profile ici !</h5></label>
-                        <input  type="file" id="fileInput" (change)="onFileSelected($event)" />
-                        <button (click)="uploadImage()" type="button" class="btn2 col-6">Modifier</button>
+                        <label for=""
+                          ><h5>Modifier votre image de profile ici !</h5></label
+                        >
+                        <input
+                          type="file"
+                          id="fileInput"
+                          (change)="onFileSelected($event)"
+                        />
+                        <button
+                          (click)="uploadImage()"
+                          type="button"
+                          class="btn2 col-6"
+                        >
+                          Modifier
+                        </button>
                       </form>
                     </div>
                   </div>
@@ -49,21 +80,42 @@
                 <h4>Vos commandes</h4>
                 <hr class="mt-0 mb-4" />
                 <div class="row pt-1">
-                  <div class="col-12 mb-3" *ngFor="let order of user.orders; let i = index">
+                  <div
+                    class="col-12 mb-3"
+                    *ngFor="let order of user.orders; let i = index"
+                  >
                     <div class="card">
-                      <div class="card-header d-flex justify-content-between align-items-center">
+                      <div
+                        class="card-header d-flex justify-content-between align-items-center"
+                      >
                         <div>
-                          <strong>N° de commande :</strong> {{ order.id }} <br />
-                          <strong>Date de commande :</strong> {{ order.date | date: 'dd-MM-yyyy' }} <br />
-                          <strong>Prix total:</strong> {{ order.totalPrice }} € <br />
-                          <strong class=" ">Statue de commande :</strong> <p [class]="order.status?.name | statusColor">{{order.status?.name}}</p>
+                          <strong>N° de commande :</strong> {{ order.id }}
+                          <br />
+                          <strong>Date de commande :</strong>
+                          {{ order.date | date : "dd-MM-yyyy" }} <br />
+                          <strong>Prix total:</strong> {{ order.totalPrice }} €
+                          <br />
+                          <strong class=" ">Statue de commande :</strong>
+                          <p [class]="order.status?.name | statusColor">
+                            {{ order.status?.name }}
+                          </p>
                         </div>
-                        <button class="btn" (click)="toggleOrderDetails(order.id)">
-                          {{ showDetailsForOrderId === order.id ? 'Masquer détails' : 'Voir détails' }}
+                        <button
+                          class="btn"
+                          (click)="toggleOrderDetails(order.id)"
+                        >
+                          {{
+                            showDetailsForOrderId === order.id
+                              ? "Masquer détails"
+                              : "Voir détails"
+                          }}
                         </button>
                       </div>
                       <!-- Détails de la commande -->
-                      <div *ngIf="showDetailsForOrderId === order.id" class="card-body">
+                      <div
+                        *ngIf="showDetailsForOrderId === order.id"
+                        class="card-body"
+                      >
                         <table class="table table-striped">
                           <thead>
                             <tr>

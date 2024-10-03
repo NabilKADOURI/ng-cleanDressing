@@ -9,6 +9,7 @@ import { OrderService } from '../shared/services/order.service';
 import { ItemService } from '../shared/services/item.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { PaymentComponent } from "../payment/payment.component";
 
 @Component({
   selector: 'app-order-cart',
@@ -61,17 +62,12 @@ export class OrderCartComponent implements OnInit, OnDestroy {
       this.handleNotLoggedError();
       return;
     }
-  
-    if (window.confirm('Êtes-vous sûr de vouloir valider votre commande ?')) {
       this.processOrder();
-    }
   }
-  
-
   
   private handleNotLoggedError(): void {
     this.errorMessage =
-      'Vous devez être connecté pour valider votre commande. Veuillez vous connecter ou vous inscrire.';
+      'Vous devez être connecté pour passer au paiement. Veuillez vous connecter ou vous inscrire.';
     setTimeout(() => {
       this.authService.setRedirectUrl(this.router.url);
       this.router.navigate(['/connexion']);
@@ -91,12 +87,12 @@ export class OrderCartComponent implements OnInit, OnDestroy {
         .createOrder(orderData)
         .pipe(takeUntil(this.destroy$))
         .subscribe((order) => {
+          localStorage.setItem('price', JSON.stringify(order.totalPrice))
           this.addItemsToOrder(order.id);
-          alert('Votre commande a été validée avec succès !');
           this.cartService.clearCart();
           localStorage.removeItem('cartItems');
           this.loadCartItems();
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/paiement']);
         });
     }
   }

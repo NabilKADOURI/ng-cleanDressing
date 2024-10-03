@@ -14,12 +14,7 @@ export class OrderService {
   constructor(private http: HttpClient) {}
 
   createOrder(orderData: OrderInterface): Observable<any> {
-    return this.http.post(`${this.url}/api/orders`, orderData).pipe(
-        catchError((error: HttpErrorResponse) => {
-            console.error('Error occurred:', error);
-            return throwError(() => new Error('Failed to create order'));
-        })
-    );
+    return this.http.post(`${this.url}/api/orders`, orderData)
 }
 
 

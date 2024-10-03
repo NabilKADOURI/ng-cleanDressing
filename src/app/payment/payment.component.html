@@ -1,0 +1,68 @@
+<div id="wrap">
+  <div class="column column2">
+    <div >
+      <div >
+
+        <div class="title">
+          <h1>Paiment </h1>
+        </div>
+        <div class="modify">
+          <i class="fa fa-plus-circle"></i>
+        </div>
+      </div>
+
+      <div class="content" id="payment">
+        <div class="left">
+          <form>
+            <!-- Numéro de carte -->
+            <div class="mb-3">
+              <label for="cardNumber" class="form-label">Numéro de carte</label>
+              <input type="text" id="cardNumber" class="form-control" formControlName="cardNumber"
+                placeholder="1234 5678 9012 3456">
+            </div>
+
+            <!-- Nom du titulaire -->
+            <div class="mb-3">
+              <label for="cardHolder" class="form-label">Nom du titulaire</label>
+              <input type="text" id="cardHolder" class="form-control" formControlName="cardHolder"
+                placeholder="John Doe">
+            </div>
+
+            <!-- Date d'expiration et CVC -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="expirationDate" class="form-label">Date d'expiration</label>
+                <input type="text" id="expirationDate" class="form-control" formControlName="expirationDate"
+                  placeholder="MM/YYYY">
+              </div>
+
+              <div class="col-md-6">
+                <label for="cvc" class="form-label">CVC</label>
+                <input type="text" id="cvc" class="form-control" formControlName="cvc" placeholder="123">
+              </div>
+            </div>
+
+            <!-- Choix de la date de dépôt -->
+            <div class="mb-3">
+              <label for="depotDate" class="form-label">Choisir la date de dépôt</label>
+              <input type="date" id="depotDate" class="form-control" formControlName="depotDate">
+            </div>
+
+
+
+            <div class="mb-3">
+              <h4>Total à payer : {{price}} €</h4>
+            </div>
+
+            <!-- Boutons compactés -->
+            <div>
+              <button type="submit" class="btn btn-success btn-sm-custom mb-3 btn-shadow me-2" (click)="validatePaiment()">Valider votre paiement</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  

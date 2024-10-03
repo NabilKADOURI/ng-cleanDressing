@@ -43,12 +43,7 @@ export class ModalCommandeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     
   }
-
-    getProductsByCategory(categoryId: number): ProductInterface[] {
-    return this.products.filter(product => product.categoryId === categoryId);
-  }
-
-
+    
   calculateTotalPrice(): number {
     const { service, product, matter, quantity } = this.commandeForm.value;
     const servicePrice = service?.price ?? 0;
@@ -64,7 +59,6 @@ export class ModalCommandeComponent implements OnInit, OnDestroy {
   addOrderToCart(): void {
     if (this.commandeForm.valid) {
       const item = {
-        id: this.generateUniqueId(),
         ...this.commandeForm.value,
         totalPrice: this.calculateTotalPrice(),
       };
@@ -94,9 +88,9 @@ export class ModalCommandeComponent implements OnInit, OnDestroy {
     }, 300);
   }
 
-  openModal(): void {
-    this.isModalOpen = true;
-  }
+  // openModal(): void {
+  //   this.isModalOpen = true;
+  // }
 
   closeModal(): void {
     this.isModalOpen = false;

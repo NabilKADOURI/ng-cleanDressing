@@ -19,14 +19,14 @@ export class EntityService {
 
   constructor(private http: HttpClient) { }
 
-  getService():Observable<ApiListResponse<SolutionInterface>>{
+  getSolution():Observable<ApiListResponse<SolutionInterface>>{
     return this.http.get<ApiListResponse<SolutionInterface>>(`${this.url}/services`)
   }
 
   getArticle():Observable<ApiListResponse<ArticleInterface>>{
     return this.http.get<ApiListResponse<ArticleInterface>>(`${this.url}/articles`)
   }
-
+ 
   getCategory():Observable<ApiListResponse<CategoryInterface>>{
     return this.http.get<ApiListResponse<CategoryInterface>>(`${this.url}/categories`)
   }
