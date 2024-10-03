@@ -48,7 +48,7 @@ export class CategoryListComponent implements OnInit {
   // Méthode pour récupérer toutes les solutions depuis le service
   FetchAllSolutions() {
     // Appel de la méthode fetchAll du service EntityService
-    this.service.getService().subscribe((data) => {
+    this.service.getSolution().subscribe((data) => {
       // Attribution des données reçues à la propriété solutions
       this.solutions = data['hydra:member'];
     });

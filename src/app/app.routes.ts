@@ -9,6 +9,7 @@ import { OrderCartComponent } from './order-cart/order-cart.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TipsComponent } from './tips/tips.component';
 import { authGuard } from './shared/guards/auth.guard';
+import { PaymentComponent } from './payment/payment.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,7 +18,8 @@ export const routes: Routes = [
   { path: 'connexion', component: LoginComponent },
   { path: 'article-details/:id', component: ArticleDetailComponent },
   { path: 'panier', component: OrderCartComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'paiement', component: PaymentComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
   { path: 'conseil', component: TipsComponent },
   { path: '**', redirectTo: '' },
 ];

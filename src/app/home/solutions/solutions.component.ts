@@ -18,15 +18,12 @@ export class SolutionsComponent implements OnInit {
 service = inject (EntityService);
 solutions: SolutionInterface[] = [];
 
-  // Méthode appelée au moment de l'initialisation du composant
   ngOnInit(): void {
-    this.FetchAllSolutions(); // Appel de la méthode pour récupérer les solutions
+    this.FetchAllSolutions();
   }
-  // Méthode pour récupérer toutes les solutions depuis le service
+
   FetchAllSolutions() {
-    // Appel de la méthode fetchAll du service EntityService
-    this.service.getService().subscribe((data) => {
-      // Attribution des données reçues à la propriété solutions
+    this.service.getSolution().subscribe((data) => {
       this.solutions = data['hydra:member'];
     });
   }

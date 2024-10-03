@@ -1,4 +1,4 @@
-.btn{
+.btn {
   background-color: var(--bg2);
   border-radius: 10px;
   border: none;
@@ -7,7 +7,7 @@
   padding: 10px 20px;
 }
 
-.btn:hover{
+.btn:hover {
   border: 2px solid var(--bg2);
   background-color: transparent;
   color: var(--bg2);
@@ -23,36 +23,33 @@
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
 }
 
-
 .hero-bg {
-  background-image: url('/uploads/fond_hero_prestations.png');
+  background-image: url("/uploads/fond_hero_prestations.webp");
   background-size: cover;
-  background-position:center;
+  background-position: center;
   background-repeat: no-repeat;
-  height: 50vh;
+  height: 60vh;
   box-sizing: border-box;
   padding-top: 50px;
 }
 
-.category-image{
+.category-image {
   width: 200px;
   height: 100px;
 }
 
-.product-image{
+.product-image {
   width: 50px;
   height: 100px;
 }
 
-
-.accordion-button{
-  background-color: #E29E21;
+.accordion-button {
+  background-color: #e29e21;
 }
 
-label{
+label {
   color: var(--texte);
 }
-
 
 .input-group .btn {
   width: 40px;
@@ -61,7 +58,6 @@ label{
 .input-group .form-control {
   text-align: center;
 }
-
 
 .modal-lg {
   max-width: 90%;

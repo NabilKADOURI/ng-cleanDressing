@@ -41,23 +41,9 @@ export class AuthService {
     return localStorage.getItem('token') || "";
   }
 
-  getDecodedToken(): TokenDecoded | null {
-    const token = this.getToken();
-    if (!token) {
-      // Pas de token, donc utilisateur non connecté
-      return null;
-    }
-  
-    try {
-      return jwtDecode(token);
-    } catch (error) {
-      console.error('Erreur lors du décodage du token:', error);
-      return null;
-    }
+  getDecodedToken(): TokenDecoded {
+    return jwtDecode(this.getToken());
   }
-  
-  
-  
 
   logout(): void {
     localStorage.removeItem('token');

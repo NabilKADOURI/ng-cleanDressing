@@ -13,54 +13,93 @@
                 <!-- Titre et sous-titre du formulaire -->
                 <h2>NOUS CONTACTER</h2>
                 <p>Un renseignement, un devis ?</p>
-                
+
                 <!-- Formulaire de contact -->
                 <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
                   <!-- Champs de nom et prénom -->
                   <div class="row">
                     <div class="col-6">
-                      <input formControlName="name" type="text" placeholder="Nom" class="mb-3 p-2 rounded form-control" />
+                      <input
+                        formControlName="name"
+                        type="text"
+                        placeholder="Nom"
+                        class="mb-3 p-2 rounded form-control"
+                      />
                     </div>
                     <div class="col-6">
-                      <input formControlName="firstName" type="text" placeholder="Prénom" class="mb-3 p-2 rounded form-control" />
+                      <input
+                        formControlName="firstName"
+                        type="text"
+                        placeholder="Prénom"
+                        class="mb-3 p-2 rounded form-control"
+                      />
                     </div>
                   </div>
-                  
+
                   <!-- Champ d'email -->
                   <div>
-                    <input formControlName="email" type="email" placeholder="Email" class="mb-3 p-2 rounded form-control" />
-                    <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+                    <input
+                      formControlName="email"
+                      type="email"
+                      placeholder="Email"
+                      class="mb-3 p-2 rounded form-control"
+                    />
+                    <div
+                      *ngIf="
+                        contactForm.get('email')?.invalid &&
+                        contactForm.get('email')?.touched
+                      "
+                    >
                       Email invalide
                     </div>
                   </div>
-                  
+
                   <!-- Champ de l'objet du message -->
                   <div>
-                    <input formControlName="object" type="text" placeholder="Objet" class="mb-3 p-2 rounded form-control" />
+                    <input
+                      formControlName="object"
+                      type="text"
+                      placeholder="Objet"
+                      class="mb-3 p-2 rounded form-control"
+                    />
                   </div>
-                  
+
                   <!-- Champ de texte pour le message -->
                   <div>
-                    <textarea formControlName="message" placeholder="Message" class="mb-3 p-2 form-control"></textarea>
+                    <textarea
+                      formControlName="message"
+                      placeholder="Message"
+                      class="mb-3 p-2 form-control"
+                    ></textarea>
                   </div>
-                  
+
                   <!-- Bouton d'envoi -->
-                  <button class="buton mb-5" type="submit" [disabled]="contactForm.invalid">
+                  <button
+                    class="buton mb-5"
+                    type="submit"
+                    [disabled]="contactForm.invalid"
+                  >
                     Envoyer
                   </button>
                 </form>
               </div>
-              
+
               <!-- Colonne pour l'image de contact -->
-              <div class="col-md-10 col-lg-4 col-xl-6 order-1 order-lg-2 d-flex align-items-center justify-content-center">
-                <img src="/uploads/man.png" alt="photo-contact" class="img-fluid">
+              <div
+                class="col-md-10 col-lg-4 col-xl-6 order-1 order-lg-2 d-flex align-items-center justify-content-center"
+              >
+                <img
+                  src="/uploads/man.webp"
+                  alt="photo-contact"
+                  class="img-fluid"
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
+
     <!-- Composant d'informations de localisation -->
     <app-location-info></app-location-info>
   </div>
