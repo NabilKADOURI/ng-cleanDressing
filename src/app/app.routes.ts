@@ -18,8 +18,8 @@ export const routes: Routes = [
   { path: 'connexion', component: LoginComponent },
   { path: 'article-details/:id', component: ArticleDetailComponent },
   { path: 'panier', component: OrderCartComponent },
-  { path: 'paiement', component: PaymentComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
+  { path: 'paiement', component: PaymentComponent, canActivate: [authGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'conseil', component: TipsComponent },
   { path: '**', redirectTo: '' },
 ];

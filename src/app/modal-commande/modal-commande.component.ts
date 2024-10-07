@@ -52,10 +52,6 @@ export class ModalCommandeComponent implements OnInit, OnDestroy {
     return (servicePrice + productPrice + matterPrice) * (quantity ?? 1);
   }
 
-  private generateUniqueId(): string {
-    return 'id-' + Math.random().toString(36).substr(2, 9);
-  }
-
   addOrderToCart(): void {
     if (this.commandeForm.valid) {
       const item = {
@@ -87,10 +83,6 @@ export class ModalCommandeComponent implements OnInit, OnDestroy {
       this.router.navigate(['/panier']);
     }, 300);
   }
-
-  // openModal(): void {
-  //   this.isModalOpen = true;
-  // }
 
   closeModal(): void {
     this.isModalOpen = false;

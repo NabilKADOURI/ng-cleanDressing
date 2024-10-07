@@ -22,6 +22,7 @@ ngOnInit(): void {
 
 validatePaiment(){
   alert("Votre paiement a été éffectué")
+  localStorage.removeItem("price")
   this.router.navigate(['/profile']);
 }
 }

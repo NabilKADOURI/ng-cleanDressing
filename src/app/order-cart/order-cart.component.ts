@@ -48,10 +48,18 @@ export class OrderCartComponent implements OnInit, OnDestroy {
     this.cartItems = this.cartService.getCartItems();
   }
 
-  removeItem(item: CartInterface): void {
-    this.cartService.removeCartItem(item.id);
-    this.loadCartItems();
-  }
+
+removeItem(item: CartInterface) {
+ if(this.cartItems.length > 1){
+  this.cartItems = this.cartItems.filter(cartItem => cartItem !== item);
+  localStorage.setItem("cartItems", JSON.stringify(this.cartItems))
+ }else{
+  this.cartItems = [];
+  localStorage.removeItem("cartItems");
+ }
+}
+    
+  
 
   getTotalPrice(): number {
     return this.cartItems.reduce((total, item) => total + item.totalPrice, 0);
@@ -89,7 +97,6 @@ export class OrderCartComponent implements OnInit, OnDestroy {
         .subscribe((order) => {
           localStorage.setItem('price', JSON.stringify(order.totalPrice))
           this.addItemsToOrder(order.id);
-          this.cartService.clearCart();
           localStorage.removeItem('cartItems');
           this.loadCartItems();
           this.router.navigate(['/paiement']);

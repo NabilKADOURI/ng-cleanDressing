@@ -27,7 +27,7 @@ export class CartService {
   // Ajoute un article au panier et enregistre les modifications dans le stockage local
   addToCart(item: CartInterface) {
     this.cartItems.push(item);
-    this.clearCart();
+    localStorage.setItem("cartItems", JSON.stringify(this.cartItems))
   }
 
   // Retourne la liste des articles du panier
@@ -35,10 +35,7 @@ export class CartService {
     return this.cartItems;
   }
 
-  // Vide le panier et enregistre les modifications dans le stockage local
-  clearCart() {
-    localStorage.removeItem("cartItems")
-  }
+ 
 
   // Charge les articles du panier depuis le stockage local
   private loadCartItems() {
@@ -46,20 +43,6 @@ export class CartService {
     this.cartItems = savedItems ? JSON.parse(savedItems) : [];
   }
 
-  // Supprime un article du panier par son identifiant et enregistre les modifications
-  removeCartItem(id: string) {
-    this.cartItems = this.cartItems.filter(item => item.id !== id);
-    this.clearCart();
-  }
+  
 
-  // Met à jour la quantité d'un article dans le panier par son identifiant
-  updateCartItemQuantity(id: string, quantity: number) {
-    const item = this.cartItems.find(item => item.id === id);
-    if (item) {
-      // Met à jour la quantité et le prix total de l'article
-      item.quantity = quantity;
-      item.totalPrice = (item.service?.price ?? 0) + (item.product?.price ?? 0) + (item.matter?.price ?? 0) * quantity;
-      this.clearCart();
-    }
-  }
 }
