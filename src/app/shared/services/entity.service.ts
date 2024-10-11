@@ -9,6 +9,7 @@ import { SolutionInterface } from '../models/solution';
 import { MatterInterface } from '../models/matter';
 import { ArticleInterface } from '../models/article';
 import { IUserInterface, UserInterface } from '../models/IUser';
+import { TestimonialInterface } from '../models/testimonial';
 
 @Injectable({
   providedIn: 'root',
@@ -42,6 +43,10 @@ export class EntityService {
 
   getMatter():Observable<ApiListResponse<MatterInterface>>{
     return this.http.get<ApiListResponse<MatterInterface>>(`${this.url}/matters`)
+  }
+
+  getTestimonial():Observable<ApiListResponse<TestimonialInterface>>{
+    return this.http.get<ApiListResponse<TestimonialInterface>>(`${this.url}/testimonials`)
   }
 
   
