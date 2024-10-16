@@ -7,7 +7,7 @@ import { ProductInterface } from '../shared/models/product';
 import { SolutionInterface } from '../shared/models/solution';
 import { MatterInterface } from '../shared/models/matter';
 import {EntityService} from '../shared/services/entity.service';
-import { ApiListResponse } from '../shared/models/api';
+import { environment } from '../shared/environments/environment';
 
 @Component({
   selector: 'app-category-list',
@@ -23,6 +23,7 @@ export class CategoryListComponent implements OnInit {
   products: ProductInterface[] = [];
   solutions: SolutionInterface[] = [];
   matters: MatterInterface[] = [];
+  urlPicture = `${environment.urlPicture}/uploads/`
 
   openAccordionId: number | null = null;
 

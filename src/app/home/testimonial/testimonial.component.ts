@@ -24,7 +24,7 @@ export class TestimonialComponent implements OnInit {
   fetchAllTestimonial() {
     this.service.getTestimonial().subscribe((data)=> {
       this.testimonials = data['hydra:member'];
-      console.log(data['hydra:member']);
+     
       
     })
 

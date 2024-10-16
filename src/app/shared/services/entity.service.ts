@@ -49,6 +49,10 @@ export class EntityService {
     return this.http.get<ApiListResponse<TestimonialInterface>>(`${this.url}/testimonials`)
   }
 
+  setTestimonial(testimonial:TestimonialInterface):Observable<any>{
+    return this.http.post(`${this.url}/testimonials`,testimonial)
+  }
+
   
   getArticleById(id: string): Observable<ArticleInterface> {
     return this.http.get<ArticleInterface>(`${this.url}/articles/${id}`);

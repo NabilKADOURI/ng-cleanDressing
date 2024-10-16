@@ -7,22 +7,11 @@
           <h2 class="title">Connexion</h2>
           <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" class="px-3">
             <div formGroupName="credentials" class="mb-3">
-              <input 
-                type="email" 
-                class="mb-3 p-2 form-control" 
-                placeholder="Email" 
-                formControlName="username">
-              
-              <input 
-                type="password" 
-                class="mb-2 p-2 form-control" 
-                placeholder="Mot de passe" 
+              <input type="email" class="mb-3 p-2 form-control" placeholder="Email" formControlName="username">
+              <input type="password" class="mb-2 p-2 form-control" placeholder="Mot de passe"
                 formControlName="password">
             </div>
-            <button 
-              class="buton mb-3" 
-              type="submit" 
-              [disabled]="loginForm.invalid">
+            <button class="buton mb-3" type="submit" [disabled]="loginForm.invalid">
               Connexion
             </button>
             <p class="mt-3">Pas de compte ? Inscrivez-vous à droite</p>
@@ -37,20 +26,53 @@
       <div class="col-md-6">
         <div class="form-container form-background">
           <h2 class="title">Inscription</h2>
-          <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()" class="px-3">
+          <form [formGroup]="registerForm" (submit)="onRegisterSubmit()" class="px-3">
             <div class="row">
+
+      <!-- INPUT POUR LE NOM -->
               <div class="col-6">
                 <input formControlName="name" type="text" placeholder="Nom" class="mb-3 me-2 p-2 form-control" />
+                <div *ngIf="registerForm.get('name')?.hasError('forbiddenWords') && registerForm.get('name')?.touched">
+                  Le nom contient des mots interdits.
+                </div>
+           <div *ngIf="registerForm.get('name')?.hasError('required') && registerForm.get('name')?.touched"
+                class="text-danger">Le nom est requis.</div>
               </div>
+
+      <!-- INPUT POUR LE PRENOM -->
               <div class="col-6">
                 <input formControlName="firstName" type="text" placeholder="Prénom" class="mb-3 p-2 form-control" />
+                <div *ngIf="registerForm.get('firstName')?.hasError('forbiddenWordArray') && registerForm.get('firstName')?.touched"
+                class="text-danger">Le prénom contient des mots interdits.</div>
+           <div *ngIf="registerForm.get('name')?.hasError('required') && registerForm.get('name')?.touched"
+                class="text-danger">Le prénom est requis.</div>
               </div>
             </div>
-            <input formControlName="phone" type="text" placeholder="Téléphone" class="mb-3 p-2 form-control" />
+
+      <!-- INPUT POUR LE TELEPHONE-->
+            <input formControlName="phone" type="text" placeholder="Téléphone" class="p-2 form-control" />
+            <!-- <div *ngIf="registerForm.get('phone')?.hasError('required') && registerForm.get('name')?.touched"
+                class="text-danger mb-3">un numéro à 10 chiffres est requis.</div> -->
+
+      <!-- INPUT POUR L'ADRESSE-->
             <input formControlName="adress" type="text" placeholder="Adresse" class="mb-3 p-2 form-control" />
-            <input formControlName="email" type="email" placeholder="Email" class="mb-3 p-2 form-control" />
-            <input type="password" formControlName="password" placeholder="Mot de passe" class="mb-5 p-2 form-control" />
-            <button class="buton" type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
+
+      <!-- INPUT POUR L'EMAIL-->
+            <input formControlName="email" type="email" placeholder="Email" class=" p-2 form-control" />
+            <div *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('name')?.touched"
+            class="text-danger mb-3">un email conforme est requis.</div>
+            <div *ngIf="registerForm.get('email')?.hasError('forbiddenWords')">
+              L'email contient des mots interdits.
+            </div>
+
+      <!-- INPUT POUR PASSWORD-->
+            <input type="password" formControlName="password" placeholder="Mot de passe"
+              class=" p-2 form-control" />
+              <!-- <div *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('name')?.touched"
+            class="text-danger mb-3">12 caractères obligatoire dont une maj, chiffres, lettre et un caractère spéciale.</div> -->
+
+      <!-- BOUTON INSCRIPTION-->
+            <button class="buton" type="submit" >S'inscrire</button>
             <!-- Affichage du message de succès ou d'erreur pour l'inscription -->
             <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
             <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>

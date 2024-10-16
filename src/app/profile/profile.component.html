@@ -9,26 +9,37 @@
               class="col-md-4 gradient-custom text-center text-white d-flex flex-column align-items-center justify-content-center"
               style="
                 border-top-left-radius: 0.5rem;
-                border-bottom-left-radius: 0.5rem;
-              "
-            >
+                border-bottom-left-radius: 0.5rem;">
+
               <!-- Affichez l'image de profil en utilisant imageUrl -->
-              <img
-                class="picture shadow"
-                [src]="imageUrl + user.picture"
-                alt="{{ user.firstName }}"
-                sizes="(max-width: 600px) 480px, (max-width: 900px) 768px, 1024px"
-              />
+              <img class="picture shadow" [src]="imageUrl + user.picture" alt="{{ user.firstName }}"
+                sizes="(max-width: 600px) 480px, (max-width: 900px) 768px, 1024px" />
 
-              <!-- <img src="http://127.0.0.1:8000/uploads/photo-profile.webp"
-     srcset="http://127.0.0.1:8000/uploads/photo-profile-small.webp 480w,
-             http://127.0.0.1:8000/uploads/photo-profile-medium.webp 768w,
-             http://127.0.0.1:8000/uploads/photo-profile-large.webp 1024w"
-     sizes="(max-width: 600px) 480px, (max-width: 900px) 768px, 1024px"
-     alt="Photo profile"> -->
+              <h2 class="mb-5">{{ user.name | uppercase }}</h2>
+              <!-- Button trigger modal -->
+            <!-- <button type="button" class="btn btn-primary" (click)="redirectToTestimonialModal()">
+              Donner votre avis
+            </button> -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#testimonialModal">
+              Donner votre avis
+            </button>
 
-              <h2>{{ user.name | uppercase }}</h2>
-              <i class="far fa-edit mb-5"></i>
+            <!-- Modal testimonial -->
+            
+            <div class="modal fade" id="testimonialModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter votre avis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- Formulaire -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            
             </div>
             <div class="col-md-8">
               <div class="card-body p-4">
@@ -58,19 +69,11 @@
                     </div>
                     <div class="col-6">
                       <form>
-                        <label for=""
-                          ><h5>Modifier votre image de profile ici !</h5></label
-                        >
-                        <input
-                          type="file"
-                          id="fileInput"
-                          (change)="onFileSelected($event)"
-                        />
-                        <button
-                          (click)="uploadImage()"
-                          type="button"
-                          class="btn2 col-6"
-                        >
+                        <label for="">
+                          <h5>Modifier votre image de profile ici !</h5>
+                        </label>
+                        <input type="file" id="fileInput" (change)="onFileSelected($event)" />
+                        <button (click)="uploadImage()" type="button" class="btn2 col-6">
                           Modifier
                         </button>
                       </form>
@@ -80,14 +83,9 @@
                 <h4>Vos commandes</h4>
                 <hr class="mt-0 mb-4" />
                 <div class="row pt-1">
-                  <div
-                    class="col-12 mb-3"
-                    *ngFor="let order of user.orders; let i = index"
-                  >
+                  <div class="col-12 mb-3" *ngFor="let order of user.orders; let i = index">
                     <div class="card">
-                      <div
-                        class="card-header d-flex justify-content-between align-items-center"
-                      >
+                      <div class="card-header d-flex justify-content-between align-items-center">
                         <div>
                           <strong>N° de commande :</strong> {{ order.id }}
                           <br />
@@ -100,22 +98,16 @@
                             {{ order.status?.name }}
                           </p>
                         </div>
-                        <button
-                          class="btn"
-                          (click)="toggleOrderDetails(order.id)"
-                        >
+                        <button class="btn" (click)="toggleOrderDetails(order.id)">
                           {{
-                            showDetailsForOrderId === order.id
-                              ? "Masquer détails"
-                              : "Voir détails"
+                          showDetailsForOrderId === order.id
+                          ? "Masquer détails"
+                          : "Voir détails"
                           }}
                         </button>
                       </div>
                       <!-- Détails de la commande -->
-                      <div
-                        *ngIf="showDetailsForOrderId === order.id"
-                        class="card-body"
-                      >
+                      <div *ngIf="showDetailsForOrderId === order.id" class="card-body">
                         <table class="table table-striped">
                           <thead>
                             <tr>
@@ -148,4 +140,6 @@
     </div>
   </div>
 </section>
-<section *ngIf="!user"><h5>Pas d'utilisateur connecté</h5></section>
+<section *ngIf="!user">
+  <h5>Pas d'utilisateur connecté</h5>
+</section>
