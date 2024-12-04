@@ -128,6 +128,13 @@ section {
   color: var(--texte);
 }
 
+
+.border-title{
+  border-left: #0077b6 solid 6px;
+  border-right: #0077b6 solid 6px;
+  border-radius: 20%;
+  padding: 10px;
+}
 /* Formulaires et Champs de Saisie */
 form {
   display: flex;
