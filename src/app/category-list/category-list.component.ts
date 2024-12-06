@@ -6,8 +6,8 @@ import { CategoryInterface } from '../shared/models/category';
 import { ProductInterface } from '../shared/models/product';
 import { SolutionInterface } from '../shared/models/solution';
 import { MatterInterface } from '../shared/models/matter';
-import {EntityService} from '../shared/services/entity.service';
-import { environment } from '../shared/environments/environment';
+import { EntityService } from '../shared/services/entity.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-category-list',
@@ -17,13 +17,12 @@ import { environment } from '../shared/environments/environment';
   styleUrls: ['./category-list.component.css'],
 })
 export class CategoryListComponent implements OnInit {
-
   // Variables pour stocker les données
   categories: CategoryInterface[] = [];
   products: ProductInterface[] = [];
   solutions: SolutionInterface[] = [];
   matters: MatterInterface[] = [];
-  urlPicture = `${environment.urlPicture}/uploads/`
+  urlPicture = `${environment.urlPicture}/uploads/`;
 
   openAccordionId: number | null = null;
 
@@ -33,12 +32,11 @@ export class CategoryListComponent implements OnInit {
   isAccordionOpen: boolean[] = [];
 
   ngOnInit(): void {
-
     this.getCategoriesWithProducts();
 
     this.isAccordionOpen = [];
     console.log(this.isAccordionOpen);
-    
+
     this.FetchAllCategories();
 
     this.FetchAllMatters();
@@ -57,42 +55,45 @@ export class CategoryListComponent implements OnInit {
 
   FetchAllCategories() {
     this.service.getCategory().subscribe((data) => {
-      this.categories= data['hydra:member'];
-      this.isAccordionOpen = new Array(this.categories.length).fill(false); 
+      this.categories = data['hydra:member'];
+      this.isAccordionOpen = new Array(this.categories.length).fill(false);
       console.log(data);
-      
     });
   }
 
   FetchAllMatters() {
     this.service.getMatter().subscribe((data) => {
-      this.matters = data['hydra:member']; 
+      this.matters = data['hydra:member'];
     });
   }
 
-   // Récupérer les catégories et leurs produits
-   getCategoriesWithProducts(): void {
+  // Récupérer les catégories et leurs produits
+  getCategoriesWithProducts(): void {
     this.service.getCategory().subscribe((categoriesData: any) => {
       this.categories = categoriesData['hydra:member'];
-  
+
       this.service.getProduct().subscribe((productsData: any) => {
         const products = productsData['hydra:member'];
-  
+
         // Associer les produits à leur catégorie
-        this.categories.forEach(category => {
-          category.products = products.filter((product: { category: string; }) => product.category === `/api/categories/${category.id}`);
+        this.categories.forEach((category) => {
+          category.products = products.filter(
+            (product: { category: string }) =>
+              product.category === `/api/categories/${category.id}`
+          );
         });
       });
     });
   }
- 
-   // Méthode pour ouvrir/fermer l'accordéon
-   toggleAccordion(categoryId: number) {
-    this.openAccordionId = this.openAccordionId === categoryId ? null : categoryId;
+
+  // Méthode pour ouvrir/fermer l'accordéon
+  toggleAccordion(categoryId: number) {
+    this.openAccordionId =
+      this.openAccordionId === categoryId ? null : categoryId;
   }
 
-   // Vérifie si l'accordéon est ouvert pour une catégorie
-   isOpen(categoryId: number): boolean {
+  // Vérifie si l'accordéon est ouvert pour une catégorie
+  isOpen(categoryId: number): boolean {
     return this.openAccordionId === categoryId;
   }
 
@@ -103,5 +104,4 @@ export class CategoryListComponent implements OnInit {
       modal.style.display = 'block'; // Change le style du modal pour le montrer
     }
   }
-   
 }

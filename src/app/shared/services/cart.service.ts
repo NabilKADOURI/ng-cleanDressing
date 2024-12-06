@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CartInterface } from '../models/CartInterface';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment.development';
+import { environment } from '../../../environments/environment.development';
 import { Observable } from 'rxjs';
 import { OrderInterface } from '../models/order';
 
@@ -27,7 +27,7 @@ export class CartService {
   // Ajoute un article au panier et enregistre les modifications dans le stockage local
   addToCart(item: CartInterface) {
     this.cartItems.push(item);
-    localStorage.setItem("cartItems", JSON.stringify(this.cartItems))
+    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
   }
 
   // Retourne la liste des articles du panier
@@ -35,14 +35,9 @@ export class CartService {
     return this.cartItems;
   }
 
- 
-
   // Charge les articles du panier depuis le stockage local
   private loadCartItems() {
     const savedItems = localStorage.getItem('cartItems');
     this.cartItems = savedItems ? JSON.parse(savedItems) : [];
   }
-
-  
-
 }
