@@ -122,8 +122,6 @@ Le modèle conceptuel suit une structure relationnelle robuste :
 - **Category** : Catégories des produits.
 - **Service** : Différents services proposés (lavage, repassage, etc.).
 
-![MCD](path/to/mcd_image.png)
-
 ---
 
 ## Utilisation
