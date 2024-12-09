@@ -59,7 +59,7 @@ export class ModalCommandeComponent implements OnInit, OnDestroy {
         totalPrice: this.calculateTotalPrice(),
       };
       this.cartService.addToCart(item);
-      console.log(item);
+  
       
       this.commandeForm.reset({ quantity: 1 });
       alert('Les éléments ont bien été ajoutés au panier.');

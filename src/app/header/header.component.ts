@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
     if (this.userId) {
       this.userService.getUserById(this.userId).subscribe((data) => {
         this.user = data;
-        console.log('DATA : ' + data);
+     
       });
     }
   }

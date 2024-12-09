@@ -34,7 +34,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     if (id){
       this.dataArticle = this.service.getArticleById(id).subscribe(data => {
       this.article = data
-      console.log(data);
+     
     
     });
     }

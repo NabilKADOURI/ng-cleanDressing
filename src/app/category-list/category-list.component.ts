@@ -12,7 +12,7 @@ import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-category-list',
   standalone: true,
-  imports: [RouterLink, CommonModule, ModalCommandeComponent],
+  imports: [CommonModule, ModalCommandeComponent],
   templateUrl: './category-list.component.html',
   styleUrls: ['./category-list.component.css'],
 })
@@ -35,8 +35,7 @@ export class CategoryListComponent implements OnInit {
     this.getCategoriesWithProducts();
 
     this.isAccordionOpen = [];
-    console.log(this.isAccordionOpen);
-
+   
     this.FetchAllCategories();
 
     this.FetchAllMatters();
@@ -57,7 +56,7 @@ export class CategoryListComponent implements OnInit {
     this.service.getCategory().subscribe((data) => {
       this.categories = data['hydra:member'];
       this.isAccordionOpen = new Array(this.categories.length).fill(false);
-      console.log(data);
+      
     });
   }
 

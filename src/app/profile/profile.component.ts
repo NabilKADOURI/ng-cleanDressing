@@ -42,9 +42,6 @@ export class ProfileComponent implements OnInit {
     if (this.userId) {
       this.userService.getUserById(this.userId).subscribe((data) => {
         this.user = data;
-        console.log(this.imageUrl + data.picture);
-
-        console.log('profile : ', data);
       });
     }
   }
@@ -53,7 +50,6 @@ export class ProfileComponent implements OnInit {
     const file = event.target.files[0];
     if (file) {
       this.selectedFile = file;
-      console.log('Image sélectionnée : ', file);
     }
   }
 
@@ -61,8 +57,6 @@ export class ProfileComponent implements OnInit {
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
-
-      console.log('FormData :', formData);
 
       // Appel au service qui envoie l'image
       this.userService.uploadProfilePicture(this.userId, formData).subscribe({
