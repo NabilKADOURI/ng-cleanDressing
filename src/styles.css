@@ -24,11 +24,13 @@ html {
   font-size: 16px;
   overflow-x: hidden; 
   scroll-behavior: smooth; 
+
 }
 
 body, p {
   color: var(--texte);
   line-height: 1.6;
+  
 }
 
 /* Tailles de police personnalisées */
@@ -128,6 +130,18 @@ section {
   color: var(--texte);
 }
 
+@media (max-width: 768px) {
+  /* Stack les boutons sur les petits écrans */
+  .btn {
+    margin-bottom: 0.5rem;
+    margin-left: 0; /* Supprime l'espace latéral sur mobile */
+    width: 100%; /* Boutons pleine largeur */
+  }
+
+  .btn + .btn {
+    margin-bottom: 0; /* Supprime l'espacement en bas pour le dernier bouton */
+  }
+}
 
 .border-title{
   border-left: #0077b6 solid 6px;

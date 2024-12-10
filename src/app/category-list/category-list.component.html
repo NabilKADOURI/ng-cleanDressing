@@ -1,5 +1,5 @@
 <!-- Section principale avec l'en-tête et les points clés -->
-<section>
+<section class="pb-1">
   <div class="container-fluid hero-bg">
     <div class="hero-container container">
       <!-- En-tête principal -->
@@ -59,7 +59,7 @@
 </section>
 
 <!-- Section des tarifs -->
-<section class="my-50">
+<section class="py-0">
   <div class="container">
     <!-- TITRE DES TARIFS -->
     <h2 class="mb-4 d-flex align-items-center"><span class="border-title px-2">NOS TARIFS</span></h2>
@@ -70,7 +70,7 @@
         <h2>
           <button class="accordion-button mb-4 rounded" type="button" (click)="toggleAccordion(category.id)">
             <img [src]="urlPicture + category.picture" alt="{{ category.name }}" class="me-2 img-fluid category-image rounded-start"/>
-            <h4 class="ps-5 me-3 me-md-5 fs-sm"><b>{{ category.name }}</b></h4>
+            <h4 class="ps-5 me-3 me-md-5 fs-sm text-center"><b>{{ category.name }}</b></h4>
           </button>
         </h2>
         <div *ngIf="isOpen(category.id)">

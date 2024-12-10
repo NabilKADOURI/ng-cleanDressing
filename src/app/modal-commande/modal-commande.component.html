@@ -1,14 +1,6 @@
 <!-- Modal pour passer une commande -->
-<div
-  class="modal modal-xl fade"
-  id="staticBackdrop"
-  #staticBackdrop
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
+<div class="modal modal-xl fade" id="staticBackdrop" #staticBackdrop data-bs-backdrop="static" data-bs-keyboard="false"
+  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- En-tête du modal -->
@@ -17,14 +9,9 @@
           PASSER VOTRE COMMANDE
         </h2>
         <!-- Bouton pour fermer le modal -->
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      
+
       <!-- Corps du modal -->
       <div class="modal-body">
         <!-- Titre de la section de sélection de service -->
@@ -47,12 +34,7 @@
                 </div>
                 <!-- Sélecteur de service -->
                 <div>
-                  <input
-                    class="form-check m-auto mb-5"
-                    type="radio"
-                    formControlName="service"
-                    [value]="service"
-                  />
+                  <input class="form-check m-auto mb-5" type="radio" formControlName="service" [value]="service" />
                 </div>
               </div>
             </div>
@@ -63,49 +45,36 @@
             <div class="row">
               <!-- Titre de la section de sélection de produit et matière -->
               <h5 class="mb-3">Ajouter votre produit et sa matière</h5>
-              
+
               <!-- Sélecteur de produit -->
               <div class="col-lg-5 col-12 mb-3">
-                <select
-  id="productSelect"
-  class="form-select"
-  aria-label="Choisir produit"
-  formControlName="product"
->
-  <option value="" disabled>Produit</option>
-  
-  <!-- Parcours des catégories -->
-  <ng-container *ngFor="let category of categories">
-    <!-- Titre de la catégorie -->
-    <optgroup label="{{ category.name }}">
-      <!-- Utiliser la méthode getProductsByCategory pour obtenir les produits filtrés -->
-      <option *ngFor="let product of category.products" [ngValue]="product">
-        {{ product.name }} - A partir de {{ product.price }} €
-      </option>
-    </optgroup>
-  </ng-container>
-</select>
+                <select id="productSelect" class="form-select" aria-label="Choisir produit" formControlName="product">
+                  <option value="" disabled>Produit</option>
+
+                  <!-- Parcours des catégories -->
+                  <ng-container *ngFor="let category of categories">
+                    <!-- Titre de la catégorie -->
+                    <optgroup label="{{ category.name }}">
+                      <!-- Utiliser la méthode getProductsByCategory pour obtenir les produits filtrés -->
+                      <option *ngFor="let product of category.products" [ngValue]="product">
+                        {{ product.name }} - A partir de {{ product.price }} €
+                      </option>
+                    </optgroup>
+                  </ng-container>
+                </select>
                 <!-- Message d'erreur si le produit n'est pas sélectionné -->
-                <div
-                  *ngIf="
+                <div *ngIf="
                     commandeForm.get('product')?.invalid &&
                     (commandeForm.get('product')?.touched ||
                       commandeForm.get('product')?.dirty)
-                  "
-                  class="text-danger"
-                >
+                  " class="text-danger">
                   Ce champ est requis.
                 </div>
               </div>
 
               <!-- Sélecteur de matière -->
               <div class="col-lg-5 col-12 mb-3">
-                <select
-                  id="matter"
-                  class="form-select"
-                  aria-label="Choisir matière"
-                  formControlName="matter"
-                >
+                <select id="matter" class="form-select" aria-label="Choisir matière" formControlName="matter">
                   <option value="" disabled>Matières</option>
                   <!-- Liste des matières disponibles -->
                   <option *ngFor="let matter of matters" [ngValue]="matter">
@@ -113,38 +82,22 @@
                   </option>
                 </select>
               </div>
-              
+
               <!-- Champ pour la quantité -->
               <div class="col-lg-2 col-12 mb-3">
-                <input
-                  id="quantityInput"
-                  type="number"
-                  class="form-control"
-                  placeholder="Quantité"
-                  formControlName="quantity"
-                  min="1"
-                  step="1"
-                />
+                <input id="quantityInput" type="number" class="form-control" placeholder="Quantité"
+                  formControlName="quantity" min="1" step="1" />
               </div>
 
               <!-- Champ pour la date de dépôt -->
               <div class="col-lg-4 col-6 mb-3">
                 <h5 class="mb-3">Date de dépôt</h5>
-                <input
-                  id="depositDate"
-                  type="date"
-                  class="form-control"
-                  formControlName="depositDate"
-                  required
-                />
-                <div
-                  *ngIf="
+                <input id="depositDate" type="date" class="form-control" formControlName="depositDate" required />
+                <div *ngIf="
                     commandeForm.get('depositDate')?.invalid &&
                     (commandeForm.get('depositDate')?.touched ||
                       commandeForm.get('depositDate')?.dirty)
-                  "
-                  class="text-danger"
-                >
+                  " class="text-danger">
                   La date de dépôt est requise.
                 </div>
               </div>
@@ -154,16 +107,16 @@
           <!-- Section des sélections et boutons -->
           <div class="col-12 container">
             <h5>Vos Sélections</h5>
-            <table class="table">
+            <table class="table table-striped">
               <thead>
                 <tr>
-                  <th scope="col-2">Service</th>
-                  <th scope="col-2">Produit</th>
-                  <th scope="col-2">Matière</th>
-                  <th scope="col-2">Quantité</th>
-                  <th scope="col-2">Date Dépôt</th>
-                  <th scope="col-2">Prix Total</th>
-                </tr> 
+                  <th >Service</th>
+                  <th >Produit</th>
+                  <th >Matière</th>
+                  <th >Quantité</th>
+                  <th >Date Dépôt</th>
+                  <th >Prix Total</th>
+                </tr>
               </thead>
               <tbody>
                 <!-- Détails de la commande -->
@@ -172,15 +125,19 @@
                   <td>{{ commandeForm.value.product?.name }}</td>
                   <td>{{ commandeForm.value.matter?.name }}</td>
                   <td>{{ commandeForm.value.quantity }}</td>
-                  <td>{{ commandeForm.value.depositDate | date : "dd-MM-YYYY" }}</td>
+                  <td>
+                    {{ commandeForm.value.depositDate | date : "dd-MM-YYYY" }}
+                  </td>
                   <td>{{ calculateTotalPrice() }} €</td>
                 </tr>
               </tbody>
             </table>
             <!-- Boutons pour ajouter au panier et voir le panier -->
-            <div class="text-center m-5 d-flex justify-content-between">
-              <button class="btn1 sf-sm" (click)="goToCart()">Voir votre panier</button>
-              <button class="btn sf-sm" type="submit">Ajouter au panier</button>
+            <div class=" mb-3 d-flex flex-wrap justify-content-center gap-2">
+              <button class=" btn " (click)="goToCart()">
+                Voir votre panier
+              </button>
+              <button class="btn2 btn  " type="submit">Ajouter au panier</button>
             </div>
           </div>
         </form>
