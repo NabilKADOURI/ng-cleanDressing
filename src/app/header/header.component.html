@@ -8,15 +8,14 @@
 
   <!-- Barre de navigation principale -->
   <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-light p-3">
-      <div class="container">
+      <div class="container-fluid">
           <!-- Bouton de toggle pour les écrans de petite taille -->
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-              aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+          <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
           </button>
 
           <!-- Contenu de la barre de navigation -->
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div class="collapse navbar-collapse" id="navbarScroll">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   
                   <li class="nav-item"><a class="nav-link" aria-current="page" routerLink="/">ACCUEIL</a></li>
@@ -24,10 +23,10 @@
                   <li class="nav-item"><a class="nav-link" routerLink="conseil">NOS CONSEILS</a></li>
                   <li class="nav-item"><a class="nav-link" routerLink="contact">CONTACTEZ-NOUS</a></li>
               </ul>
-              <ul class="navbar-nav d-flex align-items-center">
+              <ul class="navbar-nav d-flex align-items-md-center ">
                   <!-- Bouton pour se connecter, visible seulement si l'utilisateur n'est pas connecté -->
-                  <li class="nav-item" *ngIf="!authService.isLogged()">
-                    <a class="nav-link btn me-2" (click)="authService.setRedirectUrl('/'); router.navigate(['/connexion'])">SE CONNECTER</a>
+                  <li class="nav-item d-flex align-items-center " *ngIf="!authService.isLogged()">
+                    <a class="nav-link btn me-2 mb-3 mb-md-0" (click)="authService.setRedirectUrl('/'); router.navigate(['/connexion'])">SE CONNECTER</a>
                   </li>
                   <!-- Bouton pour s'inscrire, visible seulement si l'utilisateur n'est pas connecté -->
                   <li class="nav-item d-flex align-items-center" *ngIf="!authService.isLogged()">

@@ -87,3 +87,21 @@ nav{
   width: 3rem;
   border-radius: 2rem;
 }
+
+/* Apparence par défaut du bouton */
+.custom-toggler {
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"%3E%3Cpath stroke="rgba%28125,125,125,1%29" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+}
+
+/* Changer l'apparence lorsque le menu est actif (menu burger ouvert) */
+.custom-toggler.collapsed .navbar-toggler-icon {
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"%3E%3Cpath stroke="rgba%280,150,136,1%29" stroke-width="2" d="M5 5l20 20M25 5L5 25"/%3E%3C/svg%3E');
+  background-color: rgba(0, 150, 136, 0.1);
+  border-radius: 50%;
+}

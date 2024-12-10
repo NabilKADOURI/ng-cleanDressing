@@ -1,20 +1,20 @@
 <!-- Section du formulaire de contact -->
 <section>
-  <div class="container py-5">
+  <div class="container ">
     <!-- Contenu du formulaire de contact -->
-    <div id="formContent" class="row h-100 fadeInDown">
-      <div class="col-lg-12 col-xl-12">
+    <div id="formContent" class="row fadeInDown my-5 py-5">
+      <div class="col-lg-12 col-xl-12 ">
         <!-- Carte contenant le formulaire de contact -->
-        <div class="card" style="border-radius: 25px">
-          <div class="card-body">
-            <div class="row">
-              <!-- Colonne du formulaire de contact -->
-              <div class="col-md-10 col-lg-6 col-xl-6 order-2 order-lg-1">
-                <!-- Titre et sous-titre du formulaire -->
+        <div class="card " style="border-radius: 25px">
+          <div class="card-body ">
+            <div class="row justify-content-center">
+             
+              <div class="order-1">
                 <h2>NOUS CONTACTER</h2>
                 <p>Un renseignement, un devis ?</p>
+              </div>
 
-                <!-- Formulaire de contact -->
+              <div class="col-md-7 col-12 order-md-3 order-3">
                 <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
                   <!-- Champs de nom et prénom -->
                   <div class="row">
@@ -75,7 +75,7 @@
 
                   <!-- Bouton d'envoi -->
                   <button
-                    class="buton mb-5"
+                    class="buton col-6 "
                     type="submit"
                     [disabled]="contactForm.invalid"
                   >
@@ -86,10 +86,9 @@
 
               <!-- Colonne pour l'image de contact -->
               <div
-                class="col-md-10 col-lg-4 col-xl-6 order-1 order-lg-2 d-flex align-items-center justify-content-center"
-              >
+                class="col-md-5 col-12 order-2 mb-4 mb-mb-0">
                 <img
-                  src="/uploads/man.webp"
+                  src="/uploads/contact.png"
                   alt="photo-contact"
                   class="img-fluid"
                 />
