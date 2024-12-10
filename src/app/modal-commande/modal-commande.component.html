@@ -42,7 +42,7 @@
                   <p>à partir de {{ service.price }} €</p>
                 </div>
                 <!-- Icône du service -->
-                <div class="d-flex justify-content-center m-auto">
+                <div class="d-flex justify-content-center m-auto mb-2">
                   <img [src]="'/uploads/' + service.picture" alt="icone des services" />
                 </div>
                 <!-- Sélecteur de service -->
@@ -128,8 +128,8 @@
               </div>
 
               <!-- Champ pour la date de dépôt -->
-              <div class="col-lg-4 col-4 mb-3">
-                <h5 class="mb-3">Ajouter votre date de dépôt</h5>
+              <div class="col-lg-4 col-6 mb-3">
+                <h5 class="mb-3">Date de dépôt</h5>
                 <input
                   id="depositDate"
                   type="date"
@@ -157,12 +157,12 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Service</th>
-                  <th scope="col">Produit</th>
-                  <th scope="col">Matière</th>
-                  <th scope="col">Quantité</th>
-                  <th scope="col">Date de Dépôt</th>
-                  <th scope="col">Prix Total</th>
+                  <th scope="col-2">Service</th>
+                  <th scope="col-2">Produit</th>
+                  <th scope="col-2">Matière</th>
+                  <th scope="col-2">Quantité</th>
+                  <th scope="col-2">Date Dépôt</th>
+                  <th scope="col-2">Prix Total</th>
                 </tr> 
               </thead>
               <tbody>
@@ -179,8 +179,8 @@
             </table>
             <!-- Boutons pour ajouter au panier et voir le panier -->
             <div class="text-center m-5 d-flex justify-content-between">
-              <button class="btn" type="submit">Ajouter au panier</button>
-              <button class="btn1" (click)="goToCart()">Voir le panier</button>
+              <button class="btn1 sf-sm" (click)="goToCart()">Voir votre panier</button>
+              <button class="btn sf-sm" type="submit">Ajouter au panier</button>
             </div>
           </div>
         </form>

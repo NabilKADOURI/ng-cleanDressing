@@ -28,7 +28,8 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 60vh;
+  width: 100%;
+  height: auto;
   box-sizing: border-box;
   padding-top: 50px;
 }
