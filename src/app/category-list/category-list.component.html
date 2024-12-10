@@ -79,16 +79,16 @@
               <div *ngFor="let product of category.products  "class="col-lg-4 col-6 mb-3">
                 <div class="card shadow h-100">
                   <div class="row">
-                    <div class="col-6">
-                      <img [src]="urlPicture + product.picture" alt="{{ product.name }}" class="img-fluid w-100 product-image m-2 rounded shadow">
+                    <div class="col-5">
+                      <img [src]="urlPicture + product.picture" alt="{{ product.name }}" class="img-fluid  product-image m-2 rounded shadow">
                     </div>
-                    <div class="col-6 d-flex align-items-center">
-                      <p>{{ product.name }}</p>
+                    <div class="col-7 d-flex align-items-center">
+                      <p class="fs-sm w-100">{{ product.name }}</p>
                     </div>
                   </div>
                   <div class="card-body">
                     <p class="card-footer text-center">
-                      <small class="text-muted">A partir de : {{ product.price }} €</small>
+                      <small class="text-muted ">A partir de : {{ product.price }} €</small>
                     </p>
                     <button
                     type="button"
